@@ -1,0 +1,10 @@
+name = "Neutral"
+description = "A neutral base for very specific Zola sites"
+license = "GPLv3"
+homepage = "https://github.com/gfauredev/Neutral-Zola-Theme"
+
+min_version = "0.14.1"
+
+[author]
+name = "Guilhem Faure"
+homepage = "https://github.com/gfauredev"
