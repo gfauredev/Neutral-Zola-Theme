@@ -1,0 +1,101 @@
+{% import 'macros.html' as macros %}
+
+<!DOCTYPE html>
+<html lang="{{lang}}">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  {% block meta %}
+    {% if config.description %}
+      <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}" />
+    {% endif %}
+    {% if config.author %}
+      <meta name="author" content="{{ config.extra.author }}" />
+    {% endif %}
+  {% endblock meta %}
+
+  {% block links %}
+    {% if config.extra.manifest %}
+      <link href='{{ config.extra.manifest }}' rel="manifest" />
+    {% endif %}
+    {% for size, icon in config.extra.icons %}
+      <link href='{{ icon }}' rel="icon shortcut" sizes="{{ size }}" type="image/{{ icon | split(pat='.') | last }}" />
+    {% endfor %}
+
+    <link rel="stylesheet" href="{{ get_url(path="style.css") }}" type="text/css" />
+  {% endblock links %}
+
+  {% block title %}
+    <title>
+      {{ config.title }}
+    </title>
+  {% endblock title %}
+
+  {% block icons %}
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"
+      integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  {% endblock icons %}
+
+  {% block extend_icons %}
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.1/css/academicons.min.css"
+      integrity="sha384-FIue+PI4SsI9XfHCz8dBLg33b0c1fMJgNU3X//L26FYbGnlSEfWmNT7zgWc2N9b6"
+      crossorigin="anonymous">
+  {% endblock extend_icons %}
+
+  {% block custom_meta %}
+    {% if config.extra.meta %}
+      {% for meta in config.extra.meta %}
+        <meta{% for key, value in meta %} {{ key }}="{{ value }}"{% endfor %}/>
+      {% endfor %}
+    {% endif %}
+  {% endblock custom_meta %}
+
+  {% block extend_head %}
+  {% endblock extend_head %}
+</head>
+
+<body>
+  {% block header %}
+  {% endblock %}
+
+  <nav aria-label="section navigation" role="navigation">
+    {% block prepend_nav %}
+    {% endblock prepend_nav %}
+    {% block main_nav %}
+      {{ macros::nav_menu(root=(ancestors | last), permalink=permalink) }}
+    {% endblock main_nav %}
+    {% block actions %}
+      {% if translations %}
+        <button id="lang-select" aria-label="Choose language">
+          <i class="fa-solid fas fa-language"></i>
+        </button>
+      {% endif %}
+      <button id="nav-search" aria-label="Start search" data-target="#search-modal">
+        <i class="fas fa-search"></i>
+      </button>
+      <button id="theme-switch" aria-label="Switch theme">
+        <i class="fas fa-adjust"></i>
+      </button>
+    {% endblock actions %}
+    {% block append_nav %}
+    {% endblock append_nav %}
+  </nav>
+
+  {% block content %}
+  {% endblock %}
+  {% block extend_main %}
+  {% endblock extend_main %}
+
+  {% block footer %}
+  <footer>
+  </footer>
+  {% endblock footer %}
+
+  {% block extend_body %}
+  {% endblock extend_body
+</body>
+</html>

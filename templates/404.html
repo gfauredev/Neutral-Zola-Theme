@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% set tr = load_data(path="translations/" ~ lang ~ ".yml") %}
+
+
+{% block content %}
+<section>
+  <h1>HTTP 404</h1>
+  <p>{{ tr.html-404 }}</p>
+  {{ macros:: social_links( social_config=config.extra.social) }}
+  <a href="{{ config.base_url }}">
+    <i class="fas fa-home"></i>
+    <span>{{ tr.return-home }}</span>
+  </a>
+</section>
+{% endblock %}
