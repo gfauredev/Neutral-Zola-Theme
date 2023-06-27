@@ -23,9 +23,19 @@
     {% for size, icon in config.extra.icons %}
       <link href='{{ icon }}' rel="icon shortcut" sizes="{{ size }}" type="image/{{ icon | split(pat='.') | last }}" />
     {% endfor %}
+  {% endblock links %}
+
+  {% block styles %}
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{{ get_url(path="style.css") }}" type="text/css" />
-  {% endblock links %}
+  {% endblock styles %}
+
+  {% block extend_styles %}
+  {% endblock extend_styles %}
 
   {% block title %}
     <title>
