@@ -18,7 +18,7 @@
       {% set sub = get_section(path=sub_path, metadata_only=true) %}
       <li class="section">
         <a aria-label="Link to {{ sub.title }}"
-          {%- if current_path == sub_path or sub_path in self_ancestors -%}
+          {%- if current_path == sub.path or sub_path in self_ancestors -%}
             id="current"
           {%- endif -%}
           href="{{ sub.permalink | safe }}"><i>{{ sub.title }}</i>

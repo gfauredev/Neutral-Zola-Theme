@@ -22,7 +22,7 @@
 {% block main_nav %}
   {% set root = page.ancestors | first %}
   {% set root = get_section(path=root, metadata_only=false) %}
-  {{ macros::section_children(in_section=root) }}
+  {{ macros::section_children(in_section=root, self_ancestors=page.ancestors) }}
 {% endblock main_nav %}
 
 {% block content %}
