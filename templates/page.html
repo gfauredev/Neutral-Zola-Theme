@@ -27,6 +27,9 @@
     {% endblock prepend_content %}
     {{ page.content | safe }}
     {% block append_content %}
+      {% if page.extra.disqus %}
+        {{ macros::disqus(name=config.extra.disqus, url=page.permalink, id=page.extra.disqus) }}
+      {% endif %}
     {% endblock append_content %}
   </main>
 {% endblock content %}
