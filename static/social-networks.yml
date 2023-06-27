@@ -1,3 +1,7 @@
+github:
+  href: https://github.com/$ID
+  icon: fab fa-github fa-lg
+
 facebook:
   href: https://facebook.com/$ID
   icon: fab fa-facebook fa-lg

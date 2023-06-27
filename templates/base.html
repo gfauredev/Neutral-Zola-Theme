@@ -5,8 +5,10 @@
 <html lang="{{lang}}">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  {% block prepend_head %}
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  {% endblock prepend_head %}
 
   {% block meta %}
     {% if config.description %}

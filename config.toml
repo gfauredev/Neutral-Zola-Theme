@@ -34,4 +34,4 @@ include_content = true
 32x32 = "/32x32.png"
 
 [extra.networks]
-github = "https://github.com/gfauredev/Neutral-Zola-Theme"
+github = "gfauredev"
