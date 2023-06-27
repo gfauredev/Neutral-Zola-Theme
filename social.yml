@@ -1,0 +1,31 @@
+facebook:
+  href: https://facebook.com/$ID
+  icon: fab fa-facebook fa-lg
+
+twitter:
+  href: https://twitter.com/$ID
+  icon: fab fa-twitter fa-lg
+
+linkedin:
+  href: https://linkedin.com/in/$ID
+  icon: fab fa-linkedin fa-lg
+
+instagram:
+  href: https://instagram.com/$ID
+  icon: fab fa-instagram fa-lg
+
+twitch:
+  href: https://twitch.tv/$ID
+  icon: fab fa-twitch fa-lg
+
+reddit:
+  href: https://reddit.com/user/$ID
+  icon: fab fa-reddit fa-lg
+
+youtube:
+  href: https://youtube.com/c/$ID
+  icon: fa-brands fa-youtube
+
+email:
+  href: mailto:$ID
+  icon: far fa-envelope

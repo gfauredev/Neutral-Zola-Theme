@@ -1,0 +1,12 @@
+{% macro social_links(social_config) %}
+  {% set infos = load_data(path="social.yml") %}
+  {% for net, id in social_config %}
+    {% info = infos.net %}
+    <a class="{{ net }}" href="{{ info.href | replace(from='$ID', to=id) }}" target="_blank">
+      <i class="{{ info.icon }}"></i>
+    </a>
+  {% endfor %}
+{% endmacro %}
+
+{% macro nav_menu(root, permalink) %}
+{% endmacro %}
