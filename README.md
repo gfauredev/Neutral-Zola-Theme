@@ -38,8 +38,9 @@ Custom meta tags in the form of a dict that will be printed as-is, ex :
 
 ## Data files
 
-This theme uses YAML data files to store some informations, like *translations* in 
-`static/translations/<LANG>.yml`, *stylesheets* in `static/styles.yml` or 
-*social networks* informations in `static/social-networks.yml`.
+This theme uses YAML data files to store some information, like *translations* in 
+`static/translations/<LANG>.yml`, *stylesheets* in `static/styles.yml`,
+*scripts* in `static/scripts.yml` or 
+*social networks* metadata in `static/social-networks.yml`.
 
 You can override those by placing a same-named file in your site’s root or static directory.

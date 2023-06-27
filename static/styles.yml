@@ -5,10 +5,10 @@ normalize:
   crossorigin: "anonymous"
   referrerpolicy: "no-referrer"
 
-# Probably the style you want to use
-style:
-  href: "{{ get_url(path='style.css') }}"
-  type: "text/css"
+# Maybe the style you want to use
+# style:
+#   href: "/style.css"
+#   type: "text/css"
 
 # Popular icon banks
 fontawesome:

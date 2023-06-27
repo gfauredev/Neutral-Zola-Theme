@@ -19,6 +19,20 @@
     {% endif %}
   {% endblock metas %}
 
+  {% block custom_meta %}
+    {% if config.extra.meta %}
+      {% for meta in config.extra.meta %}
+        <meta{% for key, value in meta %} {{ key }}="{{ value }}"{% endfor %}>
+      {% endfor %}
+    {% endif %}
+  {% endblock custom_meta %}
+
+  <title>
+    {%- block title -%}
+      {{ config.title }}
+    {%- endblock title -%}
+  </title>
+
   {% block links %}
     {% if config.extra.manifest %}
       <link href='{{ config.extra.manifest }}' rel="manifest">
@@ -29,25 +43,22 @@
   {% endblock links %}
 
   {% block styles %}
-    {% set styles = load_data(path="styles.yml") %}
-    {% for style, attrs in styles %}
-      <link rel="stylesheet" {%- for key, value in attrs %} {{ key }}="{{ value }}"{% endfor %}>
-    {% endfor %}
-  {% endblock styles %}
-
-  <title>
-    {%- block title -%}
-      {{ config.title }}
-    {%- endblock title -%}
-  </title>
-
-  {% block custom_meta %}
-    {% if config.extra.meta %}
-      {% for meta in config.extra.meta %}
-        <meta{% for key, value in meta %} {{ key }}="{{ value }}"{% endfor %}>
+    {% set styles = load_data(path="styles.yml", required=false) %}
+    {% if styles %}
+      {% for style, attrs in styles %}
+        <link rel="stylesheet" {%- for key, value in attrs %} {{ key }}="{{ value }}"{% endfor %}>
       {% endfor %}
     {% endif %}
-  {% endblock custom_meta %}
+  {% endblock styles %}
+
+  {% block scripts %}
+    {% set scripts = load_data(path="scripts.yml", required=false) %}
+    {% if scripts %}
+      {% for script, attrs in scripts %}
+        <script{%- for key, value in attrs %} {{ key }}="{{ value }}"{% endfor %}>
+      {% endfor %}
+    {% endif %}
+  {% endblock scripts %}
 
   {% block append_head %}
   {% endblock append_head %}
