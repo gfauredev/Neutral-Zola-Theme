@@ -1,12 +1,19 @@
-{% macro social_links(social_config) %}
-  {% set infos = load_data(path="social.yml") %}
-  {% for net, id in social_config %}
+{% macro social_links(nets) %}
+  {% set infos = load_data(path="social-networks.yml") %}
+  <ul class="social-links">
+  {% for net, id in nets %}
     {% info = infos.net %}
-    <a class="{{ net }}" href="{{ info.href | replace(from='$ID', to=id) }}" target="_blank">
-      <i class="{{ info.icon }}"></i>
-    </a>
+    <li>
+      <a class="{{ net }}" href="{{ info.href | replace(from='$ID', to=id) }}" target="_blank">
+        <i class="{{ info.icon }}"></i>
+      </a>
+    </li>
   {% endfor %}
+  </ul>
 {% endmacro %}
 
-{% macro nav_menu(root, permalink) %}
+{% macro root_children(root, self_permalink) %}
+{% endmacro %}
+
+{% macros::taxonomy_children(self, self_permalink) %}
 {% endmacro %}

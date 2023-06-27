@@ -5,24 +5,24 @@
 <html lang="{{lang}}">
 
 <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   {% block meta %}
     {% if config.description %}
-      <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}" />
+      <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}">
     {% endif %}
     {% if config.author %}
-      <meta name="author" content="{{ config.extra.author }}" />
+      <meta name="author" content="{{ config.extra.author }}">
     {% endif %}
   {% endblock meta %}
 
   {% block links %}
     {% if config.extra.manifest %}
-      <link href='{{ config.extra.manifest }}' rel="manifest" />
+      <link href='{{ config.extra.manifest }}' rel="manifest">
     {% endif %}
-    {% for size, icon in config.extra.icons %}
-      <link href='{{ icon }}' rel="icon shortcut" sizes="{{ size }}" type="image/{{ icon | split(pat='.') | last }}" />
+    {% for size, icon in config.extra.favicons %}
+      <link href='{{ icon }}' rel="icon" sizes="{{ size }}" type="image/{{ icon | split(pat='.') | last }}">
     {% endfor %}
   {% endblock links %}
 
@@ -30,13 +30,13 @@
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
       integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+      crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <link rel="stylesheet" href="{{ get_url(path="style.css") }}" type="text/css" />
+    <link rel="stylesheet" href="{{ get_url(path='style.css') }}" type="text/css">
   {% endblock styles %}
 
-  {% block extend_styles %}
-  {% endblock extend_styles %}
+  {% block append_styles %}
+  {% endblock append_styles %}
 
   <title>
     {%- block title -%}
@@ -50,47 +50,59 @@
       integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
   {% endblock icons %}
 
-  {% block extend_icons %}
+  {% block append_icons %}
     <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.1/css/academicons.min.css"
       integrity="sha384-FIue+PI4SsI9XfHCz8dBLg33b0c1fMJgNU3X//L26FYbGnlSEfWmNT7zgWc2N9b6"
       crossorigin="anonymous">
-  {% endblock extend_icons %}
+  {% endblock append_icons %}
 
   {% block custom_meta %}
     {% if config.extra.meta %}
       {% for meta in config.extra.meta %}
-        <meta{% for key, value in meta %} {{ key }}="{{ value }}"{% endfor %}/>
+        <meta{% for key, value in meta %} {{ key }}="{{ value }}"{% endfor %}>
       {% endfor %}
     {% endif %}
   {% endblock custom_meta %}
 
-  {% block extend_head %}
-  {% endblock extend_head %}
+  {% block append_head %}
+  {% endblock append_head %}
 </head>
 
 <body>
+  {% block prepend_body %}
+  {% endblock prepend_body
+
   {% block header %}
+    <header>
+      {% if config.extra.logo %}
+        <img class="site-logo" src="{{ config.extra.logo }}" alt="Logo">
+      {% endif %}
+      {% if config.title %}
+        <h1 class="site-title">{{ config.title }}</h1>
+      {% endif %}
+    </header>
   {% endblock %}
 
   <nav aria-label="section navigation" role="navigation">
     {% block prepend_nav %}
     {% endblock prepend_nav %}
     {% block main_nav %}
-      {{ macros::nav_menu(root=(ancestors | last), permalink=permalink) }}
     {% endblock main_nav %}
     {% block actions %}
-      {% if translations %}
-        <button id="lang-select" aria-label="Choose language">
-          <i class="fa-solid fas fa-language"></i>
+      <section class="actions">
+        {% if translations %}
+          <button id="lang-select" aria-label="Choose language">
+            <i class="fa-solid fas fa-language"></i>
+          </button>
+        {% endif %}
+        <button id="nav-search" aria-label="Start search" data-target="#search-modal">
+          <i class="fas fa-search"></i>
         </button>
-      {% endif %}
-      <button id="nav-search" aria-label="Start search" data-target="#search-modal">
-        <i class="fas fa-search"></i>
-      </button>
-      <button id="theme-switch" aria-label="Switch theme">
-        <i class="fas fa-adjust"></i>
-      </button>
+        <button id="theme-switch" aria-label="Switch theme">
+          <i class="fas fa-adjust"></i>
+        </button>
+      </section>
     {% endblock actions %}
     {% block append_nav %}
     {% endblock append_nav %}
@@ -100,14 +112,18 @@
   {% endblock %}
 
   {% block footer %}
-  <footer>
-    <p>
-      © {{ now() | date(format="%Y") }} Dame Bazar
-    </p>
-  </footer>
+    {% if config.author %}
+      <footer>
+        <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.author }}</p>
+      </footer>
+    {% elif config.title %}
+      <footer>
+        <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.title }}</p>
+      </footer>
+    {% endif %}
   {% endblock footer %}
 
-  {% block extend_body %}
-  {% endblock extend_body
+  {% block append_body %}
+  {% endblock append_body
 </body>
 </html>

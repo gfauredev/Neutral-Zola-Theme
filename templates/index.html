@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 
+{% block title -%}
+  {{ config.title }}
+{%- endblock title %}
+
+{% block main_nav -%}
+  {{ macros::nav_menu(root=(ancestors | last), permalink=section.permalink) }}
+{%- endblock main_nav %}
+
 {% block content %}
-  <section class="index">
-    <h1>{{ section.title }}</h1>
-    <p class="description">{{ section.description }}</p>
-    {{ macros::social_links(social_config=config.extra.social) }}
-    <main class="content">{{ section.content | safe }}</main>
-  </section>
-{% endblock %}
+  <main class="index">
+    {% block prepend_content %}
+      <h1>{{ section.title }}</h1>
+    {% endblock prepend_content %}
+    {{ section.content | safe }}
+    {% block append_content %}
+    {% endblock append_content %}
+  </main>
+{% endblock content %}

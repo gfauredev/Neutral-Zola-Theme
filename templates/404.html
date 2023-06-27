@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section>
-  <h1>HTTP 404</h1>
-  <p>{{ tr.html-404 }}</p>
-  {{ macros:: social_links( social_config=config.extra.social) }}
-  <a href="{{ config.base_url }}">
-    <i class="fas fa-home"></i>
-    <span>{{ tr.return-home }}</span>
-  </a>
-</section>
+<main class="404">
+  {% block prepend_content %}
+    <h1>HTTP 404</h1>
+  {% endblock prepend_content %}
+  <p class="http-404">{{ tr.http-404 }}</p>
+  {% block append_content %}
+    <a href="{{ config.base_url }}">
+      <i class="fas fa-home"></i>
+      <span>{{ tr.return-home }}</span>
+    </a>
+  {% endblock append_content %}
+</main>
 {% endblock %}

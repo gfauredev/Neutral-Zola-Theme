@@ -1,18 +1,20 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{%- block title -%}
-{{ page.title }}
-{%- endblock title -%}
+{% block title -%}
+  {{ page.title }}
+{%- endblock title %}
+
+{% block main_nav %}
+  {{ macros::nav_menu(root=(ancestors | last), permalink=page.permalink) }}
+{% endblock main_nav %}
 
 {% block content %}
-<section class="page">
-  <h1>{{ page.title }}</h1>
-  <p class="description">{{ page.description }}</p>
-  <main class="content">
-    {{ page.content | safe }}
+  <main class="page">
+    {% block prepend_content %}
+      <h1>{{ page.title }}</h1>
+    {% endblock prepend_content %}
+    {{ section.content | safe }}
+    {% block append_content %}
+    {% endblock append_content %}
   </main>
-</section>
-{% endblock %}
-
-{% block append_content %}
-{% endblock append_content %}
+{% endblock content %}

@@ -1,23 +1,21 @@
 {% extends "base.html" %}
 
-{% block header %}
-  <header>
-    <h1>{{ taxonomy.name }}</h1>
-  </header>
-{% endblock %}
-
 {% block content %}
-<main>
-  <h1>({{ terms | length }}) {{ taxonomy.name }}</h1>
-  <ul>
+<main class="taxonomy">
+  {% block prepend_content %}
+    <h1>({{ terms | length }}) {{ taxonomy.name }}{{ terms | length | pluralize }}</h1>
+  {% endblock prepend_content %}
+  {{ macros::taxonomy_children(self=taxonomy, self_permalink=taxonomy.permalink) }}
+  <ul class="terms">
     {% for t in terms %}
       <li>
         <a href="{{ t.permalink }}">
-          {# <i class="fas fa-tag"></i> #}
-          <span>{{t.name}} <sup>{{ t.pages | length }}</sup></span>
+          <span>{{ t.name }} <sup>{{ t.pages | length }}</sup></span>
         </a>
       </li>
     {% endfor %}
   </ul>
+  {% block append_content %}
+  {% endblock append_content %}
 </main>
 {% endblock content %}
