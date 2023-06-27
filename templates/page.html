@@ -5,7 +5,9 @@
 {%- endblock title %}
 
 {% block main_nav %}
-  {{ macros::root_children(self=page) }}
+  {% set root = page.ancestors | first %}
+  {% set root = get_section(path=root, metadata_only=false) %}
+  {{ macros::section_children(in_section=root) }}
 {% endblock main_nav %}
 
 {% block content %}

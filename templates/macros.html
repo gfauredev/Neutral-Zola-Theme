@@ -12,7 +12,35 @@
   </ul>
 {% endmacro %}
 
-{% macro root_children(self) %}
+{% macro get_root(self) %}
+{% endmacro %}
+
+{% macro section_children(in_section, self_ancestors="") %}
+  {% if in_section.subsections %}
+    {% for sub_path in in_section.subsections %}
+      {% set sub = get_section(path=sub_path, metadata_only=true) %}
+      <li class="section">
+        <a aria-label="Link to {{ sub.title }}"
+          {%- if current_path == sub_path or sub_path in self_ancestors -%}
+            id="current"
+          {%- endif -%}
+          href="{{ sub.permalink | safe }}"><i>{{ sub.title }}</i>
+        </a>
+      </li>
+    {% endfor %}
+  {% endif %}
+  {% if in_section.pages %}
+    {% for page in in_section.pages %}
+      <li class="page">
+        <a aria-label="Link to {{ page.title }}"
+          {%- if current_path == page.path -%}
+            id="current"
+          {%- endif -%}
+          href="{{ page.permalink | safe }}"><i>{{ page.title }}</i>
+        </a>
+      </li>
+    {% endfor %}
+  {% endif %}
 {% endmacro %}
 
 {% macro taxonomy_children(self) %}
