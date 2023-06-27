@@ -1,0 +1,22 @@
+# CSS reset
+normalize:
+  href: "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+  integrity: "sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+  crossorigin: "anonymous"
+  referrerpolicy: "no-referrer"
+
+# Probably the style you want to use
+style:
+  href: "{{ get_url(path='style.css') }}"
+  type: "text/css"
+
+# Popular icon banks
+fontawesome:
+  href: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"
+  integrity: "sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k="
+  crossorigin: "anonymous"
+
+academicons:
+  href: "https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.1/css/academicons.min.css"
+  integrity: "sha384-FIue+PI4SsI9XfHCz8dBLg33b0c1fMJgNU3X//L26FYbGnlSEfWmNT7zgWc2N9b6"
+  crossorigin: "anonymous"

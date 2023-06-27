@@ -10,14 +10,14 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
   {% endblock prepend_head %}
 
-  {% block meta %}
+  {% block metas %}
     {% if config.description %}
       <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}">
     {% endif %}
     {% if config.author %}
       <meta name="author" content="{{ config.extra.author }}">
     {% endif %}
-  {% endblock meta %}
+  {% endblock metas %}
 
   {% block links %}
     {% if config.extra.manifest %}
@@ -29,35 +29,17 @@
   {% endblock links %}
 
   {% block styles %}
-    <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-      crossorigin="anonymous" referrerpolicy="no-referrer">
-
-    <link rel="stylesheet" href="{{ get_url(path='style.css') }}" type="text/css">
+    {% set styles = load_data(path="styles.yml") %}
+    {% for style, attrs in styles %}
+      <link rel="stylesheet" {%- for key, value in attrs %} {{ key }}="{{ value }}"{% endfor %}>
+    {% endfor %}
   {% endblock styles %}
-
-  {% block append_styles %}
-  {% endblock append_styles %}
 
   <title>
     {%- block title -%}
       {{ config.title }}
     {%- endblock title -%}
   </title>
-
-  {% block icons %}
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"
-      integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
-  {% endblock icons %}
-
-  {% block append_icons %}
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.1/css/academicons.min.css"
-      integrity="sha384-FIue+PI4SsI9XfHCz8dBLg33b0c1fMJgNU3X//L26FYbGnlSEfWmNT7zgWc2N9b6"
-      crossorigin="anonymous">
-  {% endblock append_icons %}
 
   {% block custom_meta %}
     {% if config.extra.meta %}
@@ -92,7 +74,7 @@
     {% block main_nav %}
     {% endblock main_nav %}
     {% block actions %}
-      <section class="actions">
+      {#<section class="actions">
         {% if translations %}
           <button id="lang-select" aria-label="Choose language">
             <i class="fa-solid fas fa-language"></i>
@@ -104,7 +86,7 @@
         <button id="theme-switch" aria-label="Switch theme">
           <i class="fas fa-adjust"></i>
         </button>
-      </section>
+      </section>#}
     {% endblock actions %}
     {% block append_nav %}
     {% endblock append_nav %}

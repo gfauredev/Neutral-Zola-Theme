@@ -29,9 +29,17 @@ Pairs of *name, user_id*, ex : `github = "gfauredev"`
 > See which networks are supported in `static/social-networks.yml` and don’t hesitate to 
 > add some by submitting a PR
 
-### meta
+### metas
 
 Custom meta tags in the form of a dict that will be printed as-is, ex :
 `{name="viewport", content="width=device-width, initial-scale=1.0"}`
 
 > Note: This specific line is already included in the block `prepend_head`
+
+## Data files
+
+This theme uses YAML data files to store some informations, like *translations* in 
+`static/translations/<LANG>.yml`, *stylesheets* in `static/styles.yml` or 
+*social networks* informations in `static/social-networks.yml`.
+
+You can override those by placing a same-named file in your site’s root or static directory.
