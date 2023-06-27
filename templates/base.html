@@ -96,9 +96,9 @@
   {% endblock %}
 
   {% block footer %}
-    {% if config.author %}
+    {% if config.extra.author %}
       <footer>
-        <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.author }}</p>
+        <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.extra.author }}</p>
       </footer>
     {% elif config.title %}
       <footer>
