@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="index">
+    <h1>{{ section.title }}</h1>
+    <p class="description">{{ section.description }}</p>
+    {{ macros::social_links(social_config=config.extra.social) }}
+    <main class="content">{{ section.content | safe }}</main>
+  </section>
+{% endblock %}

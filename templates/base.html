@@ -38,11 +38,11 @@
   {% block extend_styles %}
   {% endblock extend_styles %}
 
-  {% block title %}
-    <title>
+  <title>
+    {%- block title -%}
       {{ config.title }}
-    </title>
-  {% endblock title %}
+    {%- endblock title -%}
+  </title>
 
   {% block icons %}
     <link rel="stylesheet"
@@ -98,8 +98,6 @@
 
   {% block content %}
   {% endblock %}
-  {# block extend_main #}
-  {# endblock extend_main #}
 
   {% block footer %}
   <footer>
