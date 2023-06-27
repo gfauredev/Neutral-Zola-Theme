@@ -2,7 +2,7 @@
   {% set infos = load_data(path="social-networks.yml") %}
   <ul class="social-links">
   {% for net, id in nets %}
-    {% set info = infos.net %}
+    {% set info = infos[net] %}
     <li>
       <a class="{{ net }}" href="{{ info.href | replace(from='$ID', to=id) }}" target="_blank">
         <i class="{{ info.icon }}"></i>
@@ -18,9 +18,9 @@
       {% set sub = get_section(path=sub_path, metadata_only=true) %}
       <li class="section">
         <a aria-label="Link to {{ sub.title }}"
-          {%- if current_path == sub.path or sub_path in self_ancestors -%}
+          {%- if current_path == sub.path or sub_path in self_ancestors %}
             id="current"
-          {%- endif -%}
+          {%- endif %}
           href="{{ sub.permalink | safe }}"><i>{{ sub.title }}</i>
         </a>
       </li>
@@ -30,9 +30,9 @@
     {% for page in in_section.pages %}
       <li class="page">
         <a aria-label="Link to {{ page.title }}"
-          {%- if current_path == page.path -%}
+          {%- if current_path == page.path %}
             id="current"
-          {%- endif -%}
+          {%- endif %}
           href="{{ page.permalink | safe }}"><i>{{ page.title }}</i>
         </a>
       </li>

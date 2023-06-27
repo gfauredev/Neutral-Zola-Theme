@@ -88,11 +88,13 @@
   {% endblock append_header %}
   </header>
 
-  <nav aria-label="section navigation" role="navigation">
+  <nav aria-label="navigation menu">
     {% block prepend_nav %}
     {% endblock prepend_nav %}
+    <ul>
     {% block main_nav %}
     {% endblock main_nav %}
+    </ul>
     {% block actions %}
       {#<section class="actions">
         {% if translations %}
@@ -125,6 +127,7 @@
         <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.title }}</p>
       </footer>
     {% endif %}
+    {{ macros::social_links(nets=config.extra.networks) }}
   {% endblock footer %}
 
   {% block append_body %}
