@@ -6,11 +6,11 @@
 {% endblock global_vars %}
 
 {%- block title -%}
-  {% if page.title %}
+  {%- if page.title -%}
     {{ page.title }}
-  {% else %}
+  {%- else -%}
     {{ config.title }}
-  {% endif %}
+  {%- endif -%}
 {%- endblock title -%}
 
 {% block main_nav %}

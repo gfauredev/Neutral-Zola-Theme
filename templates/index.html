@@ -5,11 +5,11 @@
 {% endblock global_vars %}
 
 {%- block title -%}
-  {% if section.title %}
+  {%- if section.title -%}
     {{ section.title }}
-  {% else %}
+  {%- else -%}
     {{ config.title }}
-  {% endif %}
+  {%- endif -%}
 {%- endblock title -%}
 
 {% block main_nav -%}

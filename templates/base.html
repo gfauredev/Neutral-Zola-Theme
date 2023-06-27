@@ -37,12 +37,11 @@
   </title>
 
   {% block links %}
-    {% if config.extra.manifest %}
-      <link href='{{ config.extra.manifest }}' rel="manifest">
+    {% if config.extra.links %}
+      {% for link in config.extra.links %}
+        <link{% for key, value in link %} {{ key }}="{{ value | safe }}"{% endfor %}>
+      {% endfor %}
     {% endif %}
-    {% for size, icon in config.extra.favicons %}
-      <link href='{{ icon | safe }}' rel="icon" sizes="{{ size }}" type="image/{{ icon | split(pat='.') | last }}">
-    {% endfor %}
   {% endblock links %}
 
   {% block styles %}
