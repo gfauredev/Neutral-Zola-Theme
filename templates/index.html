@@ -5,7 +5,7 @@
 {%- endblock title %}
 
 {% block main_nav -%}
-  {{ macros::nav_menu(root=(ancestors | last), permalink=section.permalink) }}
+  {{ macros::root_children(self=section) }}
 {%- endblock main_nav %}
 
 {% block content %}

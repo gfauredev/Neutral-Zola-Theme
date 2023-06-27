@@ -5,7 +5,7 @@
 {%- endblock title %}
 
 {% block main_nav %}
-  {{ macros::nav_menu(root=(ancestors | last), permalink=page.permalink) }}
+  {{ macros::root_children(self=page) }}
 {% endblock main_nav %}
 
 {% block content %}
@@ -13,7 +13,7 @@
     {% block prepend_content %}
       <h1>{{ page.title }}</h1>
     {% endblock prepend_content %}
-    {{ section.content | safe }}
+    {{ page.content | safe }}
     {% block append_content %}
     {% endblock append_content %}
   </main>

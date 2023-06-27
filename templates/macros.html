@@ -2,7 +2,7 @@
   {% set infos = load_data(path="social-networks.yml") %}
   <ul class="social-links">
   {% for net, id in nets %}
-    {% info = infos.net %}
+    {% set info = infos.net %}
     <li>
       <a class="{{ net }}" href="{{ info.href | replace(from='$ID', to=id) }}" target="_blank">
         <i class="{{ info.icon }}"></i>
@@ -12,8 +12,8 @@
   </ul>
 {% endmacro %}
 
-{% macro root_children(root, self_permalink) %}
+{% macro root_children(self) %}
 {% endmacro %}
 
-{% macros::taxonomy_children(self, self_permalink) %}
+{% macro taxonomy_children(self) %}
 {% endmacro %}
