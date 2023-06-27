@@ -74,7 +74,9 @@
   {% block prepend_header %}
     {% if config.extra.logo %}
       <a href="{{ root.permalink | safe }}">
-        <img class="logo" src="{{ config.extra.logo }}" alt="Logo">
+        {% set resized_logo = resize_image(path=config.extra.logo, height=250, op="fit_height", format="webp") %}
+        <img class="logo" width="150" height="150" src="{{ resized_logo.url }}"
+          alt="Logo">
       </a>
     {% endif %}
   {% endblock prepend_header %}
