@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
+{% block global_vars %}
+  {% set root = get_section(path="_index.md", metadata_only=false) %}
+  {% for root_tr in root.translations %}
+    {% if root_tr.lang == lang %}
+      {% set root = get_section(path=root_tr.path, metadata_only=false) %}
+    {% endif %}
+  {% endfor %}
+{% endblock global_vars %}
+
+{%- block title -%}
+  {{ config.title }} - HTTP 404
+{%- endblock title -%}
+
 {% block content %}
 <main class="404">
   {% block prepend_content %}
@@ -7,7 +20,7 @@
   {% endblock prepend_content %}
   <p class="http-404">{{ tr.http_404 }}</p>
   {% block append_content %}
-    <a href="{{ config.base_url }}">
+    <a href="{{ root.permalink }}">
       <i class="fas fa-home"></i>
       <span>{{ tr.return_home }}</span>
     </a>

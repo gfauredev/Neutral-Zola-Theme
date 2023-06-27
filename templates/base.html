@@ -1,6 +1,9 @@
 {% import "macros.html" as macros %}
 {% set tr = load_data(path="translations/" ~ lang ~ ".yml") %}
 
+{% block global_vars %}
+{% endblock global_vars %}
+
 <!DOCTYPE html>
 <html lang="{{lang}}">
 
@@ -68,16 +71,22 @@
   {% block prepend_body %}
   {% endblock prepend_body %}
 
+  <header>
+  {% block prepend_header %}
+    <a href="{{ root.permalink }}">
+  {% endblock prepend_header %}
   {% block header %}
-    <header>
       {% if config.extra.logo %}
         <img class="site-logo" src="{{ config.extra.logo }}" alt="Logo">
       {% endif %}
       {% if config.title %}
         <h1 class="site-title">{{ config.title }}</h1>
       {% endif %}
-    </header>
-  {% endblock %}
+  {% endblock header %}
+  {% block append_header %}
+    </a>
+  {% endblock append_header %}
+  </header>
 
   <nav aria-label="section navigation" role="navigation">
     {% block prepend_nav %}

@@ -1,27 +1,19 @@
 {% extends "base.html" %}
 
-{% block title -%}
-  {{ page.title }}
-{%- endblock title %}
+{% block global_vars %}
+  {% set root_path = page.ancestors | first %}
+  {% set root = get_section(path=root_path, metadata_only=false) %}
+{% endblock global_vars %}
 
-{% block header %}
-  {% set root = page.ancestors | first %}
-  {% set root = get_section(path=root, metadata_only=false) %}
-  <header>
-    <a href="{{ root.permalink }}">
-      {% if config.extra.logo %}
-        <img class="site-logo" src="{{ config.extra.logo }}" alt="Logo">
-      {% endif %}
-      {% if config.title %}
-        <h1 class="site-title">{{ config.title }}</h1>
-      {% endif %}
-    </a>
-  </header>
-{% endblock %}
+{%- block title -%}
+  {% if page.title %}
+    {{ page.title }}
+  {% else %}
+    {{ config.title }}
+  {% endif %}
+{%- endblock title -%}
 
 {% block main_nav %}
-  {% set root = page.ancestors | first %}
-  {% set root = get_section(path=root, metadata_only=false) %}
   {{ macros::section_children(in_section=root, self_ancestors=page.ancestors) }}
 {% endblock main_nav %}
 
