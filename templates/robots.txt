@@ -1,4 +1,10 @@
+{% if config.extra.no_index -%}
+User-agent: *
+Disallow: /
+Allow:
+{% else -%}
 User-agent: *
 Disallow:
 Allow: /
 Sitemap: {{ get_url(path="sitemap.xml") }}
+{%- endif -%}
