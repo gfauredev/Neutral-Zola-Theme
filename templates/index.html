@@ -20,7 +20,9 @@
 {% block content %}
   <main class="index {% if section.extra.class %}{{section.extra.class}}{% endif %}">
     {% block prepend_content %}
-      <h1>{{ section.title }}</h1>
+      {% if not section.extra.no_title %}
+        <h1>{{ section.title }}</h1>
+      {% endif %}
     {% endblock prepend_content %}
     {{ section.content | safe }}
     {% block append_content %}
