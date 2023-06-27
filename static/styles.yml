@@ -6,9 +6,9 @@ normalize:
   referrerpolicy: "no-referrer"
 
 # Maybe the style you want to use
-# style:
-#   href: "/style.css"
-#   type: "text/css"
+style:
+  href: "/style.css"
+  type: "text/css"
 
 # Popular icon banks
 fontawesome:

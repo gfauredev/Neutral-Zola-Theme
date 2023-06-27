@@ -22,7 +22,7 @@
   {% block custom_meta %}
     {% if config.extra.meta %}
       {% for meta in config.extra.meta %}
-        <meta{% for key, value in meta %} {{ key }}="{{ value }}"{% endfor %}>
+        <meta{% for key, value in meta %} {{ key }}="{{ value | safe }}"{% endfor %}>
       {% endfor %}
     {% endif %}
   {% endblock custom_meta %}
@@ -46,7 +46,7 @@
     {% set styles = load_data(path="styles.yml", required=false) %}
     {% if styles %}
       {% for style, attrs in styles %}
-        <link rel="stylesheet" {%- for key, value in attrs %} {{ key }}="{{ value }}"{% endfor %}>
+        <link rel="stylesheet" {%- for key, value in attrs %} {{ key }}="{{ value | safe }}"{% endfor %}>
       {% endfor %}
     {% endif %}
   {% endblock styles %}
@@ -55,7 +55,7 @@
     {% set scripts = load_data(path="scripts.yml", required=false) %}
     {% if scripts %}
       {% for script, attrs in scripts %}
-        <script{%- for key, value in attrs %} {{ key }}="{{ value }}"{% endfor %}>
+        <script{%- for key, value in attrs %} {{ key }}="{{ value | safe }}"{% endfor %}>
       {% endfor %}
     {% endif %}
   {% endblock scripts %}
