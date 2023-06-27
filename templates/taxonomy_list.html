@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <header>
+    <h1>{{ taxonomy.name }}</h1>
+  </header>
+{% endblock %}
+
+{% block content %}
+<main>
+  <h1>({{ terms | length }}) {{ taxonomy.name }}</h1>
+  <ul>
+    {% for t in terms %}
+      <li>
+        <a href="{{ t.permalink }}">
+          {# <i class="fas fa-tag"></i> #}
+          <span>{{t.name}} <sup>{{ t.pages | length }}</sup></span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</main>
+{% endblock content %}
