@@ -4,6 +4,21 @@
   {{ page.title }}
 {%- endblock title %}
 
+{% block header %}
+  {% set root = page.ancestors | first %}
+  {% set root = get_section(path=root, metadata_only=false) %}
+  <header>
+    <a href="{{ root.permalink }}">
+      {% if config.extra.logo %}
+        <img class="site-logo" src="{{ config.extra.logo }}" alt="Logo">
+      {% endif %}
+      {% if config.title %}
+        <h1 class="site-title">{{ config.title }}</h1>
+      {% endif %}
+    </a>
+  </header>
+{% endblock %}
+
 {% block main_nav %}
   {% set root = page.ancestors | first %}
   {% set root = get_section(path=root, metadata_only=false) %}

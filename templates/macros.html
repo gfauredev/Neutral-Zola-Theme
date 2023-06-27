@@ -12,9 +12,6 @@
   </ul>
 {% endmacro %}
 
-{% macro get_root(self) %}
-{% endmacro %}
-
 {% macro section_children(in_section, self_ancestors="") %}
   {% if in_section.subsections %}
     {% for sub_path in in_section.subsections %}
