@@ -73,18 +73,20 @@
 
   <header>
   {% block prepend_header %}
-    <a href="{{ root.permalink }}">
+    {% if config.extra.logo %}
+      <a href="{{ root.permalink }}">
+        <img class="logo" src="{{ config.extra.logo }}" alt="Logo">
+      </a>
+    {% endif %}
   {% endblock prepend_header %}
   {% block header %}
-      {% if config.extra.logo %}
-        <img class="site-logo" src="{{ config.extra.logo }}" alt="Logo">
-      {% endif %}
-      {% if config.title %}
-        <h1 class="site-title">{{ config.title }}</h1>
-      {% endif %}
   {% endblock header %}
   {% block append_header %}
-    </a>
+    {% if config.title %}
+      <a href="{{ root.permalink }}">
+        <h1 class="title">{{ config.title }}</h1>
+      </a>
+      {% endif %}
   {% endblock append_header %}
   </header>
 
@@ -117,18 +119,17 @@
   {% block content %}
   {% endblock %}
 
-  {% block footer %}
-    {% if config.extra.author %}
-      <footer>
+  <footer>
+    {% block footer %}
+      {{ macros::social_links(nets=config.extra.networks) }}
+
+      {%- if config.extra.author %}
         <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.extra.author }}</p>
-      </footer>
-    {% elif config.title %}
-      <footer>
+      {% elif config.title %}
         <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.title }}</p>
-      </footer>
-    {% endif %}
-    {{ macros::social_links(nets=config.extra.networks) }}
-  {% endblock footer %}
+      {% endif %}
+    {% endblock footer %}
+  </footer>
 
   {% block append_body %}
   {% endblock append_body %}

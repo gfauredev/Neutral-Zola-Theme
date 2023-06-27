@@ -13,11 +13,12 @@
 {%- endblock title -%}
 
 {% block main_nav -%}
-  {{ macros::section_children(in_section=section) }}
+  {{ macros::link_root(root=root, itself=true) }}
+  {{ macros::section_children(in_section=root, note_current=true) }}
 {%- endblock main_nav %}
 
 {% block content %}
-  <main class="index">
+  <main class="index {% if section.extra.class %}{{section.extra.class}}{% endif %}">
     {% block prepend_content %}
       <h1>{{ section.title }}</h1>
     {% endblock prepend_content %}
