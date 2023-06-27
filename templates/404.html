@@ -25,7 +25,7 @@
   {% endblock prepend_content %}
   <p>{{ tr.http_404 }}</p>
   {% block append_content %}
-    <a href="{{ root.permalink }}">
+    <a href="{{ root.permalink | safe }}">
       <i class="fas fa-home"></i>
       <span>{{ tr.return_home }}</span>
     </a>

@@ -4,7 +4,7 @@
   {% for net, id in nets %}
     {% set info = infos[net] %}
     <li>
-      <a class="{{ net }}" href="{{ info.href | replace(from='$ID', to=id) }}" target="_blank">
+      <a class="{{ net }}" href="{{ info.href | replace(from='$ID', to=id) | safe }}" target="_blank">
         <i class="{{ info.icon }}"></i>
       </a>
     </li>

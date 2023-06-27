@@ -41,7 +41,7 @@
       <link href='{{ config.extra.manifest }}' rel="manifest">
     {% endif %}
     {% for size, icon in config.extra.favicons %}
-      <link href='{{ icon }}' rel="icon" sizes="{{ size }}" type="image/{{ icon | split(pat='.') | last }}">
+      <link href='{{ icon | safe }}' rel="icon" sizes="{{ size }}" type="image/{{ icon | split(pat='.') | last }}">
     {% endfor %}
   {% endblock links %}
 
@@ -74,7 +74,7 @@
   <header>
   {% block prepend_header %}
     {% if config.extra.logo %}
-      <a href="{{ root.permalink }}">
+      <a href="{{ root.permalink | safe }}">
         <img class="logo" src="{{ config.extra.logo }}" alt="Logo">
       </a>
     {% endif %}
@@ -83,7 +83,7 @@
   {% endblock header %}
   {% block append_header %}
     {% if config.title %}
-      <a href="{{ root.permalink }}">
+      <a href="{{ root.permalink | safe }}">
         <h1 class="title">{{ config.title }}</h1>
       </a>
       {% endif %}
