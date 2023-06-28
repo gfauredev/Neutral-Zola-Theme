@@ -21,7 +21,9 @@
 {% block content %}
   <main class="section {% if section.extra.class %}{{section.extra.class}}{% endif %}">
     {% block prepend_content %}
-      {% if not section.extra.no_title %}
+      {% if section.extra.image_title %}
+        <img class="title" src="{{ section.extra.image_title }}">
+      {% elif section.extra.include_title %}
         <h1>{{ section.title }}</h1>
       {% endif %}
     {% endblock prepend_content %}
