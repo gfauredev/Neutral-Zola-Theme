@@ -30,6 +30,10 @@ fontawesome:
 # inter:
 #   href: https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.3/index.min.css
 
+# Another sans-serif font I like
+# fira:
+#   href: https://cdn.jsdelivr.net/npm/@fontsource/fira-sans@5.0.3/index.min.css
+
 # A mono font I like
 # fira_code:
 #   href: https://cdn.jsdelivr.net/npm/@fontsource/fira-code@5.0.3/index.min.css
