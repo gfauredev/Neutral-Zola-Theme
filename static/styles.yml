@@ -1,22 +1,35 @@
-# CSS reset
+# Most popular CSS reset
 normalize:
-  href: "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-  integrity: "sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-  crossorigin: "anonymous"
-  referrerpolicy: "no-referrer"
+  href: https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css
+  integrity: sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==
+  crossorigin: anonymous
+  referrerpolicy: no-referrer
 
-# Maybe the style you want to use
+# Generaly the file in which you store your custom style
 style:
-  href: "/style.css"
-  type: "text/css"
+  href: /style.css
+  type: text/css
 
-# Popular icon banks
+# Most popular icon bank
 fontawesome:
-  href: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"
-  integrity: "sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k="
-  crossorigin: "anonymous"
+  href: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css
+  integrity: sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=
+  crossorigin: anonymous
 
-academicons:
-  href: "https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.1/css/academicons.min.css"
-  integrity: "sha384-FIue+PI4SsI9XfHCz8dBLg33b0c1fMJgNU3X//L26FYbGnlSEfWmNT7zgWc2N9b6"
-  crossorigin: "anonymous"
+# Another popular icon bank for academics
+# academicons:
+#   href: https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.1/css/academicons.min.css
+#   integrity: sha384-FIue+PI4SsI9XfHCz8dBLg33b0c1fMJgNU3X//L26FYbGnlSEfWmNT7zgWc2N9b6
+#   crossorigin: anonymous
+
+# A serif font I like
+# libre_baskerville:
+#   href: https://cdn.jsdelivr.net/npm/@fontsource/libre-baskerville@5.0.3/index.min.css
+
+# A sans-serif font I like
+# inter:
+#   href: https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.3/index.min.css
+
+# A mono font I like
+# fira_code:
+#   href: https://cdn.jsdelivr.net/npm/@fontsource/fira-code@5.0.3/index.min.css
