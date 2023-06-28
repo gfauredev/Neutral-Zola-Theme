@@ -59,9 +59,23 @@
   {% endif %}
 {% endmacro %}
 
-{% macro taxonomy_children(self) %}
+{% macro section_articles(in_section) %}
+  {% if in_section.pages %}
+    {% for page in in_section.pages %}
+      <article class="page">
+        {% if page.extra.image_title %}
+          <img class="title" src="{{ page.permalink }}{{ page.extra.image_title }}">
+        {% else %}
+          <h1>{{ page.title }}</h1>
+        {% endif %}
+        {{ page.content | safe }}
+      </article>
+    {% endfor %}
+  {% endif %}
 {% endmacro %}
 
+{% macro taxonomy_children(self) %}
+{% endmacro %}
 
 {% macro disqus(name, url, id) %}
   <div id="disqus_thread"></div>

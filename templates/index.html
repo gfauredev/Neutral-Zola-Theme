@@ -28,6 +28,22 @@
     {% endblock prepend_content %}
     {{ section.content | safe }}
     {% block append_content %}
+      {% if section.extra.include_section %}
+        {% set included = get_section(path=section.extra.include_section) %}
+        <section class="section">
+        <h1>{{ included.title }}</h1>
+          {% for art in included.pages %}
+            <article class="page">
+              {% if art.extra.image_title %}
+                <img class="title" src="{{ art.permalink }}{{ art.extra.image_title }}">
+              {% else %}
+                <h1>{{ art.title }}</h1>
+              {% endif %}
+              {{ art.content | safe }}
+            </article>
+          {% endfor %}
+        </section>
+      {% endif %}
     {% endblock append_content %}
   </main>
 {% endblock content %}

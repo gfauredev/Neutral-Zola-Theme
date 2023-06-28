@@ -30,7 +30,7 @@
     {{ section.content | safe }}
     {% block append_content %}
     <ul class="children">
-      {{ macros::section_children(in_section=section) }}
+      {{ macros::section_articles(in_section=section) }}
     </ul>
     {% endblock append_content %}
   </main>
