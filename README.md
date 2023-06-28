@@ -8,6 +8,12 @@ This theme intends to bring a clean, robust and correct HTML backbone while maki
 about the final style of your website. This is why it comes with almost no CSS (SASS), just a 
 reset because I thought pretty much everyone will want it.
 
+## TODO
+
+- [ ] Improve this readme, document everything
+- [ ] Add a `include_section` option that allows to include a section’s children listing into other pages
+- [ ] Add option to display content or summary in section children listing
+
 ## Configuration
 
 This **Neutral** theme understands some configuration options
