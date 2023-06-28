@@ -29,16 +29,18 @@
   {% if in_section.subsections %}
     {% for sub_path in in_section.subsections %}
       {% set sub = get_section(path=sub_path, metadata_only=true) %}
-      <li class="section">
-        <a aria-label="Link to {{ sub.title }}"
-          {%- if note_current -%}
-            {%- if current_path == sub.path or sub_path in self_ancestors %}
-              id="current"
+      {% if sub.extra.menu | default(value=true) %}
+        <li class="section">
+          <a aria-label="Link to {{ sub.title }}"
+            {%- if note_current -%}
+              {%- if current_path == sub.path or sub_path in self_ancestors %}
+                id="current"
+              {%- endif %}
             {%- endif %}
-          {%- endif %}
-          href="{{ sub.permalink | safe }}"><i>{{ sub.title }}</i>
-        </a>
-      </li>
+            href="{{ sub.permalink | safe }}"><i>{{ sub.title }}</i>
+          </a>
+        </li>
+      {% endif %}
     {% endfor %}
   {% endif %}
   {% if in_section.pages %}
