@@ -57,7 +57,8 @@
     {% set scripts = load_data(path="scripts.yml", required=false) %}
     {% if scripts %}
       {% for script, attrs in scripts %}
-        <script{%- for key, value in attrs %} {{ key }}="{{ value | safe }}"{% endfor %}>
+        <script{%- for key, value in attrs %} {{ key }}{% if value -%}
+          ="{{ value | safe }}"{% endif %}{% endfor %}></script>
       {% endfor %}
     {% endif %}
   {% endblock scripts %}
