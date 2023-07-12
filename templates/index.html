@@ -21,7 +21,8 @@
   <main class="index {% if section.extra.class %}{{section.extra.class}}{% endif %}">
     {% block prepend_content %}
       {% if section.extra.image_title %}
-        <img class="title" src="{{ section.extra.image_title }}">
+        <img class="title" src="{{ section.extra.image_title }}"
+          alt="{{section.title}}">
       {% elif section.extra.include_title %}
         <h1>{{ section.title }}</h1>
       {% endif %}
@@ -35,7 +36,9 @@
           {% for art in included.pages %}
             <article class="page">
               {% if art.extra.image_title %}
-                <img class="title" src="{{ art.permalink }}{{ art.extra.image_title }}">
+                <img class="title"
+                src="{{ art.permalink }}{{ art.extra.image_title }}"
+                alt="{{art.title}} image title">
               {% elif art.title %}
                 <h2>{{ art.title }}</h2>
               {% endif %}

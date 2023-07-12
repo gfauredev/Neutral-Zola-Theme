@@ -64,7 +64,9 @@
     {% for page in in_section.pages %}
       <article class="page">
         {% if page.extra.image_title %}
-          <img class="title" src="{{ page.permalink }}{{ page.extra.image_title }}">
+          <img class="title"
+          src="{{ page.permalink }}{{ page.extra.image_title }}"
+          alt="{{page.title}} image title">
         {% elif page.title and page.title | length > 0 %}
           <h1>{{ page.title }}</h1>
         {% endif %}
