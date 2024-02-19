@@ -1,38 +1,35 @@
 {% extends "base.html" %}
-
 {% block global_vars %}
-  {% set root_path = page.ancestors | first %}
-  {% set root = get_section(path=root_path, metadata_only=false) %}
+    {% set root_path = page.ancestors | first %}
+    {% set root = get_section(path=root_path, metadata_only=false) %}
 {% endblock global_vars %}
-
 {%- block title -%}
-  {%- if page.title -%}
-    {{ page.title }}
-  {%- else -%}
-    {{ config.title }}
-  {%- endif -%}
+    {%- if page.title -%}
+        {{ page.title }}
+    {%- else -%}
+        {{ config.title }}
+    {%- endif -%}
 {%- endblock title -%}
-
 {% block main_nav %}
-  {{ macros::link_root(root=root) }}
-  {{ macros::section_children(in_section=root, self_ancestors=page.ancestors, note_current=true) }}
+    {{ macros::link_root(root=root) }}
+    {{ macros::section_children(in_section=root, self_ancestors=page.ancestors, note_current=true) }}
 {% endblock main_nav %}
-
 {% block content %}
-  <main class="page {% if section.extra.class %}{{section.extra.class}}{% endif %}">
-    {% block prepend_content %}
-      {% if page.extra.image_title %}
-        <img class="title" src="{{ page.extra.image_title }}"
-          alt="{{ page.title }} image title">
-      {% elif section.extra.include_title %}
-        <h1>{{ page.title }}</h1>
-      {% endif %}
-    {% endblock prepend_content %}
-    {{ page.content | safe }}
-    {% block append_content %}
-      {% if page.extra.disqus %}
-        {{ macros::disqus(name=config.extra.disqus, url=page.permalink, id=page.extra.disqus) }}
-      {% endif %}
-    {% endblock append_content %}
-  </main>
+    <main class="page {% if section.extra.class %}{{ section.extra.class }}{% endif %}">
+        {% block prepend_content %}
+            {% if page.extra.image_title %}
+                <img class="title"
+                     src="{{ page.extra.image_title }}"
+                     alt="{{ page.title }} image title">
+            {% elif section.extra.include_title %}
+                <h1>{{ page.title }}</h1>
+            {% endif %}
+        {% endblock prepend_content %}
+        {{ page.content | safe }}
+        {% block append_content %}
+            {% if page.extra.disqus %}
+                {{ macros::disqus(name=config.extra.disqus, url=page.permalink, id=page.extra.disqus) }}
+            {% endif %}
+        {% endblock append_content %}
+    </main>
 {% endblock content %}

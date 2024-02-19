@@ -1,22 +1,21 @@
 {% extends "base.html" %}
-
 {% block content %}
-<main class="term">
-  {% block prepend_content %}
-  {% endblock prepend_content %}
-  {% for p in term.pages %}
-    <article>
-      <h2>
-        <a href='{{ p.permalink }}'>{{ p.title }}</a>
-      </h2>
-      <p class="summary">{{ p.summary | safe }}</p>
-      <a href='{{ p.permalink }}#continue-reading'>
-        <span>{{ tr.continue_reading }}</span>
-        <i class="fas fa-arrow-right fa-xs"></i>
-      </a>
-    </article>
-  {% endfor %}
-  {% block append_content %}
-  {% endblock append_content %}
-</main>
+    <main class="term">
+        {% block prepend_content %}
+        {% endblock prepend_content %}
+        {% for p in term.pages %}
+            <article>
+                <h2>
+                    <a href='{{ p.permalink }}'>{{ p.title }}</a>
+                </h2>
+                <p class="summary">{{ p.summary | safe }}</p>
+                <a href='{{ p.permalink }}#continue-reading'>
+                    <span>{{ tr.continue_reading }}</span>
+                    <i class="fas fa-arrow-right fa-xs"></i>
+                </a>
+            </article>
+        {% endfor %}
+        {% block append_content %}
+        {% endblock append_content %}
+    </main>
 {% endblock content %}
