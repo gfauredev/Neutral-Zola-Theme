@@ -1,20 +1,28 @@
 # Free CDNS : https://jsdelivr.com  https://cdnjs.com
 
 ###### Custom style #######
-- rel: stylesheet
-  href: /style.css
+- href: /style.css
+  rel: stylesheet
   type: text/css
 
 ########## Fonts ##########
-- rel: stylesheet # Serif
-  href: https://cdn.jsdelivr.net/npm/@fontsource/libre-baskerville@5/latin.css
+- href: https://cdn.jsdelivr.net/npm/@fontsource/libre-baskerville@5/latin.css
+  rel: preload
+  as: style
+  onload: this.onload=null;this.rel='stylesheet'
   type: text/css
-- rel: stylesheet # Serif (italic)
-  href: https://cdn.jsdelivr.net/npm/@fontsource/libre-baskerville@5/latin-italic.css
+- href: https://cdn.jsdelivr.net/npm/@fontsource/libre-baskerville@5/latin-italic.css
+  rel: preload
+  as: style
+  onload: this.onload=null;this.rel='stylesheet'
   type: text/css
-- rel: stylesheet # Sans
-  href: https://cdn.jsdelivr.net/npm/@fontsource/inter@5
+- href: https://cdn.jsdelivr.net/npm/@fontsource/inter@5
+  rel: preload
+  as: style
+  onload: this.onload=null;this.rel='stylesheet'
   type: text/css
-- rel: stylesheet # Mono
-  href: https://cdn.jsdelivr.net/npm/@fontsource/firago@5/index.min.css
+- href: https://cdn.jsdelivr.net/npm/@fontsource/firago@5/index.min.css
+  rel: preload
+  as: style
+  onload: this.onload=null;this.rel='stylesheet'
   type: text/css
