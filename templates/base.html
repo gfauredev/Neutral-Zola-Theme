@@ -27,24 +27,48 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
   <head>
-    <head>{% include "head.html" %}</head>
+    {% block head_prepend %}
+    {% endblock head_prepend %}
+    {% include "head.html" %}
+    {% block head_append %}
+    {% endblock head_append %}
   </head>
   <body id="top">
     {% block body_prepend %}
     {% endblock body_prepend %}
     <header>
+      {% block header_prepend %}
+      {% endblock header_prepend %}
       {% include "header.html" %}
+      {% block header_append %}
+      {% endblock header_append %}
     </header>
-    {#<nav aria-label="{{ i18n.nav }}">{% include "header.html" %}</nav>#}
+    {#
+    <nav aria-label="{{ i18n.nav }}">
+      {% block nav_prepend %}
+      {% endblock nav_prepend %}
+      {% include "nav.html" %}
+      {% block nav_append %}
+      {% endblock nav_append %}
+    </nav>
+    #}
     <main>
+      {% block main_prepend %}
+      {% endblock main_prepend %}
       {% block main %}
       {% endblock main %}
+      {% block main_append %}
+      {% endblock main_append %}
     </main>
     <footer>
+      {% block footer_prepend %}
+      {% endblock footer_prepend %}
       {% include "footer.html" %}
+      {% block footer_append %}
+      {% endblock footer_append %}
     </footer>
-    {{ lib::return_top(label=i18n.return_top) }}
     {% block body_append %}
+      {{ lib::return_top(label=i18n.return_top) }}
     {% endblock body_append %}
   </body>
 </html>

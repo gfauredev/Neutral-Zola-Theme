@@ -64,8 +64,6 @@
   {# Social links #}
   {{ lib::social_links(links=config.extra.social_links | default(value=[])) }}
 </nav>
-{% block header_append %}
-{% endblock header_append %}
 {#
                 {% if config.extra.logo %}
                     <a href="{{ root.permalink | safe }}">
