@@ -5,15 +5,15 @@
       {% set platforms = load_data(path=config.extra.theme_path~"/data/social_platform.yml") %}
     {% endif %}
     <ul class="social-links">
-        {% for platform, id in links %}
-            {% set platform = platform | lower %}
-            {% set platform = platforms[platform] %}
+        {% for name, id in links %}
+            {% set name = name | lower %}
+            {% set platform = platforms[name] %}
             <li>
-                <a class="{{ platform }}"
+                <a class="{{ name }}"
                    href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
                    target="_blank"
-                   aria-label="{# i18n.link_to #} {{ platform.name }}">
-                    <i class="{{ platform.icon }}"></i>
+                   aria-label="{# i18n.link_to #}{{ platform.name }}">
+                   <i class="{{ platform.icon }}"></i>
                 </a>
             </li>
         {% endfor %}
@@ -101,8 +101,8 @@
     </noscript>
 {% endmacro %}
 {# #}
-{% macro return_top(class="return-top") %}
-    <a aria-label="{{ i18n.return_top | capitalize }}"
+{% macro return_top(class="return-top", label="return to the top") %}
+    <a aria-label="{{ label | capitalize }}"
        class="{{ class }}"
        href="#top">
        <i class="{{ config.extra.icons.return_top | default(value="missing-icon") }}">^</i>

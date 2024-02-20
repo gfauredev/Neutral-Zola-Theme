@@ -1,4 +1,5 @@
 <nav>
+    {# TODO macros macros macros #}
     {% if translations %}
         {% if translations | length > 1 %}
             {% for translation in translations %}
@@ -19,7 +20,7 @@
         {% endif %}
     {% endif %}
     <a aria-label="{{ index.title }}"
-       {% if permalink==index.permalink %}id="current"{% endif %}
+       {% if permalink | default(value="404")==index.permalink %}id="current"{% endif %}
        href="{{ index.permalink | safe }}">
         {% if index.extra.icon %}<i class="{{ index.extra.icon }}"></i>{% endif %}
         {{ index.title }}
@@ -46,11 +47,7 @@
         </a>
     {% endfor %}
     {% if config.extra.social_links %}
-        {% for link in config.extra.social_links %}
-            <a aria-label="Social {{ link.0 }}" href="{{ link.1 }}">
-                <i class="{{ link.2 }}"></i>
-            </a>
-        {% endfor %}
+        {{ lib::social_links(links=config.extra.social_links) }}
     {% endif %}
 </nav>
 
