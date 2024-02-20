@@ -1,0 +1,14 @@
+# Free CDNS
+# jsdelivr.com
+# cdnjs.com
+
+# TODO crossorigin: anonymous by default
+
+########## Icons ##########
+fontawesome:
+  href: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/js/all.min.js
+  # href: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js
+  integrity: sha256-JLi85l+m5IYPLcQwHoKUddvJcbD0n6/ZB02ojOA1FMA=
+
+# ionicons:
+#   href: https://cdn.jsdelivr.net/npm/ionicons@7/dist/esm/ionicons.min.js

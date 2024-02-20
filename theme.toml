@@ -4,12 +4,8 @@ license = "GPLv3"
 homepage = "https://github.com/gfauredev/Neutral-Zola-Theme"
 min_version = "0.17.0"
 
-[extra]
-theme_path = "themes/neutral"
-
-[extra.networks]
-github = "gfauredev"
-
 [author]
 name = "Guilhem Fauré"
 homepage = "https://github.com/gfauredev"
+
+[extra]
