@@ -14,7 +14,7 @@
   <ul class="terms">
     {% for page in term.pages %}
       <li>
-        <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+        <a href="{{ page.permalink | safe }}">{{ page.title }} ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time | pluralize }})</a>
       </li>
     {% endfor %}
   </ul>

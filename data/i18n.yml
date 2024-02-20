@@ -10,6 +10,8 @@ en:
   website_base: "my website base"
   toc: "table of contents"
   link_to: "link to"
+  minute: "minute"
+  page: "page"
 
 fr:
   nav: "Menu de navigation"
@@ -23,6 +25,8 @@ fr:
   website_base: "ma base de site web"
   toc: "table des matières"
   link_to: "lien vers"
+  minute: "minute"
+  page: "page"
 
 404:
   en:

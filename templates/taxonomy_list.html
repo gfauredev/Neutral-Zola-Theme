@@ -14,7 +14,8 @@
   <ul class="terms">
     {% for term in terms %}
       <li>
-        <a href="{{ term.permalink | safe }}">{{ term.name }} ({{ term.pages | length }})</a>
+        {% set len = term.pages | length %}
+        <a href="{{ term.permalink | safe }}">{{ term.name }} ({{ len }} {{ i18n.page }}{{ len | pluralize }})</a>
       </li>
     {% endfor %}
   </ul>
