@@ -1,4 +1,29 @@
 {% extends "base.html" %}
+{% block config %}
+    {% set lang = config.default_language %}
+    {% set title = config.title ~ " - Error 404" %}
+    {% set description = title %}
+{% endblock config %}
+{# No header for error 404, only return to home links #}
+{% block header %}
+{% endblock header %}
+{% block main %}
+    {# 404 messages in multiple languages #}
+    {% set languages = load_data(path="i18n/404.toml", required=false) %}
+    {% if not languages %}
+        {% set languages = load_data(path=config.extra.theme_path~"/i18n/404.toml") %}
+    {% endif %}
+    {% for lang in languages %}
+        <h1>{{ lang.error | capitalize }}</h1>
+        <p>{{ lang.message | capitalize }}</p>
+        <a href="/{{ lang }}">{{ lang.return_home }}</a>
+    {% endfor %}
+{% endblock main %}
+
+{#
+TODO home icon
+{%- if index.extra.icon %}<i class="{{ index.extra.icon }}"></i>{% endif %}
+
 {% block global_vars %}
     {% set root = get_section(path="_index.md", metadata_only=false) %}
 {% endblock global_vars %}
@@ -9,21 +34,4 @@
     {{ macros::link_root(root=root) }}
     {{ macros::section_children(in_section=root) }}
 {%- endblock main_nav %}
-{% set i18n_404 = load_data(path="i18n/404.toml", required=false) %}
-{% if not i18n_404 %}
-    {% set i18n_404 = load_data(path=config.extra.theme_path~"/i18n/404.toml") %}
-{% endif %}
-{% block content %}
-    <main class="http-404">
-        {% block prepend_content %}
-            <h1>HTTP 404</h1>
-        {% endblock prepend_content %}
-        <p>{# tr.http_404 #}</p>
-        {% block append_content %}
-            <a href="{{ root.permalink | safe }}">
-                <i class="fas fa-home"></i>
-                <span>{# tr.return_home #}</span>
-            </a>
-        {% endblock append_content %}
-    </main>
-{% endblock %}
+#}

@@ -1,8 +1,8 @@
 {# #}
 {% macro social_links(links) %}
-    {% set platforms = load_data(path="social_platforms.yml", required=false) %}
+    {% set platforms = load_data(path="data/social_platform.yml", required=false) %}
     {% if not platforms %}
-      {% set platforms = load_data(path="themes/neutral/social_platforms.yml") %}
+      {% set platforms = load_data(path=config.extra.theme_path~"/data/social_platform.yml") %}
     {% endif %}
     <ul class="social-links">
         {% for platform, id in links %}

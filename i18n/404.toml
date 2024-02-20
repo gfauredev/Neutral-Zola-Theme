@@ -1,3 +1,8 @@
+[en]
+error = "error 404"
+message = "it seems that you followed a faulty hyperlink"
+return_home = "clic here to return to home"
 [fr]
+error = "erreur 404"
 message = "il semblerait que vous avez suivi un lien défaillant"
-clic = "cliquer ici pour revenir à l’accueil"
+return_home = "cliquer ici pour revenir à l’accueil"
