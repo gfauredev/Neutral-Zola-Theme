@@ -1,17 +1,20 @@
-# Free CDNS
-# jsdelivr.com
-# cdnjs.com
+# Free CDNS : https://jsdelivr.com  https://cdnjs.com
 
-# TODO type: text/css by default
-
-# Custom style
-style:
+###### Custom style #######
+- rel: stylesheet
   href: /style.css
+  type: text/css
 
 ########## Fonts ##########
-Libre Baskerville: # Serif
-  href: https://cdn.jsdelivr.net/npm/@fontsource/libre-baskerville@5
-Inter: # Sans
+- rel: stylesheet # Serif
+  href: https://cdn.jsdelivr.net/npm/@fontsource/libre-baskerville@5/latin.css
+  type: text/css
+- rel: stylesheet # Serif (italic)
+  href: https://cdn.jsdelivr.net/npm/@fontsource/libre-baskerville@5/latin-italic.css
+  type: text/css
+- rel: stylesheet # Sans
   href: https://cdn.jsdelivr.net/npm/@fontsource/inter@5
-FiraGO: # Sans
-  href: https://cdn.jsdelivr.net/npm/@fontsource/firago@5
+  type: text/css
+- rel: stylesheet # Mono
+  href: https://cdn.jsdelivr.net/npm/@fontsource/firago@5/index.min.css
+  type: text/css

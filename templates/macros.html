@@ -1,4 +1,19 @@
 {# #}
+{% macro file2tags(path, tag="link") %}
+  {% set data = load_data(path=path, required=false) %}
+  {% if not data %}
+    {% set data = load_data(path=config.extra.path ~ "/" ~ path, required=false) %}
+  {% endif %}
+  {% if data %}
+    {% for import in data %}
+      <{{ tag }}
+        {%- for key, value in import %} {{ key | safe }}="{{ value | safe }}"{%- endfor -%}
+      >
+      {% if tag == "script" %}</script>{% endif %}
+    {% endfor %}
+  {% endif %}
+{% endmacro %}
+{# #}
 {% macro social_links(links) %}
   {% set platforms = load_data(path="data/social_platform.yml", required=false) %}
   {% if not platforms %}
@@ -13,7 +28,7 @@
            href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
            target="_blank"
            aria-label="{{ platform.name }}">
-          <i class="{{ platform.icon }}"></i>
+           <i class="{{ platform.icon }}">{{platform.name}}</i>
         </a>
       </li>
     {% endfor %}
