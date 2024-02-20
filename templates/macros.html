@@ -12,7 +12,7 @@
                 <a class="{{ name }}"
                    href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
                    target="_blank"
-                   aria-label="{# i18n.link_to #}{{ platform.name }}">
+                   aria-label="{{ platform.name }}">
                    <i class="{{ platform.icon }}"></i>
                 </a>
             </li>
@@ -101,10 +101,28 @@
     </noscript>
 {% endmacro %}
 {# #}
+{% macro related_icon(word) %}
+    {# Retreive predefined icons #}
+    {% set icons = load_data(path="data/icon.yml", required=false) %}
+    {% if not icons %}
+        {% set icons = load_data(path=config.extra.theme_path~"/data/icon.yml") %}
+    {% endif %}
+    {# Slugify #}
+    {% set word = word | slugify %}
+    {# Output #}
+    <i class="{{ icons[word] | default(value="missing-icon") }}"></i>
+{% endmacro %}
+{# #}
 {% macro return_top(class="return-top", label="return to the top") %}
+    {# Retreive predefined icons #}
+    {% set icons = load_data(path="data/icon.yml", required=false) %}
+    {% if not icons %}
+        {% set icons = load_data(path=config.extra.theme_path~"/data/icon.yml") %}
+    {% endif %}
+    {# Output #}
     <a aria-label="{{ label | capitalize }}"
        class="{{ class }}"
        href="#top">
-       <i class="{{ config.extra.icons.return_top | default(value="missing-icon") }}">^</i>
+       <i class="{{ icons[class] | default(value="missing-icon") }}">^</i>
     </a>
 {% endmacro %}

@@ -1,0 +1,20 @@
+# Define icons (values) related to slugified and singularized words (keys)
+
+# English
+translation: "fas fa-language"
+translations: "fas fa-language"
+language: "fas fa-language"
+languages: "fas fa-language"
+tag: "fas fa-tags"
+tags: "fas fa-tags"
+skill: "fas fa-lightbulb"
+skills: "fas fa-lightbulb"
+
+# return-top: "fas fa-arrow-up"
+# return-to-top: "fas fa-arrow-up"
+return-top: "fas fa-chevron-up"
+return-to-top: "fas fa-chevron-up"
+
+# Français
+competence: "fas fa-lightbulb"
+competences: "fas fa-lightbulb"

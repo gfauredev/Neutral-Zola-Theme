@@ -3,9 +3,8 @@
   {% for taxonomy in config.taxonomies %}
   {% if page.taxonomies[taxonomy.name] %}
   {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
-  {% set slug = taxonomy.name | slugify %}
   <h1>
-    {% if config.extra.taxonomies_icons[slug] %}<i class="{{ config.extra.taxonomies_icons[slug] }}"></i>{% endif %}
+    {{ lib::related_icon(word=taxonomy.name) }}
     {{ taxonomy.name | capitalize }}
   </h1>
   <ul class="terms">

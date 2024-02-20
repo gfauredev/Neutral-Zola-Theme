@@ -11,7 +11,7 @@
                     {% endif %}
                     <a href="{{ proposedTranslation.permalink }}"
                        aria-label="{{ proposedTranslation.lang }}">
-                        {% if config.extra.icons.translation %}<i class="{{ config.extra.icons.translation }}"></i>{% endif %}
+                        <i class="{{ icons.translation | default(value="missing-icon") }}"></i>
                         {{ proposedTranslation.lang }}
                     </a>
                     {% break %}
@@ -27,9 +27,8 @@
     </a>
     {% for taxonomy in config.taxonomies %}
         {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
-        {% set slug = taxonomy.name | slugify %}
         <a aria-label="{{ taxonomy.name }}" href="{{ taxonomy.permalink }}">
-            {% if config.extra.taxonomies_icons[slug] %}<i class="{{ config.extra.taxonomies_icons[slug] }}"></i>{% endif %}
+            {{ lib::related_icon(word=taxonomy.name) }}
             {{ taxonomy.name }}
         </a>
     {% endfor %}
