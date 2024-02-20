@@ -1,4 +1,4 @@
-# Define icons (values) related to slugified and singularized words (keys)
+# Define FontAwesome icons (values) related to slugified words (keys)
 
 # English
 translation: "fas fa-language"
@@ -19,8 +19,12 @@ user: "fas fa-user"
 cv: "fas fa-user"
 perso: "fas fa-user"
 personal: "fas fa-user"
+article: "fas fa-newspaper"
+articles: "fas fa-newspaper"
+news: "fas fa-newspaper"
 
 # Français
 competence: "fas fa-lightbulb"
 competences: "fas fa-lightbulb"
 accueil: "fas fa-house"
+actualites: "fas fa-newspaper"
