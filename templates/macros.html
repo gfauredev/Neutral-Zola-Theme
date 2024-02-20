@@ -100,3 +100,11 @@
         <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
     </noscript>
 {% endmacro %}
+{# #}
+{% macro return_top(class="return-top") %}
+    <a aria-label="{{ i18n.return_top | capitalize }}"
+       class="{{ class }}"
+       href="#top">
+       <i class="{{ config.extra.icons.return_top | default(value="missing-icon") }}">^</i>
+    </a>
+{% endmacro %}

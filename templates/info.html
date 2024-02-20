@@ -1,0 +1,23 @@
+{# TODO replace this with macro(s) #}
+<header class="info">
+    <ol class="breadcrumb">
+        {% for ancestor in ancestors %}
+            {% set ancestor = get_section(path=ancestor, metadata_only=true) %}
+            <li>
+                <a href="{{ ancestor.permalink | safe }}">{{ ancestor.title }}</a>
+            </li>
+        {% endfor %}
+    </ol>
+    {% if page %}
+        {% if page.date %}
+            <time class="published" datetime="{{ page.date }}">
+                {{ page.date|date(format="%d/%m/%Y") }}
+            </time>
+        {% endif %}
+        {% if page.updated %}
+            <time class="updated" datetime="{{ page.updated }}">
+                {{ page.updated|date(format="%d/%m/%Y") }}
+            </time>
+        {% endif %}
+    {% endif %}
+</header>

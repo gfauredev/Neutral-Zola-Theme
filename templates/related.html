@@ -1,0 +1,20 @@
+{# TODO replace this with macro(s) #}
+<footer>
+  {% for taxonomy in config.taxonomies %}
+  {% if page.taxonomies[taxonomy.name] %}
+  {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
+  {% set slug = taxonomy.name | slugify %}
+  <h1>
+    {% if config.extra.taxonomies_icons[slug] %}<i class="{{ config.extra.taxonomies_icons[slug] }}"></i>{% endif %}
+    {{ taxonomy.name | capitalize }}
+  </h1>
+  <ul class="terms">
+    {% for term in taxonomy.items %}
+    <li>
+      <a href="{{ term.permalink | safe }}">{{ term.name }} ({{ term.pages | length }})</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endfor %}
+</footer>

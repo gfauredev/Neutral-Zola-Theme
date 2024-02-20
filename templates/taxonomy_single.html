@@ -1,5 +1,25 @@
 {% extends "base.html" %}
-{% block content %}
+{% block config %}
+    {% set permalink = current_url %}
+    {% set title = term.name %}
+    {% set description = taxonomy.name ~ " : " ~ term.name %}
+{% endblock config %}
+{# TODO factorize this with taxonomy_list with macro(s) #}
+{% block main %}
+    <h1>
+        {% set slug = taxonomy.name | slugify %}
+        {% if config.extra.taxonomies_icons[slug] %}<i class="{{ config.extra.taxonomies_icons[slug] }}"></i>{% endif %}
+        {{ taxonomy.name | capitalize }} : {{ term.name }}
+    </h1>
+    <ul class="terms">
+        {% for page in term.pages %}
+            <li>
+                <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock main %}
+{#
     <main class="term">
         {% block prepend_content %}
         {% endblock prepend_content %}
@@ -18,4 +38,4 @@
         {% block append_content %}
         {% endblock append_content %}
     </main>
-{% endblock content %}
+#}

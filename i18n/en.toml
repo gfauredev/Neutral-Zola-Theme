@@ -1,4 +1,5 @@
-return_top = "the top"
+nav = "Navigation menu"
+return_top = "return to the top"
 continue_reading = "click to continue reading"
 subsections = "sub-sections"
 pages = "articles"

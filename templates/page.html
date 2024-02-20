@@ -1,15 +1,24 @@
 {% extends "base.html" %}
-{% block global_vars %}
-    {% set root_path = page.ancestors | first %}
-    {% set root = get_section(path=root_path, metadata_only=false) %}
-{% endblock global_vars %}
-{%- block title -%}
-    {%- if page.title -%}
-        {{ page.title }}
-    {%- else -%}
-        {{ config.title }}
-    {%- endif -%}
-{%- endblock title -%}
+{% block config %}
+    {% set lang = page.lang %}
+    {% set permalink = page.permalink %}
+    {% if page.translations %}
+        {% set translations = page.translations %}
+    {% endif %}
+    {% set title = page.title %}
+    {% set description = page.description %}
+    {% set toc = page.toc %}
+    {% set ancestors = page.ancestors %}
+{% endblock config %}
+{% block main %}
+    {% include "info.html" %}
+    {% include "toc.html" %}
+    {% if page.content %}
+        <section>{{ page.content | safe }}</section>
+    {% endif %}
+    {% include "related.html" %}
+{% endblock main %}
+{#
 {% block main_nav %}
     {{ macros::link_root(root=root) }}
     {{ macros::section_children(in_section=root, self_ancestors=page.ancestors, note_current=true) }}
@@ -33,3 +42,4 @@
         {% endblock append_content %}
     </main>
 {% endblock content %}
+#}

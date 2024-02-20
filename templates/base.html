@@ -1,125 +1,32 @@
-{% import "macros.html" as macros %}
+{% import "macros.html" as lib %}
+{% block config %}
+{% endblock config %}
+{% if lang == config.default_language %}
+    {% set index = get_section(path="_index.md", metadata_only=true) %}
+{% else %}
+    {% set index = get_section(path="_index."~lang~".md", metadata_only=true) %}
+{% endif %}
 {% set i18n = load_data(path="i18n/"~lang~".toml", required=false) %}
 {% if not i18n %}
-    {% set i18n = load_data(path=config.extra.theme_path~"/i18n/"~lang~".toml") %}
+    {% set i18n = load_data(path="themes/website-theme/i18n/"~lang~".toml") %}
 {% endif %}
-{% block global_vars %}
-{% endblock global_vars %}
+{% if not description %}
+    {% set description = config.description %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="{{ lang }}">
     <head>
-        {% block prepend_head %}
-            <meta charset="utf-8">
-            <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        {% endblock prepend_head %}
-        {% block metas %}
-            {% if config.description %}
-                <meta name="description"
-                      content="{% block description %}{{ config.description }}{% endblock %}">
-            {% endif %}
-            {% if config.author %}<meta name="author" content="{{ config.extra.author }}">{% endif %}
-        {% endblock metas %}
-        {% block custom_meta %}
-            {% if config.extra.meta %}
-                {% for meta in config.extra.meta %}
-                    <meta {% for key, value in meta %}{{ key }}="{{ value | safe }}"{% endfor %}>
-                {% endfor %}
-            {% endif %}
-        {% endblock custom_meta %}
-        <title>
-            {%- block title -%}
-                {{ config.title }}
-            {%- endblock title -%}
-        </title>
-        {% block links %}
-            {% if config.extra.links %}
-                {% for link in config.extra.links %}
-                    <link {% for key, value in link %}{{ key }}="{{ value | safe }}"{% endfor %}>
-                {% endfor %}
-            {% endif %}
-        {% endblock links %}
-        {% block styles %}
-            {% set styles = load_data(path="styles.yml", required=false) %}
-            {% if styles %}
-                {% for style, attrs in styles %}
-                    <link rel="stylesheet" {%- for key, value in attrs %}{{ key }}="{{ value | safe }}"{% endfor %}>
-                {% endfor %}
-            {% endif %}
-        {% endblock styles %}
-        {% block scripts %}
-            {% set scripts = load_data(path="scripts.yml", required=false) %}
-            {% if scripts %}
-                {% for script, attrs in scripts %}
-                    <script {%- for key, value in attrs %} {{ key }}{% if value -%} ="{{ value | safe }}"{% endif %}{% endfor %}></script>
-                {% endfor %}
-            {% endif %}
-        {% endblock scripts %}
-        {% block append_head %}
-        {% endblock append_head %}
+        <head>{% include "head.html" %}</head>
     </head>
-    <body>
-        {% block prepend_body %}
-        {% endblock prepend_body %}
-        <header>
-            {% block prepend_header %}
-                {% if config.extra.logo %}
-                    <a href="{{ root.permalink | safe }}">
-                        {% set resized_logo = resize_image(path=config.extra.logo, height=250, op="fit_height", format="webp") %}
-                        <img class="logo"
-                             width="150"
-                             height="150"
-                             src="{{ resized_logo.url }}"
-                             alt="Logo">
-                    </a>
-                {% endif %}
-            {% endblock prepend_header %}
-            {% block header %}
-            {% endblock header %}
-            {% block append_header %}
-                {% if config.title %}
-                    <a href="{{ root.permalink | safe }}">
-                        <h1 class="title">{{ config.title }}</h1>
-                    </a>
-                {% endif %}
-            {% endblock append_header %}
-        </header>
-        <nav aria-label="navigation menu">
-            {% block prepend_nav %}
-            {% endblock prepend_nav %}
-            <ul>
-                {% block main_nav %}
-                {% endblock main_nav %}
-            </ul>
-            {% block actions %}
-                {#<section class="actions">
-        {% if translations %}
-          <button id="lang-select" aria-label="Choose language">
-            <i class="fa-solid fas fa-language"></i>
-          </button>
-        {% endif %}
-        <button id="nav-search" aria-label="Start search" data-target="#search-modal">
-          <i class="fas fa-search"></i>
-        </button>
-        <button id="theme-switch" aria-label="Switch theme">
-          <i class="fas fa-adjust"></i>
-        </button>
-      </section>#}
-            {% endblock actions %}
-            {% block append_nav %}
-            {% endblock append_nav %}
-        </nav>
-        {% block content %}{% endblock %}
-        <footer>
-            {% block footer %}
-                {{ macros::social_links(links=config.extra.social_links) }}
-                {%- if config.extra.author %}
-                    <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.extra.author }}</p>
-                {% elif config.title %}
-                    <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.title }}</p>
-                {% endif %}
-            {% endblock footer %}
-        </footer>
-        {% block append_body %}
-        {% endblock append_body %}
+    <body id="top">
+        {% block body_prepend %}
+        {% endblock body_prepend %}
+        <header>{% include "header.html" %}</header>
+        <nav aria-label="{{ i18n.nav }}">{% include "header.html" %}</nav>
+        <main>{% block main %}{% endblock main %}</main>
+        <footer>{% include "footer.html" %}</footer>
+        {{ lib::return_top() }}
+        {% block body_append %}
+        {% endblock body_append %}
     </body>
 </html>

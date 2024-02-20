@@ -1,0 +1,79 @@
+<nav>
+    {% if translations %}
+        {% if translations | length > 1 %}
+            {% for translation in translations %}
+                {% if translation.lang == lang %}
+                    {% if translations[loop.index] %}
+                        {% set proposedTranslation = translations[loop.index] %}
+                    {% else %}
+                        {% set proposedTranslation = translations.0 %}
+                    {% endif %}
+                    <a href="{{ proposedTranslation.permalink }}"
+                       aria-label="{{ proposedTranslation.lang }}">
+                        {% if config.extra.icons.translation %}<i class="{{ config.extra.icons.translation }}"></i>{% endif %}
+                        {{ proposedTranslation.lang }}
+                    </a>
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+    <a aria-label="{{ index.title }}"
+       {% if permalink==index.permalink %}id="current"{% endif %}
+       href="{{ index.permalink | safe }}">
+        {% if index.extra.icon %}<i class="{{ index.extra.icon }}"></i>{% endif %}
+        {{ index.title }}
+    </a>
+    {% for taxonomy in config.taxonomies %}
+        {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
+        {% set slug = taxonomy.name | slugify %}
+        <a aria-label="{{ taxonomy.name }}" href="{{ taxonomy.permalink }}">
+            {% if config.extra.taxonomies_icons[slug] %}<i class="{{ config.extra.taxonomies_icons[slug] }}"></i>{% endif %}
+            {{ taxonomy.name }}
+        </a>
+    {% endfor %}
+    {% for subsection in index.subsections %}
+        {% if loop.index >= 3 %}
+            {% break %}
+        {% endif %}
+        {% set subsection = get_section(path=subsection, metadata_only=true) %}
+        {# TODO make it work for parent section when rendering a child page #}
+        <a aria-label="{{ subsection.title }}"
+           {% if permalink==subsection.permalink %}id="current"{% endif %}
+           href="{{ subsection.permalink | safe }}">
+            {% if subsection.extra.icon %}<i class="{{ subsection.extra.icon }}"></i>{% endif %}
+            {{ subsection.title }}
+        </a>
+    {% endfor %}
+    {% if config.extra.social_links %}
+        {% for link in config.extra.social_links %}
+            <a aria-label="Social {{ link.0 }}" href="{{ link.1 }}">
+                <i class="{{ link.2 }}"></i>
+            </a>
+        {% endfor %}
+    {% endif %}
+</nav>
+
+{#
+            {% block prepend_header %}
+                {% if config.extra.logo %}
+                    <a href="{{ root.permalink | safe }}">
+                        {% set resized_logo = resize_image(path=config.extra.logo, height=250, op="fit_height", format="webp") %}
+                        <img class="logo"
+                             width="150"
+                             height="150"
+                             src="{{ resized_logo.url }}"
+                             alt="Logo">
+                    </a>
+                {% endif %}
+            {% endblock prepend_header %}
+            {% block header %}
+            {% endblock header %}
+            {% block append_header %}
+                {% if config.title %}
+                    <a href="{{ root.permalink | safe }}">
+                        <h1 class="title">{{ config.title }}</h1>
+                    </a>
+                {% endif %}
+            {% endblock append_header %}
+#}

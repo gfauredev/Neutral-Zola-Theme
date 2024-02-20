@@ -1,0 +1,88 @@
+{% block head_prepend %}
+{% endblock head_prepend %}
+{# Metadata #}
+<meta charset="utf-8">
+<title>{{ title }}</title>
+<meta name="og:title" content="{{ title }}">
+<meta property="og:site_name" content="{{ config.title }}">
+<meta name="description" content="{{ description }}">
+<meta name="og:description" content="{{ description }}" />
+<meta name="author" content="{{ config.extra.author }}">
+<meta property="og:type" content="website">
+{# Style #}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+{# Translations #}
+{% if section.translations %}
+    {% for translation in section.translations %}
+        <link rel="alternate"
+              hreflang="{{ translation.lang }}"
+              href="{{ translation.permalink }}">
+    {% endfor %}
+{% endif %}
+{# 16×16, 32×32, (48×48), (64×64) icon #}
+<link rel="icon" href="/favicon.ico" sizes="any">
+{# Vector icon #}
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+{# 180×180 icon #}
+<link rel="apple-touch-icon" href="/icon.png">
+{# Imports #}
+{% block head_append %}
+    {# FontAwesome JS #}
+    <script defer
+            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"
+            integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer">
+    </script>
+{% endblock head_append %}
+{#
+        {% block prepend_head %}
+            <meta charset="utf-8">
+            <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        {% endblock prepend_head %}
+        {% block metas %}
+            {% if config.description %}
+                <meta name="description"
+                      content="{% block description %}{{ config.description }}{% endblock %}">
+            {% endif %}
+            {% if config.author %}<meta name="author" content="{{ config.extra.author }}">{% endif %}
+        {% endblock metas %}
+        {% block custom_meta %}
+            {% if config.extra.meta %}
+                {% for meta in config.extra.meta %}
+                    <meta {% for key, value in meta %}{{ key }}="{{ value | safe }}"{% endfor %}>
+                {% endfor %}
+            {% endif %}
+        {% endblock custom_meta %}
+        <title>
+            {%- block title -%}
+                {{ config.title }}
+            {%- endblock title -%}
+        </title>
+        {% block links %}
+            {% if config.extra.links %}
+                {% for link in config.extra.links %}
+                    <link {% for key, value in link %}{{ key }}="{{ value | safe }}"{% endfor %}>
+                {% endfor %}
+            {% endif %}
+        {% endblock links %}
+        {% block styles %}
+            {% set styles = load_data(path="styles.yml", required=false) %}
+            {% if styles %}
+                {% for style, attrs in styles %}
+                    <link rel="stylesheet" {%- for key, value in attrs %}{{ key }}="{{ value | safe }}"{% endfor %}>
+                {% endfor %}
+            {% endif %}
+        {% endblock styles %}
+        {% block scripts %}
+            {% set scripts = load_data(path="scripts.yml", required=false) %}
+            {% if scripts %}
+                {% for script, attrs in scripts %}
+                    <script {%- for key, value in attrs %} {{ key }}{% if value -%} ="{{ value | safe }}"{% endif %}{% endfor %}></script>
+                {% endfor %}
+            {% endif %}
+        {% endblock scripts %}
+        {% block append_head %}
+        {% endblock append_head %}
+#}
