@@ -62,7 +62,7 @@
     </a>
   {% endfor %}
   {# Social links #}
-  {{ lib::social_links(links=config.extra.social_links | default(value=[])) }}
+  {{ lib::social_links(links=config.extra.social_links | default(value=[]) ) }}
 </nav>
 {#
                 {% if config.extra.logo %}
