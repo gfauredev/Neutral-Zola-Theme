@@ -9,4 +9,4 @@ name = "Guilhem Fauré"
 homepage = "https://github.com/gfauredev"
 
 [extra]
-theme_path = "themes/neutral"
+path = "themes/neutral"

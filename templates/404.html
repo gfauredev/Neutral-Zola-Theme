@@ -8,7 +8,14 @@
     {% for lang, data in i18n_data.404 %}
         <h1>{{ data.error | capitalize }}</h1>
         <p>{{ data.message | capitalize }}</p>
-        <a href="/{{ lang }}">{{ data.return_home }}</a>
+          {% if lang == config.default_language %}
+            <a href="/">
+          {% else %}
+            <a href="/{{ lang }}">
+          {% endif %}
+            {{ data.return_home }}
+            {{ lib::related_icon(word=index.title) }}
+          </a>
     {% endfor %}
 {% endblock main %}
 

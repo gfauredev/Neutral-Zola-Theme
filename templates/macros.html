@@ -2,7 +2,7 @@
 {% macro social_links(links) %}
     {% set platforms = load_data(path="data/social_platform.yml", required=false) %}
     {% if not platforms %}
-      {% set platforms = load_data(path=config.extra.theme_path~"/data/social_platform.yml") %}
+      {% set platforms = load_data(path=config.extra.path~"/data/social_platform.yml") %}
     {% endif %}
     <ul class="social-links">
         {% for name, id in links %}
@@ -105,7 +105,7 @@
     {# Retreive predefined icons #}
     {% set icons = load_data(path="data/icon.yml", required=false) %}
     {% if not icons %}
-        {% set icons = load_data(path=config.extra.theme_path~"/data/icon.yml") %}
+        {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
     {% endif %}
     {# Slugify #}
     {% set word = word | slugify %}
@@ -117,7 +117,7 @@
     {# Retreive predefined icons #}
     {% set icons = load_data(path="data/icon.yml", required=false) %}
     {% if not icons %}
-        {% set icons = load_data(path=config.extra.theme_path~"/data/icon.yml") %}
+        {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
     {% endif %}
     {# Output #}
     <a aria-label="{{ label | capitalize }}"

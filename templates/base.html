@@ -2,23 +2,22 @@
 {# Retreive configuration variables #}
 {% block config %}
 {% endblock config %}
-{# Retreive site index #}
-{% if ancestors %}
-    {% set index = ancestors | last %}
-    {% set index = get_section(path=index, metadata_only=true) %}
-{% else %}
+{# Retreive site index with proper language #}
+{% if lang == config.default_language %}
     {% set index = get_section(path="_index.md", metadata_only=true) %}
+{% else %}
+    {% set index = get_section(path="_index."~lang~".md", metadata_only=true) %}
 {% endif %}
 {# Retreive template translations #}
 {% set i18n_data = load_data(path="data/i18n.yml", required=false) %}
 {% if not i18n_data %}
-    {% set i18n_data = load_data(path=config.extra.theme_path~"/data/i18n.yml") %}
+    {% set i18n_data = load_data(path=config.extra.path~"/data/i18n.yml") %}
 {% endif %}
 {% set i18n = i18n_data[lang] %}
 {# Retreive predefined icons #}
 {% set icons = load_data(path="data/icon.yml", required=false) %}
 {% if not icons %}
-    {% set icons = load_data(path=config.extra.theme_path~"/data/icon.yml") %}
+    {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
 {% endif %}
 {# Set fallback description #}
 {% if not description %}

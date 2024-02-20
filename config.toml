@@ -30,7 +30,7 @@ include_description = true
 include_content = true
 
 [extra]
-theme_path = "themes/neutral"
+path = "themes/neutral"
 
 [extra.networks]
 github = "gfauredev"

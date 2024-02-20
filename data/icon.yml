@@ -9,12 +9,14 @@ tag: "fas fa-tags"
 tags: "fas fa-tags"
 skill: "fas fa-lightbulb"
 skills: "fas fa-lightbulb"
-
-# return-top: "fas fa-arrow-up"
-# return-to-top: "fas fa-arrow-up"
+idea: "fas fa-lightbulb"
+ideas: "fas fa-lightbulb"
+index: "fas fa-house"
+home: "fas fa-house"
 return-top: "fas fa-chevron-up"
 return-to-top: "fas fa-chevron-up"
 
 # Français
 competence: "fas fa-lightbulb"
 competences: "fas fa-lightbulb"
+accueil: "fas fa-house"
