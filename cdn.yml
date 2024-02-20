@@ -1,3 +1,7 @@
+# Free CDNS
+# jsdelivr.com
+# cdnjs.com
+
 # Most popular CSS reset
 normalize:
   href: https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css

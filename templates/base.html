@@ -1,5 +1,8 @@
 {% import "macros.html" as macros %}
-{% set tr = load_data(path="translations/" ~ lang ~ ".yml") %}
+{% set i18n = load_data(path="i18n/"~lang~".toml", required=false) %}
+{% if not i18n %}
+    {% set i18n = load_data(path=config.extra.theme_path~"/i18n/"~lang~".toml") %}
+{% endif %}
 {% block global_vars %}
 {% endblock global_vars %}
 <!DOCTYPE html>
@@ -108,7 +111,7 @@
         {% block content %}{% endblock %}
         <footer>
             {% block footer %}
-                {{ macros::social_links(nets=config.extra.networks) }}
+                {{ macros::social_links(links=config.extra.social_links) }}
                 {%- if config.extra.author %}
                     <p class="copyright">© {{ now() | date(format="%Y") }} {{ config.extra.author }}</p>
                 {% elif config.title %}

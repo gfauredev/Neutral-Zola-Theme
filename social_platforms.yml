@@ -1,0 +1,49 @@
+gitlab:
+  href: https://gitlab.com/$ID
+  icon: fab fa-gitlab
+  name: GitLab
+
+github:
+  href: https://github.com/$ID
+  icon: fab fa-github
+  name: GitHub
+
+linkedin:
+  href: https://linkedin.com/in/$ID
+  icon: fab fa-linkedin
+  name: LinkedIn
+
+x:
+  href: https://twitter.com/$ID
+  icon: fab fa-x-twitter
+  name: X
+
+reddit:
+  href: https://reddit.com/user/$ID
+  icon: fab fa-reddit
+  name: Reddit
+
+facebook:
+  href: https://facebook.com/$ID
+  icon: fab fa-facebook
+  name: Facebook
+
+instagram:
+  href: https://instagram.com/$ID
+  icon: fab fa-instagram
+  name: Instagram
+
+twitch:
+  href: https://twitch.tv/$ID
+  icon: fab fa-twitch
+  name: Twitch
+
+youtube:
+  href: https://youtube.com/c/$ID
+  icon: fab fa-youtube
+  name: YouTube
+
+email:
+  href: mailto:$ID
+  icon: fas fa-envelope
+  name: Email

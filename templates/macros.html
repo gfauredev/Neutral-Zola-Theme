@@ -1,19 +1,25 @@
-{% macro social_links(nets) %}
-    {% set infos = load_data(path="social-networks.yml") %}
+{# #}
+{% macro social_links(links) %}
+    {% set platforms = load_data(path="social_platforms.yml", required=false) %}
+    {% if not platforms %}
+      {% set platforms = load_data(path="themes/neutral/social_platforms.yml") %}
+    {% endif %}
     <ul class="social-links">
-        {% for net, id in nets %}
-            {% set info = infos[net] %}
+        {% for platform, id in links %}
+            {% set platform = platform | lower %}
+            {% set platform = platforms[platform] %}
             <li>
-                <a class="{{ net }}"
-                   href="{{ info.href | replace(from='$ID', to=id) | safe }}"
+                <a class="{{ platform }}"
+                   href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
                    target="_blank"
-                   aria-label="{{ net }} link">
-                    <i class="{{ info.icon }}"></i>
+                   aria-label="{# i18n.link_to #} {{ platform.name }}">
+                    <i class="{{ platform.icon }}"></i>
                 </a>
             </li>
         {% endfor %}
     </ul>
 {% endmacro %}
+{# #}
 {% macro link_root(root, itself=false) %}
     {% if root.title %}
         <li class="index">
@@ -24,6 +30,7 @@
         </li>
     {% endif %}
 {% endmacro %}
+{# #}
 {% macro section_children(in_section, self_ancestors="", note_current=false) %}
     {% if in_section.subsections %}
         {% for sub_path in in_section.subsections %}
@@ -53,6 +60,7 @@
         {% endfor %}
     {% endif %}
 {% endmacro %}
+{# #}
 {% macro section_articles(in_section) %}
     {% if in_section.pages %}
         {% for page in in_section.pages %}
@@ -69,8 +77,10 @@
         {% endfor %}
     {% endif %}
 {% endmacro %}
+{# #}
 {% macro taxonomy_children(self) %}
 {% endmacro %}
+{# #}
 {% macro disqus(name, url, id) %}
     <div id="disqus_thread"></div>
     <script>

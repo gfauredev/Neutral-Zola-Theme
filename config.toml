@@ -13,10 +13,10 @@ taxonomies = [
 [markdown]
 highlight_code = true
 render_emoji = true
+smart_punctuation = true
 external_links_target_blank = true
 external_links_no_follow = true
 external_links_no_referrer = true
-smart_punctuation = true
 
 [slugify]
 paths = "on"
@@ -24,14 +24,13 @@ taxonomies = "on"
 anchors = "on"
 
 [search]
+include_path = false
 include_title = true
 include_description = true
-include_path = false
 include_content = true
 
-[extra.icons]
-16x16 = "/16x16.png"
-32x32 = "/32x32.png"
+[extra]
+theme_path = "themes/neutral"
 
 [extra.networks]
 github = "gfauredev"
