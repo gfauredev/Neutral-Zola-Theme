@@ -15,6 +15,10 @@ index: "fas fa-house"
 home: "fas fa-house"
 return-top: "fas fa-chevron-up"
 return-to-top: "fas fa-chevron-up"
+user: "fas fa-user"
+cv: "fas fa-user"
+perso: "fas fa-user"
+personal: "fas fa-user"
 
 # Français
 competence: "fas fa-lightbulb"
