@@ -19,11 +19,6 @@
     {% include "related.html" %}
 {% endblock main %}
 {#
-{% block main_nav %}
-    {{ macros::link_root(root=root) }}
-    {{ macros::section_children(in_section=root, self_ancestors=page.ancestors, note_current=true) }}
-{% endblock main_nav %}
-{% block content %}
     <main class="page {% if section.extra.class %}{{ section.extra.class }}{% endif %}">
         {% block prepend_content %}
             {% if page.extra.image_title %}
@@ -41,5 +36,4 @@
             {% endif %}
         {% endblock append_content %}
     </main>
-{% endblock content %}
 #}

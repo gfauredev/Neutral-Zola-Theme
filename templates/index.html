@@ -9,42 +9,35 @@
 {% endblock main %}
 
 {#
-{% block main_nav %}
-    {{ macros::link_root(root=root, itself=true) }}
-    {{ macros::section_children(in_section=root, note_current=true) }}
-{% endblock main_nav %}
-{% block content %}
-    <main class="index {% if section.extra.class %}{{ section.extra.class }}{% endif %}">
-        {% block prepend_content %}
-            {% if section.extra.image_title %}
-                <img class="title"
-                     src="{{ section.extra.image_title }}"
-                     alt="{{ section.title }}">
-            {% elif section.extra.include_title %}
-                <h1>{{ section.title }}</h1>
-            {% endif %}
-        {% endblock prepend_content %}
-        {{ section.content | safe }}
-        {% block append_content %}
-            {% if section.extra.include_section %}
-                {% set included = get_section(path=section.extra.include_section) %}
-                <section class="section">
-                    <h1>{{ included.title }}</h1>
-                    {% for art in included.pages %}
-                        <article class="page">
-                            {% if art.extra.image_title %}
-                                <img class="title"
-                                     src="{{ art.permalink }}{{ art.extra.image_title }}"
-                                     alt="{{ art.title }} image title">
-                            {% elif art.title %}
-                                <h2>{{ art.title }}</h2>
-                            {% endif %}
-                            {{ art.content | safe }}
-                        </article>
-                    {% endfor %}
-                </section>
-            {% endif %}
-        {% endblock append_content %}
-    </main>
-{% endblock content %}
+<main class="index {% if section.extra.class %}{{ section.extra.class }}{% endif %}">
+    {% block prepend_content %}
+        {% if section.extra.image_title %}
+            <img class="title"
+                 src="{{ section.extra.image_title }}"
+                 alt="{{ section.title }}">
+        {% elif section.extra.include_title %}
+            <h1>{{ section.title }}</h1>
+        {% endif %}
+    {% endblock prepend_content %}
+    {% block append_content %}
+        {% if section.extra.include_section %}
+            {% set included = get_section(path=section.extra.include_section) %}
+            <section class="section">
+                <h1>{{ included.title }}</h1>
+                {% for art in included.pages %}
+                    <article class="page">
+                        {% if art.extra.image_title %}
+                            <img class="title"
+                                 src="{{ art.permalink }}{{ art.extra.image_title }}"
+                                 alt="{{ art.title }} image title">
+                        {% elif art.title %}
+                            <h2>{{ art.title }}</h2>
+                        {% endif %}
+                        {{ art.content | safe }}
+                    </article>
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% endblock append_content %}
+</main>
 #}

@@ -18,19 +18,3 @@
           </a>
     {% endfor %}
 {% endblock main %}
-
-{#
-TODO home icon
-{%- if index.extra.icon %}<i class="{{ index.extra.icon }}"></i>{% endif %}
-
-{% block global_vars %}
-    {% set root = get_section(path="_index.md", metadata_only=false) %}
-{% endblock global_vars %}
-{%- block title -%}
-    {{ config.title }} - HTTP 404
-{%- endblock title -%}
-{% block main_nav -%}
-    {{ macros::link_root(root=root) }}
-    {{ macros::section_children(in_section=root) }}
-{%- endblock main_nav %}
-#}

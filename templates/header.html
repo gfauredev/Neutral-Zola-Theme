@@ -66,9 +66,10 @@
         {{ lib::social_links(links=config.extra.social_links) }}
     {% endif %}
 </nav>
+{% block header_append %}
+{% endblock header_append %}
 
 {#
-            {% block prepend_header %}
                 {% if config.extra.logo %}
                     <a href="{{ root.permalink | safe }}">
                         {% set resized_logo = resize_image(path=config.extra.logo, height=250, op="fit_height", format="webp") %}
@@ -79,14 +80,4 @@
                              alt="Logo">
                     </a>
                 {% endif %}
-            {% endblock prepend_header %}
-            {% block header %}
-            {% endblock header %}
-            {% block append_header %}
-                {% if config.title %}
-                    <a href="{{ root.permalink | safe }}">
-                        <h1 class="title">{{ config.title }}</h1>
-                    </a>
-                {% endif %}
-            {% endblock append_header %}
 #}

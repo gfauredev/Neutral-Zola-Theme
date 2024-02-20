@@ -37,17 +37,6 @@
     </script>
 {% endblock head_append %}
 {#
-        {% block prepend_head %}
-            <meta charset="utf-8">
-            <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        {% endblock prepend_head %}
-        {% block metas %}
-            {% if config.description %}
-                <meta name="description"
-                      content="{% block description %}{{ config.description }}{% endblock %}">
-            {% endif %}
-            {% if config.author %}<meta name="author" content="{{ config.extra.author }}">{% endif %}
-        {% endblock metas %}
         {% block custom_meta %}
             {% if config.extra.meta %}
                 {% for meta in config.extra.meta %}
@@ -55,11 +44,6 @@
                 {% endfor %}
             {% endif %}
         {% endblock custom_meta %}
-        <title>
-            {%- block title -%}
-                {{ config.title }}
-            {%- endblock title -%}
-        </title>
         {% block links %}
             {% if config.extra.links %}
                 {% for link in config.extra.links %}
@@ -83,6 +67,4 @@
                 {% endfor %}
             {% endif %}
         {% endblock scripts %}
-        {% block append_head %}
-        {% endblock append_head %}
 #}
