@@ -1,2 +1,2 @@
 echo "Use --reformat to format"
-djlint templates/*.html --indent 2
+djlint templates/*.html --indent 2 "$@"

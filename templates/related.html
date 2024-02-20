@@ -1,19 +1,19 @@
 {# TODO replace this with macro(s) #}
 <footer>
   {% for taxonomy in config.taxonomies %}
-  {% if page.taxonomies[taxonomy.name] %}
-  {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
-  <h1>
-    {{ lib::related_icon(word=taxonomy.name) }}
-    {{ taxonomy.name | capitalize }}
-  </h1>
-  <ul class="terms">
-    {% for term in taxonomy.items %}
-    <li>
-      <a href="{{ term.permalink | safe }}">{{ term.name }} ({{ term.pages | length }})</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+    {% if page.taxonomies[taxonomy.name] %}
+      {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
+      <h1>
+        {{ lib::related_icon(word=taxonomy.name) }}
+        {{ taxonomy.name | capitalize }}
+      </h1>
+      <ul class="terms">
+        {% for term in taxonomy.items %}
+          <li>
+            <a href="{{ term.permalink | safe }}">{{ term.name }} ({{ term.pages | length }})</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   {% endfor %}
 </footer>

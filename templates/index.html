@@ -1,13 +1,12 @@
 {% extends "section.html" %}
 {% block main %}
-    {% if section.content %}
-        <section>
-            {{ section.content | safe }}
-        </section>
-    {% endif %}
-    {% include "subpages.html" %}
+  {% if section.content %}
+    <section>
+      {{ section.content | safe }}
+    </section>
+  {% endif %}
+  {% include "subpages.html" %}
 {% endblock main %}
-
 {#
 <main class="index {% if section.extra.class %}{{ section.extra.class }}{% endif %}">
     {% block prepend_content %}

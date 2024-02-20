@@ -1,74 +1,71 @@
 {# TODO macros macros macros #}
 <nav>
-    {# Translations #}
-    {% if translations %}
-        {% if translations | length > 1 %}
-            {% for translation in translations %}
-                {% if translation.lang == lang %}
-                    {% if translations[loop.index] %}
-                        {% set proposedTranslation = translations[loop.index] %}
-                    {% else %}
-                        {% set proposedTranslation = translations.0 %}
-                    {% endif %}
-                    <a href="{{ proposedTranslation.permalink }}"
-                       aria-label="{{ proposedTranslation.lang }}">
-                        <i class="{{ icons.translation | default(value="missing-icon") }}"></i>
-                        {{ proposedTranslation.lang }}
-                    </a>
-                    {% break %}
-                {% endif %}
-            {% endfor %}
+  {# Translations #}
+  {% if translations %}
+    {% if translations | length > 1 %}
+      {% for translation in translations %}
+        {% if translation.lang == lang %}
+          {% if translations[loop.index] %}
+            {% set proposedTranslation = translations[loop.index] %}
+          {% else %}
+            {% set proposedTranslation = translations.0 %}
+          {% endif %}
+          <a href="{{ proposedTranslation.permalink }}"
+             aria-label="{{ proposedTranslation.lang }}">
+            <i class="{{ icons.translation | default(value="missing-icon") }}"></i>
+            {{ proposedTranslation.lang }}
+          </a>
+          {% break %}
         {% endif %}
+      {% endfor %}
     {% endif %}
-    {# Index #}
-    {% if permalink | default(value="404")==index.permalink %}
+  {% endif %}
+  {# Index #}
+  {% if permalink | default(value="404")==index.permalink %}
+    <span id="current">
+      {{ lib::related_icon(word=index.title) }}
+      {{ index.title }}
+    </span>
+  {% else %}
+    <a aria-label="{{ index.title }}" href="{{ index.permalink | safe }}">
+      {{ lib::related_icon(word=index.title) }}
+      {{ index.title }}
+    </a>
+  {% endif %}
+  {# Taxonomies #}
+  {% for taxonomy in config.taxonomies %}
+    {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
+    {% if permalink | default(value="404")==taxonomy.permalink %}
       <span id="current">
-          {{ lib::related_icon(word=index.title) }}
-          {{ index.title }}
+        {{ lib::related_icon(word=taxonomy.name) }}
+        {{ taxonomy.name }}
       </span>
     {% else %}
-      <a aria-label="{{ index.title }}" href="{{ index.permalink | safe }}">
-          {{ lib::related_icon(word=index.title) }}
-          {{ index.title }}
+      <a aria-label="{{ taxonomy.name }}" href="{{ taxonomy.permalink }}">
+        {{ lib::related_icon(word=taxonomy.name) }}
+        {{ taxonomy.name }}
       </a>
     {% endif %}
-    {# Taxonomies #}
-    {% for taxonomy in config.taxonomies %}
-        {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
-        {% if permalink | default(value="404")==taxonomy.permalink %}
-            <span id="current">
-                {{ lib::related_icon(word=taxonomy.name) }}
-                {{ taxonomy.name }}
-            </span>
-        {% else %}
-            <a aria-label="{{ taxonomy.name }}" href="{{ taxonomy.permalink }}">
-                {{ lib::related_icon(word=taxonomy.name) }}
-                {{ taxonomy.name }}
-            </a>
-        {% endif %}
-    {% endfor %}
-    {# Subsections #}
-    {% for subsection in index.subsections %}
-        {% if loop.index >= 3 %}
-            {% break %}
-        {% endif %}
-        {% set subsection = get_section(path=subsection, metadata_only=true) %}
-        {# TODO make it work for parent section when rendering a child page #}
-        <a aria-label="{{ subsection.title }}"
-           {% if permalink==subsection.permalink %}id="current"{% endif %}
-           href="{{ subsection.permalink | safe }}">
-            {% if subsection.extra.icon %}<i class="{{ subsection.extra.icon }}"></i>{% endif %}
-            {{ subsection.title }}
-        </a>
-    {% endfor %}
-    {# Social links #}
-    {% if config.extra.social_links %}
-        {{ lib::social_links(links=config.extra.social_links) }}
+  {% endfor %}
+  {# Subsections #}
+  {% for subsection in index.subsections %}
+    {% if loop.index >= 3 %}
+      {% break %}
     {% endif %}
+    {% set subsection = get_section(path=subsection, metadata_only=true) %}
+    {# TODO make it work for parent section when rendering a child page #}
+    <a aria-label="{{ subsection.title }}"
+       {% if permalink==subsection.permalink %}id="current"{% endif %}
+       href="{{ subsection.permalink | safe }}">
+      {% if subsection.extra.icon %}<i class="{{ subsection.extra.icon }}"></i>{% endif %}
+      {{ subsection.title }}
+    </a>
+  {% endfor %}
+  {# Social links #}
+  {% if config.extra.social_links %}{{ lib::social_links(links=config.extra.social_links) }}{% endif %}
 </nav>
 {% block header_append %}
 {% endblock header_append %}
-
 {#
                 {% if config.extra.logo %}
                     <a href="{{ root.permalink | safe }}">

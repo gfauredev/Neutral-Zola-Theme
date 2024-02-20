@@ -1,22 +1,24 @@
 {% extends "base.html" %}
 {% block config %}
-    {% set lang = page.lang %}
-    {% set permalink = page.permalink %}
-    {% if page.translations %}
-        {% set translations = page.translations %}
-    {% endif %}
-    {% set title = page.title %}
-    {% set description = page.description %}
-    {% set toc = page.toc %}
-    {% set ancestors = page.ancestors %}
+  {% set lang = page.lang %}
+  {% set permalink = page.permalink %}
+  {% if page.translations %}
+    {% set translations = page.translations %}
+  {% endif %}
+  {% set title = page.title %}
+  {% set description = page.description %}
+  {% set toc = page.toc %}
+  {% set ancestors = page.ancestors %}
 {% endblock config %}
 {% block main %}
-    {% include "info.html" %}
-    {% include "toc.html" %}
-    {% if page.content %}
-        <section>{{ page.content | safe }}</section>
-    {% endif %}
-    {% include "related.html" %}
+  {% include "info.html" %}
+  {% include "toc.html" %}
+  {% if page.content %}
+    <section>
+      {{ page.content | safe }}
+    </section>
+  {% endif %}
+  {% include "related.html" %}
 {% endblock main %}
 {#
     <main class="page {% if section.extra.class %}{{ section.extra.class }}{% endif %}">

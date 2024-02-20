@@ -1,89 +1,89 @@
 {# #}
 {% macro social_links(links) %}
-    {% set platforms = load_data(path="data/social_platform.yml", required=false) %}
-    {% if not platforms %}
-      {% set platforms = load_data(path=config.extra.path~"/data/social_platform.yml") %}
-    {% endif %}
-    <ul class="social-links">
-        {% for name, id in links %}
-            {% set name = name | lower %}
-            {% set platform = platforms[name] %}
-            <li>
-                <a class="{{ name }}"
-                   href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
-                   target="_blank"
-                   aria-label="{{ platform.name }}">
-                   <i class="{{ platform.icon }}"></i>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+  {% set platforms = load_data(path="data/social_platform.yml", required=false) %}
+  {% if not platforms %}
+    {% set platforms = load_data(path=config.extra.path~"/data/social_platform.yml") %}
+  {% endif %}
+  <ul class="social-links">
+    {% for name, id in links %}
+      {% set name = name | lower %}
+      {% set platform = platforms[name] %}
+      <li>
+        <a class="{{ name }}"
+           href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
+           target="_blank"
+           aria-label="{{ platform.name }}">
+          <i class="{{ platform.icon }}"></i>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
 {% endmacro %}
 {# #}
 {% macro link_root(root, itself=false) %}
-    {% if root.title %}
-        <li class="index">
-            <a aria-label="Link to {{ root.title }}"
-               {%- if itself %}id="current"{%- endif %}
-               href="{{ root.permalink | safe }}"><i>{{ root.title }}</i>
-            </a>
-        </li>
-    {% endif %}
+  {% if root.title %}
+    <li class="index">
+      <a aria-label="Link to {{ root.title }}"
+         {%- if itself %}id="current"{%- endif %}
+         href="{{ root.permalink | safe }}"><i>{{ root.title }}</i>
+      </a>
+    </li>
+  {% endif %}
 {% endmacro %}
 {# #}
 {% macro section_children(in_section, self_ancestors="", note_current=false) %}
-    {% if in_section.subsections %}
-        {% for sub_path in in_section.subsections %}
-            {% set sub = get_section(path=sub_path, metadata_only=true) %}
-            {% if sub.extra.menu | default(value=true) %}
-                <li class="section">
-                    <a aria-label="Link to {{ sub.title }}"
-                       {%- if note_current -%}
-                       {%- if current_path == sub.path or sub_path in self_ancestors %}id="current"{%- endif %}
-                       {%- endif %}
-                       href="{{ sub.permalink | safe }}"><i>{{ sub.title }}</i>
-                    </a>
-                </li>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    {% if in_section.pages %}
-        {% for page in in_section.pages %}
-            <li class="page">
-                <a aria-label="Link to {{ page.title }}"
-                   {%- if note_current -%}
-                   {%- if current_path == page.path %}id="current"{%- endif %}
-                   {%- endif %}
-                   href="{{ page.permalink | safe }}"><i>{{ page.title }}</i>
-                </a>
-            </li>
-        {% endfor %}
-    {% endif %}
+  {% if in_section.subsections %}
+    {% for sub_path in in_section.subsections %}
+      {% set sub = get_section(path=sub_path, metadata_only=true) %}
+      {% if sub.extra.menu | default(value=true) %}
+        <li class="section">
+          <a aria-label="Link to {{ sub.title }}"
+             {%- if note_current -%}
+             {%- if current_path == sub.path or sub_path in self_ancestors %}id="current"{%- endif %}
+             {%- endif %}
+             href="{{ sub.permalink | safe }}"><i>{{ sub.title }}</i>
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% if in_section.pages %}
+    {% for page in in_section.pages %}
+      <li class="page">
+        <a aria-label="Link to {{ page.title }}"
+           {%- if note_current -%}
+           {%- if current_path == page.path %}id="current"{%- endif %}
+           {%- endif %}
+           href="{{ page.permalink | safe }}"><i>{{ page.title }}</i>
+        </a>
+      </li>
+    {% endfor %}
+  {% endif %}
 {% endmacro %}
 {# #}
 {% macro section_articles(in_section) %}
-    {% if in_section.pages %}
-        {% for page in in_section.pages %}
-            <article class="page">
-                {% if page.extra.image_title %}
-                    <img class="title"
-                         src="{{ page.permalink }}{{ page.extra.image_title }}"
-                         alt="{{ page.title }} image title">
-                {% elif page.title and page.title | length > 0 %}
-                    <h1>{{ page.title }}</h1>
-                {% endif %}
-                {{ page.content | safe }}
-            </article>
-        {% endfor %}
-    {% endif %}
+  {% if in_section.pages %}
+    {% for page in in_section.pages %}
+      <article class="page">
+        {% if page.extra.image_title %}
+          <img class="title"
+               src="{{ page.permalink }}{{ page.extra.image_title }}"
+               alt="{{ page.title }} image title">
+        {% elif page.title and page.title | length > 0 %}
+          <h1>{{ page.title }}</h1>
+        {% endif %}
+        {{ page.content | safe }}
+      </article>
+    {% endfor %}
+  {% endif %}
 {% endmacro %}
 {# #}
 {% macro taxonomy_children(self) %}
 {% endmacro %}
 {# #}
 {% macro disqus(name, url, id) %}
-    <div id="disqus_thread"></div>
-    <script>
+  <div id="disqus_thread"></div>
+  <script>
     var disqus_config = function () {
       this.page.url = "{{ url | safe }}";
       this.page.identifier = {{ id }};
@@ -94,35 +94,33 @@
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
     })();
-    </script>
-    <noscript>
-        Please enable JavaScript to view the
-        <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-    </noscript>
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
 {% endmacro %}
 {# #}
 {% macro related_icon(word) %}
-    {# Retreive predefined icons #}
-    {% set icons = load_data(path="data/icon.yml", required=false) %}
-    {% if not icons %}
-        {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
-    {% endif %}
-    {# Slugify #}
-    {% set word = word | slugify %}
-    {# Output #}
-    <i class="{{ icons[word] | default(value="missing-icon") }}"></i>
+  {# Retreive predefined icons #}
+  {% set icons = load_data(path="data/icon.yml", required=false) %}
+  {% if not icons %}
+    {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
+  {% endif %}
+  {# Slugify #}
+  {% set word = word | slugify %}
+  {# Output #}
+  <i class="{{ icons[word] | default(value="missing-icon") }}"></i>
 {% endmacro %}
 {# #}
 {% macro return_top(class="return-top", label="return to the top") %}
-    {# Retreive predefined icons #}
-    {% set icons = load_data(path="data/icon.yml", required=false) %}
-    {% if not icons %}
-        {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
-    {% endif %}
-    {# Output #}
-    <a aria-label="{{ label | capitalize }}"
-       class="{{ class }}"
-       href="#top">
-       <i class="{{ icons[class] | default(value="missing-icon") }}">^</i>
-    </a>
+  {# Retreive predefined icons #}
+  {% set icons = load_data(path="data/icon.yml", required=false) %}
+  {% if not icons %}
+    {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
+  {% endif %}
+  {# Output #}
+  <a aria-label="{{ label | capitalize }}" class="{{ class }}" href="#top">
+    <i class="{{ icons[class] | default(value="missing-icon") }}">^</i>
+  </a>
 {% endmacro %}
