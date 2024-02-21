@@ -13,7 +13,6 @@
 {% endblock config %}
 {% block main %}
   {% include "info.html" %}
-  {% include "toc.html" %}
   {% if page.content %}
     <section>
       {{ page.content | safe }}

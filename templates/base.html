@@ -39,13 +39,24 @@
       {% block header_append %}
       {% endblock header_append %}
     </header>
-    <nav aria-label="{{ i18n.nav }}">
+    <nav id="nav" aria-label="{{ i18n.nav }}">
       {% block nav_prepend %}
       {% endblock nav_prepend %}
       {% include "nav.html" %}
       {% block nav_append %}
       {% endblock nav_append %}
     </nav>
+    {% if toc %}
+      {% if toc | length > 1 or toc[0].children %}
+        <nav id="toc" aria-label="{{ i18n.toc }}">
+          {% block toc_prepend %}
+          {% endblock toc_prepend %}
+          {{ lib::toc(toc=toc) }}
+          {% block toc_append %}
+          {% endblock toc_append %}
+        </nav>
+      {% endif %}
+    {% endif %}
     <main class="{{ self | default(value="404") }}">
       {% block main_prepend %}
       {% endblock main_prepend %}
