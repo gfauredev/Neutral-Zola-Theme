@@ -10,3 +10,6 @@
 # - src: https://cdn.jsdelivr.net/npm/ionicons@7/dist/esm/ionicons.min.js
 #   crossorigin: anonymous
 #   defer: true
+
+# TODO Allow importing JS modules like so
+# <script type="module"> import NAME from 'SRC' </script>

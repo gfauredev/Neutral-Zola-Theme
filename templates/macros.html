@@ -1,8 +1,8 @@
 {# #}
-{% macro file2tags(path, tag="link") %}
-  {% set data = load_data(path=path, required=false) %}
+{% macro file2tags(tag) %}
+  {% set data = load_data(path="include/" ~tag~ ".yml", required=false) %}
   {% if not data %}
-    {% set data = load_data(path=config.extra.path ~ "/" ~ path, required=false) %}
+    {% set data = load_data(path=config.extra.path~ "/include/" ~tag~ ".yml", required=false) %}
   {% endif %}
   {% if data %}
     {% for import in data %}
@@ -19,20 +19,20 @@
     {% if not platforms %}
       {% set platforms = load_data(path=config.extra.path~"/data/social_platform.yml") %}
     {% endif %}
-    <ul class="social-links">
+    {#<ul class="social-links">#}
       {% for name, id in links %}
         {% set name = name | lower %}
         {% set platform = platforms[name] %}
-        <li>
+        {#<li>#}
           <a class="{{ name }}"
              href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
              target="_blank"
              aria-label="{{ platform.name }}">
             <i class="{{ platform.icon }}">{{ platform.name }}</i>
           </a>
-        </li>
+        {#</li>#}
       {% endfor %}
-    </ul>
+    {#</ul>#}
   {% endmacro %}
   {# #}
   {% macro link_root(root, itself=false) %}
