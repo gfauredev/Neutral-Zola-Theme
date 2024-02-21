@@ -20,18 +20,18 @@
       {% set platforms = load_data(path=config.extra.path~"/data/social_platform.yml") %}
     {% endif %}
     {#<ul class="social-links">#}
-      {% for name, id in links %}
-        {% set name = name | lower %}
-        {% set platform = platforms[name] %}
-        {#<li>#}
-          <a class="{{ name }}"
-             href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
-             target="_blank"
-             aria-label="{{ platform.name }}">
-            <i class="{{ platform.icon }}">{{ platform.name }}</i>
-          </a>
-        {#</li>#}
-      {% endfor %}
+    {% for name, id in links %}
+      {% set name = name | lower %}
+      {% set platform = platforms[name] %}
+      {#<li>#}
+      <a class="{{ name }}"
+         href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
+         target="_blank"
+         aria-label="{{ platform.name }}">
+        <i class="{{ platform.icon }}">{{ platform.name }}</i>
+      </a>
+      {#</li>#}
+    {% endfor %}
     {#</ul>#}
   {% endmacro %}
   {# #}
