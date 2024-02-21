@@ -1,12 +1,17 @@
 {# Metadata #}
 <meta charset="utf-8">
-<title>{{ title }}</title>
-<meta name="description" content="{{ description }}">
-<meta name="author" content="{{ config.extra.author | default(value="") }}">
+<title>{{ title | default(value="Error 404") }}</title>
+{% if config.extra.author %}<meta name="author" content="{{ config.extra.author }}">{% endif %}
+{% if description %}
+  <meta name="description"
+        content="{{ description | default(value=config.description) }}">
+  <meta name="og:description"
+        content="{{ description | default(value=config.description) }}">
+{% endif %}
+<meta name="og:title" content="{{ title | default(value="Error 404") }}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{ config.title }}">
-<meta name="og:title" content="{{ title }}">
-<meta name="og:description" content="{{ description }}" />
+{% if permalink %}<meta name="og:url" content="{{ permalink }}">{% endif %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {# Additional metadata #}
 {{ lib::file2tags(tag="meta") }}

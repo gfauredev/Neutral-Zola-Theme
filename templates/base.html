@@ -9,19 +9,15 @@
   {% set index = get_section(path="_index."~lang~".md", metadata_only=true) %}
 {% endif %}
 {# Retreive template translations #}
-{% set i18n_data = load_data(path="data/i18n.yml", required=false) %}
-{% if not i18n_data %}
-  {% set i18n_data = load_data(path=config.extra.path~"/data/i18n.yml") %}
+{% set i18ns = load_data(path="data/i18n.yml", required=false) %}
+{% if not i18ns %}
+  {% set i18ns = load_data(path=config.extra.path~"/data/i18n.yml") %}
 {% endif %}
-{% set i18n = i18n_data[lang] %}
+{% set i18n = i18ns[lang] %}
 {# Retreive predefined icons #}
 {% set icons = load_data(path="data/icon.yml", required=false) %}
 {% if not icons %}
   {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
-{% endif %}
-{# Set fallback description #}
-{% if not description %}
-  {% set description = config.description %}
 {% endif %}
 {# The actual page #}
 <!DOCTYPE html>
@@ -50,7 +46,7 @@
       {% block nav_append %}
       {% endblock nav_append %}
     </nav>
-    <main>
+    <main class="{{ self | default(value="404") }}">
       {% block main_prepend %}
       {% endblock main_prepend %}
       {% block main %}

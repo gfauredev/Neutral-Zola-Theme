@@ -3,6 +3,7 @@
   {% set permalink = current_url %}
   {% set title = taxonomy.name %}
   {% set description = config.title ~ " : " ~ taxonomy.name %}
+  {% set self = "taxonomy" %}
 {% endblock config %}
 {# TODO factorize this with taxonomy_single with macro(s) #}
 {% block main %}

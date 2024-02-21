@@ -3,6 +3,7 @@
   {% set permalink = current_url %}
   {% set title = term.name %}
   {% set description = taxonomy.name ~ " : " ~ term.name %}
+  {% set self = "term" %}
 {% endblock config %}
 {# TODO factorize this with taxonomy_list or pages listing with macro(s) #}
 {% block main %}
@@ -12,7 +13,7 @@
     {{ taxonomy.name | capitalize }}&NonBreakingSpace;:
     {{ term.name }}
   </h1>
-  <ul class="term-pages">
+  <ul class="pages">
     {% for page in term.pages %}
       <li>
         <a href="{{ page.permalink | safe }}">

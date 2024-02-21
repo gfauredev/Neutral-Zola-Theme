@@ -9,6 +9,7 @@
   {% set description = section.description %}
   {% set toc = section.toc %}
   {% set ancestors = section.ancestors %}
+  {% set self = "section" %}
 {% endblock config %}
 {% block main %}
   {% include "toc.html" %}
@@ -18,7 +19,6 @@
     </section>
   {% endif %}
   {% include "subpages.html" %}
-  {% include "subsections.html" %}
 {% endblock main %}
 {#
 {% block prepend_content %}
