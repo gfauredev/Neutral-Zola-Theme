@@ -2,7 +2,7 @@
 {% if section.pages %}
   <section>
     {#<h2>{{ i18n.pages | capitalize }}</h2>#}
-    <ol class="pages">
+    <ol class="section-pages">
       {% for page in section.pages %}
         <li>
           <a aria-label="Link to {{ page.title }}"
