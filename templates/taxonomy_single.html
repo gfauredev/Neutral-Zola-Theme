@@ -4,32 +4,22 @@
   {% set title = term.name %}
   {% set description = taxonomy.name ~ " : " ~ term.name %}
 {% endblock config %}
-{# TODO factorize this with taxonomy_list with macro(s) #}
+{# TODO factorize this with taxonomy_list or pages listing with macro(s) #}
 {% block main %}
   <h1>
-    {% set slug = taxonomy.name | slugify %}
-    {% if config.extra.taxonomies_icons[slug] %}<i class="{{ config.extra.taxonomies_icons[slug] }}"></i>{% endif %}
-    {{ taxonomy.name | capitalize }} : {{ term.name }}
+    {{ term.pages | length }}
+    {{ lib::related_icon(word=taxonomy.name) }}
+    {{ taxonomy.name | capitalize }}&NonBreakingSpace;:
+    {{ term.name }}
   </h1>
-  <ul class="terms">
+  <ul class="pages">
     {% for page in term.pages %}
       <li>
-        <a href="{{ page.permalink | safe }}">{{ page.title }} ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time | pluralize }})</a>
+        <a href="{{ page.permalink | safe }}">
+          {{ page.title }}
+          ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time | pluralize }})
+        </a>
       </li>
     {% endfor %}
   </ul>
 {% endblock main %}
-{#
-{% for p in term.pages %}
-    <article>
-        <h2>
-            <a href='{{ p.permalink }}'>{{ p.title }}</a>
-        </h2>
-        <p class="summary">{{ p.summary | safe }}</p>
-        <a href='{{ p.permalink }}#continue-reading'>
-            <span>{{ tr.continue_reading }}</span>
-            <i class="fas fa-arrow-right fa-xs"></i>
-        </a>
-    </article>
-{% endfor %}
-#}

@@ -7,31 +7,17 @@
 {# TODO factorize this with taxonomy_single with macro(s) #}
 {% block main %}
   <h1>
-    {% set slug = title | slugify %}
-    {% if config.extra.taxonomies_icons[slug] %}<i class="{{ config.extra.taxonomies_icons[slug] }}"></i>{% endif %}
+    {{ terms | length }}
+    {{ lib::related_icon(word=title) }}
     {{ taxonomy.name | capitalize }}
   </h1>
   <ul class="terms">
+    {# set terms = terms | sort(attribute="name") #}
     {% for term in terms %}
       <li>
-        {% set len = term.pages | length %}
-        <a href="{{ term.permalink | safe }}">{{ term.name }} ({{ len }} {{ i18n.page }}{{ len | pluralize }})</a>
+        {% set pages_nb = term.pages | length %}
+        <a href="{{ term.permalink | safe }}">{{ term.name }} ({{ pages_nb }} {{ i18n.page }}{{ pages_nb | pluralize }})</a>
       </li>
     {% endfor %}
   </ul>
 {% endblock main %}
-{#
-{% block prepend_content %}
-    <h1>({{ terms | length }}) {{ taxonomy.name }}{{ terms | length | pluralize }}</h1>
-{% endblock prepend_content %}
-{{ macros::taxonomy_children(self=taxonomy, self_permalink=taxonomy.permalink) }}
-<ul class="terms">
-    {% for t in terms %}
-        <li>
-            <a href="{{ t.permalink }}">
-                <span>{{ t.name }} <sup>{{ t.pages | length }}</sup></span>
-            </a>
-        </li>
-    {% endfor %}
-</ul>
-#}

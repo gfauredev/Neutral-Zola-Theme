@@ -23,6 +23,7 @@ article: "fas fa-newspaper"
 articles: "fas fa-newspaper"
 news: "fas fa-newspaper"
 search: "fas fa-search"
+continue: "fas fa-arrow-right"
 
 # Français
 competence: "fas fa-lightbulb"
@@ -30,3 +31,4 @@ competences: "fas fa-lightbulb"
 accueil: "fas fa-house"
 actualites: "fas fa-newspaper"
 recherche: "fas fa-search"
+continuer: "fas fa-arrow-right"
