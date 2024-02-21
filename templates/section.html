@@ -21,31 +21,22 @@
   {% include "subsections.html" %}
 {% endblock main %}
 {#
-{% block main_nav %}
-    {{ macros::link_root(root=root) }}
-    {{ macros::section_children(in_section=root, self_ancestors=section.ancestors, note_current=true) }}
-{% endblock main_nav %}
-{% block content %}
-    <main class="section {% if section.extra.class %}{{ section.extra.class }}{% endif %}">
-        {% block prepend_content %}
-            {% if section.extra.image_title %}
-                <h1 style="display: none">{{ section.title }}</h1>
-                <img class="title"
-                     src="{{ section.extra.image_title }}"
-                     alt="{{ section.title }}">
-            {% elif section.extra.include_title %}
-                <h1>{{ section.title }}</h1>
-            {% else %}
-                <h1 style="display: none">{{ section.title }}</h1>
-            {% endif %}
-        {% endblock prepend_content %}
-        {{ section.content | safe }}
-        {% block append_content %}
-            <section class="children">
-                {% if section.title %}<h2 style="display: none">{{ section.title }}</h2>{% endif %}
-                {{ macros::section_articles(in_section=section) }}
-            </section>
-        {% endblock append_content %}
-    </main>
-{% endblock content %}
+{% block prepend_content %}
+    {% if section.extra.image_title %}
+        <h1 style="display: none">{{ section.title }}</h1>
+        <img class="title"
+             src="{{ section.extra.image_title }}"
+             alt="{{ section.title }}">
+    {% elif section.extra.include_title %}
+        <h1>{{ section.title }}</h1>
+    {% else %}
+        <h1 style="display: none">{{ section.title }}</h1>
+    {% endif %}
+{% endblock prepend_content %}
+{% block append_content %}
+    <section class="children">
+        {% if section.title %}<h2 style="display: none">{{ section.title }}</h2>{% endif %}
+        {{ macros::section_articles(in_section=section) }}
+    </section>
+{% endblock append_content %}
 #}

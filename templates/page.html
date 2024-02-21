@@ -21,21 +21,18 @@
   {% include "related.html" %}
 {% endblock main %}
 {#
-    <main class="page {% if section.extra.class %}{{ section.extra.class }}{% endif %}">
-        {% block prepend_content %}
-            {% if page.extra.image_title %}
-                <img class="title"
-                     src="{{ page.extra.image_title }}"
-                     alt="{{ page.title }} image title">
-            {% elif section.extra.include_title %}
-                <h1>{{ page.title }}</h1>
-            {% endif %}
-        {% endblock prepend_content %}
-        {{ page.content | safe }}
-        {% block append_content %}
-            {% if page.extra.disqus %}
-                {{ macros::disqus(name=config.extra.disqus, url=page.permalink, id=page.extra.disqus) }}
-            {% endif %}
-        {% endblock append_content %}
-    </main>
+{% block prepend_content %}
+    {% if page.extra.image_title %}
+        <img class="title"
+             src="{{ page.extra.image_title }}"
+             alt="{{ page.title }} image title">
+    {% elif section.extra.include_title %}
+        <h1>{{ page.title }}</h1>
+    {% endif %}
+{% endblock prepend_content %}
+{% block append_content %}
+    {% if page.extra.disqus %}
+        {{ macros::disqus(name=config.extra.disqus, url=page.permalink, id=page.extra.disqus) }}
+    {% endif %}
+{% endblock append_content %}
 #}
