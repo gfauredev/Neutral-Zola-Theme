@@ -14,8 +14,10 @@
                 <h2>{{ page.title }}</h2>
                 {% if page.description %}<p>{{ page.description }}</p>{% endif %}
               {% endif %}
-              <strong>{{ i18n.continue_reading | capitalize }} ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time | pluralize }})</strong>
             </article>
+            <strong class="continue-reading">
+              {{ i18n.continue_reading | capitalize }} ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time | pluralize }})
+            </strong>
           </a>
         </li>
       {% endfor %}
