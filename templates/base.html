@@ -70,7 +70,9 @@
         {% include "subpages.html" %}
       {% endblock main %}
       {% block main_append %}
-        {% include "related.html" %}
+        {% if page %}
+          {% include "related.html" %}
+        {% endif %}
       {% endblock main_append %}
     </main>
     <footer>
