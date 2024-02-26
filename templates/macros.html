@@ -134,6 +134,34 @@
   </footer>
 {% endmacro %}
 {# #}
+{% macro pages(i18n) %}
+  {% if section.pages %}
+    <section>
+      <h2>{{ i18n.pages | capitalize }}</h2>
+      <ol class="pages">
+        {% for page in section.pages %}
+          <li>
+            <a aria-label="Link to {{ page.title }}"
+               href="{{ page.permalink | safe }}#continue-reading">
+              <article>
+                {% if page.summary %}
+                  {{ page.summary | safe }}
+                {% else %}
+                  <h2>{{ page.title }}</h2>
+                  {% if page.description %}<p>{{ page.description }}</p>{% endif %}
+                {% endif %}
+              </article>
+              <strong class="continue-reading">
+                {{ i18n.continue_reading | capitalize }} ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time | pluralize }})
+              </strong>
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endif %}
+{% endmacro %}
+{# #}
 {% macro return_top(class="return-top", label="return to the top") %}
   {# Retreive predefined icons #}
   {% set icons = load_data(path="data/icon.yml", required=false) %}

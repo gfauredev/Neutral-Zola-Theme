@@ -18,7 +18,7 @@
       {{ section.content | safe }}
     </section>
   {% endif %}
-  {% include "subpages.html" %}
+  {{ lib::pages(i18n=i18n) }}
   {% block main_append %}
   {% endblock main_append %}
 {% endblock main %}
