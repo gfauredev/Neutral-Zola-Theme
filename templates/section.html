@@ -11,7 +11,7 @@
 {% endblock config %}
 {% block main %}
   {% block main_prepend %}
-    {% include "info.html" %}
+    {{ lib::info() }}
   {% endblock main_prepend %}
   {% if section.content %}
     <section>

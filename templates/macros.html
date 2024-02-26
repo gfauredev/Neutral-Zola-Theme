@@ -86,6 +86,33 @@
   {% endfor %}
 {% endmacro %}
 {# #}
+{% macro info() %}
+  <header class="info">
+    {% if ancestors %}
+      <ol class="breadcrumb">
+        {% for ancestor in ancestors %}
+          {% set ancestor = get_section(path=ancestor, metadata_only=true) %}
+          <li>
+            <a href="{{ ancestor.permalink | safe }}">{{ ancestor.title }}</a>
+          </li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+    {% if page %}
+      {% if page.date %}
+        <time class="published" datetime="{{ page.date }}">
+          {{ page.date|date(format="%d/%m/%Y") }}
+        </time>
+      {% endif %}
+      {% if page.updated %}
+        <time class="updated" datetime="{{ page.updated }}">
+          {{ page.updated|date(format="%d/%m/%Y") }}
+        </time>
+      {% endif %}
+    {% endif %}
+  </header>
+{% endmacro %}
+{# #}
 {% macro return_top(class="return-top", label="return to the top") %}
   {# Retreive predefined icons #}
   {% set icons = load_data(path="data/icon.yml", required=false) %}
