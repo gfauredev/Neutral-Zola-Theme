@@ -1,6 +1,9 @@
 {% import "macros.html" as lib %}
 {# Retreive configuration variables #}
 {% block config %}
+  {% if not permalink %}
+    {% set permalink = "404" %}
+  {% endif %}
 {% endblock config %}
 {# Retreive site index with proper language #}
 {% if lang == config.default_language %}
@@ -95,16 +98,16 @@
         {# Translations #}
         {{ lib::next_translation(translations=translations | default(value=[]) ) }}
         {# Index #}
-        {{ lib::nav_link(title=index.title, this_permalink=index.permalink) }}
+        {{ lib::nav_link(title=index.title, permalink=permalink, link_permalink=index.permalink) }}
         {# Taxonomies #}
         {% for taxonomy in config.taxonomies %}
           {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
-          {{ lib::nav_link(title=taxonomy.name, this_permalink=taxonomy.permalink) }}
+          {{ lib::nav_link(title=taxonomy.name, permalink=permalink, link_permalink=taxonomy.permalink) }}
         {% endfor %}
         {# Subsections #}
         {% for subsection in index.subsections %}
           {% set subsection = get_section(path=subsection, metadata_only=true) %}
-          {{ lib::nav_link(title=subsection.title, this_permalink=subsection.permalink) }}
+          {{ lib::nav_link(title=subsection.title, permalink=permalink, link_permalink=subsection.permalink) }}
         {% endfor %}
         {# Social links #}
         {{ lib::social_links(links=config.extra.social_links | default(value=[]) ) }}

@@ -45,14 +45,14 @@
   <i class="{{ icons[word] | default(value="missing-icon") }}"></i>
 {% endmacro %}
 {# #}
-{% macro nav_link(title, this_permalink) %}
-  {% if permalink | default(value="404") == this_permalink %}
+{% macro nav_link(title, permalink, link_permalink) %}
+  {% if permalink == link_permalink %}
     <span id="current">
       {{ lib::related_icon(word=title) }}
       {{ title }}
     </span>
   {% else %}
-    <a aria-label="{{ title }}" href="{{ this_permalink }}">
+    <a aria-label="{{ title }}" href="{{ link_permalink }}">
       {{ lib::related_icon(word=title) }}
       {{ title }}
     </a>
