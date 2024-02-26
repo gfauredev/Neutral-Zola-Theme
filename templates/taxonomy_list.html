@@ -5,7 +5,6 @@
   {% set description = config.title ~ " : " ~ taxonomy.name %}
   {% set self = "taxonomy" %}
 {% endblock config %}
-{# TODO factorize this with taxonomy_single with macro(s) #}
 {% block main %}
   <h1>
     {{ terms | length }}
@@ -13,7 +12,6 @@
     {{ taxonomy.name | capitalize }}
   </h1>
   <ul class="terms">
-    {# set terms = terms | sort(attribute="name") #}
     {% for term in terms %}
       <li>
         {% set pages_nb = term.pages | length %}

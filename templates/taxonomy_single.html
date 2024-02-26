@@ -5,7 +5,6 @@
   {% set description = taxonomy.name ~ " : " ~ term.name %}
   {% set self = "term" %}
 {% endblock config %}
-{# TODO factorize this with taxonomy_list or pages listing with macro(s) #}
 {% block main %}
   <h1>
     {{ term.pages | length }}
