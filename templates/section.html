@@ -9,11 +9,21 @@
   {% set description = section.description %}
   {% set toc = section.toc %}
   {% set ancestors = section.ancestors %}
-  {% if section.content %}
-    {% set content = section.content %}
-  {% endif %}
   {% set self = "section" %}
 {% endblock config %}
+{% block main %}
+  {% block main_prepend %}
+    {% include "info.html" %}
+  {% endblock main_prepend %}
+  {% if section.content %}
+    <section>
+      {{ section.content | safe }}
+    </section>
+  {% endif %}
+  {% include "subpages.html" %}
+  {% block main_append %}
+  {% endblock main_append %}
+{% endblock main %}
 {#
 {% block prepend_content %}
     {% if section.extra.image_title %}

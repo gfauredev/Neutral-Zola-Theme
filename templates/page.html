@@ -10,10 +10,20 @@
   {% set toc = page.toc %}
   {% set ancestors = page.ancestors %}
   {% set self = "page" %}
-  {% if page.content %}
-    {% set content = page.content %}
-  {% endif %}
 {% endblock config %}
+{% block main %}
+  {% block main_prepend %}
+    {% include "info.html" %}
+  {% endblock main_prepend %}
+  {% if page.content %}
+    <section>
+      {{ page.content | safe }}
+    </section>
+  {% endif %}
+  {% block main_append %}
+    {% include "related.html" %}
+  {% endblock main_append %}
+{% endblock main %}
 {#
 {% block prepend_content %}
     {% if page.extra.image_title %}

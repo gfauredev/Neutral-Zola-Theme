@@ -58,22 +58,8 @@
       {% endif %}
     {% endif %}
     <main class="{{ self | default(value="404") }}">
-      {% block main_prepend %}
-        {% include "info.html" %}
-      {% endblock main_prepend %}
       {% block main %}
-        {% if content %}
-          <section>
-            {{ content | safe }}
-          </section>
-        {% endif %}
-        {% include "subpages.html" %}
       {% endblock main %}
-      {% block main_append %}
-        {% if page %}
-          {% include "related.html" %}
-        {% endif %}
-      {% endblock main_append %}
     </main>
     <footer>
       <ul>
