@@ -1,21 +1,5 @@
 {# Translations #}
-{% if translations %}
-  {% for translation in translations %}
-    {% if translation.lang == lang %}
-      {% if translations[loop.index] %}
-        {% set proposedTranslation = translations[loop.index] %}
-      {% else %}
-        {% set proposedTranslation = translations.0 %}
-      {% endif %}
-      <a href="{{ proposedTranslation.permalink }}"
-         aria-label="{{ proposedTranslation.lang }}">
-        <i class="{{ icons.translation | default(value="missing-icon") }}"></i>
-        {{ proposedTranslation.lang }}
-      </a>
-      {% break %}
-    {% endif %}
-  {% endfor %}
-{% endif %}
+{{ lib::next_translation(translations=translations | default(value=[]) ) }}
 {# Index #}
 {{ lib::nav_link(title=index.title, this_permalink=index.permalink) }}
 {# Taxonomies #}

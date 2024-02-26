@@ -6,7 +6,7 @@
   {% endif %}
   {% if data %}
     {% for import in data %}
-      <{{ tag }}{%- for key, value in import %} {{ key | safe }}="{{ value | safe }}"{%- endfor -%}>
+      <{{ tag }}{%- for key, value in import %} {{ key }}="{{ value }}"{%- endfor -%}>
       {% if tag == "script" %}</script>{% endif %}
     {% endfor %}
   {% endif %}
@@ -23,7 +23,7 @@
     {% set platform = platforms[name] %}
     {#<li>#}
     <a class="{{ name }}"
-       href="{{ platform.href | replace(from='$ID', to=id) | safe }}"
+       href="{{ platform.href | replace(from='$ID', to=id) }}"
        target="_blank"
        aria-label="{{ platform.name }}">
       <i class="{{ platform.icon }}">{{ platform.name }}</i>
@@ -45,29 +45,6 @@
   <i class="{{ icons[word] | default(value="missing-icon") }}"></i>
 {% endmacro %}
 {# #}
-{% macro return_top(class="return-top", label="return to the top") %}
-  {# Retreive predefined icons #}
-  {% set icons = load_data(path="data/icon.yml", required=false) %}
-  {% if not icons %}
-    {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
-  {% endif %}
-  {# Output #}
-  <a aria-label="{{ label | capitalize }}" class="{{ class }}" href="#top">
-    <i class="{{ icons[class] | default(value="missing-icon") }}">^</i>
-  </a>
-{% endmacro %}
-{# #}
-{% macro toc(toc, depth=3) %}
-  <ol>
-    {% for h in toc %}
-      <li>
-        <a href="{{ h.permalink | safe }}">{{ h.title }}</a>
-        {% if h.children %}{{ self::toc(toc=h.children, depth=depth-1) }}{% endif %}
-      </li>
-    {% endfor %}
-  </ol>
-{% endmacro %}
-{# #}
 {% macro nav_link(title, this_permalink) %}
   {% if permalink | default(value="404") == this_permalink %}
     <span id="current">
@@ -82,6 +59,45 @@
   {% endif %}
 {% endmacro %}
 {# #}
+{% macro toc(toc, depth=3) %}
+  <ol>
+    {% for h in toc %}
+      <li>
+        <a href="{{ h.permalink }}">{{ h.title }}</a>
+        {% if h.children %}{{ self::toc(toc=h.children, depth=depth-1) }}{% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+{% endmacro %}
+{# #}
+{% macro next_translation(translations) %}
+  {% for translation in translations %}
+    {% if translation.lang == lang and translations[loop.index] %}
+      {% set translation = translations[loop.index] %}
+    {% else %}
+      {% set translation = translations.0 %}
+    {% endif %}
+    <a aria-label="{{ translation.lang }}"
+       href="{{ translation.permalink }}">
+      {{ lib::related_icon(word="translation") }}
+      {{ translation.lang }}
+    </a>
+    {% break %}
+  {% endfor %}
+{% endmacro %}
+{# #}
+{% macro return_top(class="return-top", label="return to the top") %}
+  {# Retreive predefined icons #}
+  {% set icons = load_data(path="data/icon.yml", required=false) %}
+  {% if not icons %}
+    {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
+  {% endif %}
+  {# Output #}
+  <a aria-label="{{ label | capitalize }}" class="{{ class }}" href="#top">
+    <i class="{{ icons[class] | default(value="missing-icon") }}">^</i>
+  </a>
+{% endmacro %}
+{#
 {% macro link_root(root, itself=false) %}
   {% if root.title %}
     <li class="index">
@@ -94,68 +110,39 @@
 {% endmacro %}
 {# #}
 {% macro section_children(in_section, self_ancestors="", note_current=false) %}
-  {% if in_section.subsections %}
-    {% for sub_path in in_section.subsections %}
-      {% set sub = get_section(path=sub_path, metadata_only=true) %}
-      {% if sub.extra.menu | default(value=true) %}
-        <li class="section">
-          <a aria-label="Link to {{ sub.title }}"
-             {%- if note_current -%}
-             {%- if current_path == sub.path or sub_path in self_ancestors %}id="current"{%- endif %}
-             {%- endif %}
-             href="{{ sub.permalink | safe }}"><i>{{ sub.title }}</i>
-          </a>
-        </li>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-  {% if in_section.pages %}
-    {% for page in in_section.pages %}
-      <li class="page">
-        <a aria-label="Link to {{ page.title }}"
-           {%- if note_current -%}
-           {%- if current_path == page.path %}id="current"{%- endif %}
-           {%- endif %}
-           href="{{ page.permalink | safe }}"><i>{{ page.title }}</i>
-        </a>
-      </li>
-    {% endfor %}
-  {% endif %}
+{% if in_section.subsections %}
+{% for sub_path in in_section.subsections %}
+{% set sub = get_section(path=sub_path, metadata_only=true) %}
+{% if sub.extra.menu | default(value=true) %}
+<li class="section">
+<a aria-label="Link to {{ sub.title }}" {%- if note_current -%} {%- if current_path == sub.path or sub_path in self_ancestors %}id="current"{%- endif %} {%- endif %} href="{{ sub.permalink | safe }}"><i>{{ sub.title }}</i>
+</a>
+</li>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if in_section.pages %}
+{% for page in in_section.pages %}
+<li class="page">
+<a aria-label="Link to {{ page.title }}" {%- if note_current -%} {%- if current_path == page.path %}id="current"{%- endif %} {%- endif %} href="{{ page.permalink | safe }}"><i>{{ page.title }}</i>
+</a>
+</li>
+{% endfor %}
+{% endif %}
 {% endmacro %}
 {# #}
 {% macro section_articles(in_section) %}
-  {% if in_section.pages %}
-    {% for page in in_section.pages %}
-      <article class="page">
-        {% if page.extra.image_title %}
-          <img class="title"
-               src="{{ page.permalink }}{{ page.extra.image_title }}"
-               alt="{{ page.title }} image title">
-        {% elif page.title and page.title | length > 0 %}
-          <h1>{{ page.title }}</h1>
-        {% endif %}
-        {{ page.content | safe }}
-      </article>
-    {% endfor %}
-  {% endif %}
+{% if in_section.pages %}
+{% for page in in_section.pages %}
+<article class="page">
+{% if page.extra.image_title %}
+<img class="title" src="{{ page.permalink }}{{ page.extra.image_title }}" alt="{{ page.title }} image title">
+{% elif page.title and page.title | length > 0 %}
+<h1>{{ page.title }}</h1>
+{% endif %}
+{{ page.content | safe }}
+</article>
+{% endfor %}
+{% endif %}
 {% endmacro %}
-{# #}
-{% macro disqus(name, url, id) %}
-  <div id="disqus_thread"></div>
-  <script>
-    var disqus_config = function () {
-      this.page.url = "{{ url | safe }}";
-      this.page.identifier = {{ id }};
-    };
-    (function() {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://{{ name | safe }}.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
-  </script>
-  <noscript>
-    Please enable JavaScript to view the
-    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-  </noscript>
-{% endmacro %}
+#}
