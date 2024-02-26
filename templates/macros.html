@@ -1,7 +1,4 @@
 {# #}
-{% macro macro_template(param="default") %}
-{% endmacro %}
-{# #}
 {% macro file2tags(tag) %}
   {% set data = load_data(path="include/" ~tag~ ".yml", required=false) %}
   {% if not data %}
@@ -69,6 +66,20 @@
       </li>
     {% endfor %}
   </ol>
+{% endmacro %}
+{# #}
+{% macro nav_link(title, this_permalink) %}
+  {% if permalink | default(value="404") == this_permalink %}
+    <span id="current">
+      {{ lib::related_icon(word=title) }}
+      {{ title }}
+    </span>
+  {% else %}
+    <a aria-label="{{ title }}" href="{{ this_permalink }}">
+      {{ lib::related_icon(word=title) }}
+      {{ title }}
+    </a>
+  {% endif %}
 {% endmacro %}
 {# #}
 {% macro link_root(root, itself=false) %}
