@@ -50,6 +50,8 @@
                 hreflang="{{ translation.lang }}"
                 href="{{ translation.permalink }}">
         {% endfor %}
+        {# Disable auto translation, we have our own #}
+        <meta name="google" content="notranslate">
       {% endif %}
       {# Icons 16×16, 32×32, (48×48), (64×64) #}
       <link rel="icon" href="/favicon.ico" sizes="any">
