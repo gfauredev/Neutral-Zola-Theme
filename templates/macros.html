@@ -221,4 +221,22 @@
 {% endfor %}
 {% endif %}
 {% endmacro %}
+{% macro include_section(in_section) %}
+{% if section.extra.include_section %}
+{% set included = get_section(path=section.extra.include_section) %}
+<section class="section">
+<h1>{{ included.title }}</h1>
+{% for art in included.pages %}
+<article class="page">
+{% if art.extra.image_title %}
+<img class="title" src="{{ art.permalink }}{{ art.extra.image_title }}" alt="{{ art.title }} image title">
+{% elif art.title %}
+<h2>{{ art.title }}</h2>
+{% endif %}
+{{ art.content | safe }}
+</article>
+{% endfor %}
+</section>
+{% endif %}
+{% endmacro %}
 #}

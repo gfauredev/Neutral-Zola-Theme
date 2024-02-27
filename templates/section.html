@@ -19,23 +19,3 @@
 {% block main_append %}
   {{ lib::pages(i18n=i18n) }}
 {% endblock main_append %}
-{#
-{% block prepend_content %}
-    {% if section.extra.image_title %}
-        <h1 style="display: none">{{ section.title }}</h1>
-        <img class="title"
-             src="{{ section.extra.image_title }}"
-             alt="{{ section.title }}">
-    {% elif section.extra.include_title %}
-        <h1>{{ section.title }}</h1>
-    {% else %}
-        <h1 style="display: none">{{ section.title }}</h1>
-    {% endif %}
-{% endblock prepend_content %}
-{% block append_content %}
-    <section class="children">
-        {% if section.title %}<h2 style="display: none">{{ section.title }}</h2>{% endif %}
-        {{ macros::section_articles(in_section=section) }}
-    </section>
-{% endblock append_content %}
-#}
