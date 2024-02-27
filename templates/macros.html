@@ -74,8 +74,10 @@
   {% for translation in translations %}
     {% if translation.lang == lang and translations[loop.index] %}
       {% set translation = translations[loop.index] %}
-    {% else %}
+    {% elif translations.0.lang != lang %}
       {% set translation = translations.0 %}
+    {% else %}
+      {% break %}
     {% endif %}
     <a aria-label="{{ translation.lang }}"
        href="{{ translation.permalink }}">
