@@ -119,7 +119,7 @@
       <div class="center">
         <main class="{{ self | default(value="404") }}">
           {% block main_prepend %}
-            {{ lib::info() }}
+            {{ lib::info(i18n=i18n) }}
           {% endblock main_prepend %}
           {% block main %}
           {% endblock main %}

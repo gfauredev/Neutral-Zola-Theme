@@ -86,7 +86,7 @@
   {% endfor %}
 {% endmacro %}
 {# #}
-{% macro info() %}
+{% macro info(i18n) %}
   {% if ancestors or page %}
     <header class="info">
       {% if ancestors %}
@@ -102,12 +102,12 @@
       {% if page %}
         {% if page.date %}
           <time class="published" datetime="{{ page.date }}">
-            {{ page.date|date(format="%d/%m/%Y") }}
+            {{ i18n.published | capitalize }}&nbsp;{{ page.date|date(format="%d/%m/%Y") }}
           </time>
         {% endif %}
         {% if page.updated %}
           <time class="updated" datetime="{{ page.updated }}">
-            {{ page.updated|date(format="%d/%m/%Y") }}
+            {{ i18n.last_updated | capitalize }}&nbsp;{{ page.updated|date(format="%d/%m/%Y") }}
           </time>
         {% endif %}
       {% endif %}
