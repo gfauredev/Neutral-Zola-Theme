@@ -115,27 +115,29 @@
       {% block nav_append %}
       {% endblock nav_append %}
     </nav>
-    <div class="main-content">
-      {% if toc %}
-        {% if toc | length > 1 or toc[0].children %}
-          <nav id="TOC" aria-label="{{ i18n.toc }}">
-            {% block toc_prepend %}
-            {% endblock toc_prepend %}
-            {{ lib::toc(toc=toc) }}
-            {% block toc_append %}
-            {% endblock toc_append %}
-          </nav>
+    <div class="overbox">
+      <div class="center">
+        <main class="{{ self | default(value="404") }}">
+          {% block main_prepend %}
+            {{ lib::info() }}
+          {% endblock main_prepend %}
+          {% block main %}
+          {% endblock main %}
+          {% block main_append %}
+          {% endblock main_append %}
+        </main>
+        {% if toc | default(value=[]) | length > 1 or toc[0].children %}
+          <aside>
+            <nav id="TOC" aria-label="{{ i18n.toc }}">
+              {% block toc_prepend %}
+              {% endblock toc_prepend %}
+              {{ lib::toc(toc=toc) }}
+              {% block toc_append %}
+              {% endblock toc_append %}
+            </nav>
+          </aside>
         {% endif %}
-      {% endif %}
-      <main class="{{ self | default(value="404") }}">
-        {% block main_prepend %}
-          {{ lib::info() }}
-        {% endblock main_prepend %}
-        {% block main %}
-        {% endblock main %}
-        {% block main_append %}
-        {% endblock main_append %}
-      </main>
+      </div>
     </div>
     <footer>
       <ul>
