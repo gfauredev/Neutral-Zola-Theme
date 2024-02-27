@@ -178,14 +178,16 @@
   {% endif %}
 {% endmacro %}
 {# #}
-{% macro return_top(class="return-top", label="return to the top") %}
+{% macro return_to(label="return", id="top", class="return") %}
   {# Retreive predefined icons #}
   {% set icons = load_data(path="data/icon.yml", required=false) %}
   {% if not icons %}
     {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
   {% endif %}
   {# Output #}
-  <a aria-label="{{ label | capitalize }}" class="{{ class }}" href="#top">
+  <a aria-label="{{ label | capitalize }}"
+     class="{{ class }}"
+     href="#{{ id }}">
     <i class="{{ icons[class] | default(value="missing-icon") }}">^</i>
   </a>
 {% endmacro %}

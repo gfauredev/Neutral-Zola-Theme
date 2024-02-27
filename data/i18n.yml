@@ -1,6 +1,7 @@
 en:
   nav: "Navigation menu"
   return_top: "return to the top"
+  return_toc: "return to the table of contents"
   continue_reading: "click to continue reading"
   subsections: "sub-sections"
   pages: "articles"
@@ -16,6 +17,7 @@ en:
 fr:
   nav: "Menu de navigation"
   return_top: "retourner en haut"
+  return_toc: "retourner à la table des matières"
   continue_reading: "cliquer pour continuer la lecture"
   subsections: "sous-sections"
   pages: "articles"
