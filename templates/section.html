@@ -10,18 +10,15 @@
   {% set self = "section" %}
 {% endblock config %}
 {% block main %}
-  {% block main_prepend %}
-    {{ lib::info() }}
-  {% endblock main_prepend %}
   {% if section.content %}
     <section>
       {{ section.content | safe }}
     </section>
   {% endif %}
-  {{ lib::pages(i18n=i18n) }}
-  {% block main_append %}
-  {% endblock main_append %}
 {% endblock main %}
+{% block main_append %}
+  {{ lib::pages(i18n=i18n) }}
+{% endblock main_append %}
 {#
 {% block prepend_content %}
     {% if section.extra.image_title %}

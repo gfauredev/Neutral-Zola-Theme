@@ -10,18 +10,15 @@
   {% set self = "page" %}
 {% endblock config %}
 {% block main %}
-  {% block main_prepend %}
-    {{ lib::info() }}
-  {% endblock main_prepend %}
   {% if page.content %}
     <section>
       {{ page.content | safe }}
     </section>
   {% endif %}
-  {% block main_append %}
-    {{ lib::related() }}
-  {% endblock main_append %}
 {% endblock main %}
+{% block main_append %}
+  {{ lib::related() }}
+{% endblock main_append %}
 {#
 {% block prepend_content %}
     {% if page.extra.image_title %}

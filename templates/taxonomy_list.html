@@ -16,7 +16,7 @@
       <li>
         {% set pages_nb = term.pages | length %}
         <a href="{{ term.permalink | safe }}">{{ term.name }}
-          ({{ pages_nb }}&nbsp;{{ i18n.page }}{{ pages_nb | pluralize }})</a>
+        ({{ pages_nb }}&nbsp;{{ i18n.page }}{{ pages_nb | pluralize }})</a>
       </li>
     {% endfor %}
   </ul>
