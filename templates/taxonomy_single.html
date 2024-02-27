@@ -9,7 +9,7 @@
   <h1>
     {{ term.pages | length }}
     {{ lib::related_icon(word=taxonomy.name) }}
-    {{ taxonomy.name | capitalize }}&nbsp;:
+    {{ taxonomy.name | capitalize }}&NonBreakingSpace;:
     {{ term.name }}
   </h1>
   <ul class="pages">
