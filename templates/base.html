@@ -71,24 +71,26 @@
   <body id="top">
     {% block body_prepend %}
     {% endblock body_prepend %}
-    <header>
-      {% block header_prepend %}
-      {% endblock header_prepend %}
-      {% block header %}
-        {% if config.extra.logo %}
-          <a href="{{ root.permalink | safe }}">
-            {% set resized_logo = resize_image(path=config.extra.logo, height=250, op="fit_height", format="webp") %}
-            <img class="logo"
-                 width="150"
-                 height="150"
-                 src="{{ resized_logo.url }}"
-                 alt="Logo">
-          </a>
-        {% endif %}
-      {% endblock header %}
-      {% block header_append %}
-      {% endblock header_append %}
-    </header>
+    {% if config.extra.logo %}
+      <header>
+        {% block header_prepend %}
+        {% endblock header_prepend %}
+        {% block header %}
+          {% if config.extra.logo %}
+            <a href="{{ root.permalink | safe }}">
+              {% set resized_logo = resize_image(path=config.extra.logo, height=250, op="fit_height", format="webp") %}
+              <img class="logo"
+                   width="150"
+                   height="150"
+                   src="{{ resized_logo.url }}"
+                   alt="Logo">
+            </a>
+          {% endif %}
+        {% endblock header %}
+        {% block header_append %}
+        {% endblock header_append %}
+      </header>
+    {% endif %}
     <nav id="NAV" aria-label="{{ i18n.nav }}">
       {% block nav_prepend %}
       {% endblock nav_prepend %}
