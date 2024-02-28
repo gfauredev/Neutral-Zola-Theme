@@ -74,8 +74,10 @@
   {% for translation in translations %}
     {% if translation.lang == lang and translations[loop.index] %}
       {% set translation = translations[loop.index] %}
-    {% else %}
+    {% elif translations.0.lang != lang %}
       {% set translation = translations.0 %}
+    {% else %}
+      {% break %}
     {% endif %}
     <a aria-label="{{ translation.lang }}"
        href="{{ translation.permalink }}">
@@ -86,31 +88,33 @@
   {% endfor %}
 {% endmacro %}
 {# #}
-{% macro info() %}
-  <header class="info">
-    {% if ancestors %}
-      <ol class="breadcrumb">
-        {% for ancestor in ancestors %}
-          {% set ancestor = get_section(path=ancestor, metadata_only=true) %}
-          <li>
-            <a href="{{ ancestor.permalink | safe }}">{{ ancestor.title }}</a>
-          </li>
-        {% endfor %}
-      </ol>
-    {% endif %}
-    {% if page %}
-      {% if page.date %}
-        <time class="published" datetime="{{ page.date }}">
-          {{ page.date|date(format="%d/%m/%Y") }}
-        </time>
+{% macro info(i18n) %}
+  {% if ancestors or page %}
+    <header class="info">
+      {% if ancestors %}
+        <ol class="breadcrumb">
+          {% for ancestor in ancestors %}
+            {% set ancestor = get_section(path=ancestor, metadata_only=true) %}
+            <li>
+              <a href="{{ ancestor.permalink | safe }}">{{ ancestor.title }}</a>
+            </li>
+          {% endfor %}
+        </ol>
       {% endif %}
-      {% if page.updated %}
-        <time class="updated" datetime="{{ page.updated }}">
-          {{ page.updated|date(format="%d/%m/%Y") }}
-        </time>
+      {% if page %}
+        {% if page.date %}
+          <time class="published" datetime="{{ page.date }}">
+            {{ i18n.published | capitalize }}&nbsp;{{ page.date|date(format="%d/%m/%Y") }}
+          </time>
+        {% endif %}
+        {% if page.updated %}
+          <time class="updated" datetime="{{ page.updated }}">
+            {{ i18n.last_updated | capitalize }}&nbsp;{{ page.updated|date(format="%d/%m/%Y") }}
+          </time>
+        {% endif %}
       {% endif %}
-    {% endif %}
-  </header>
+    </header>
+  {% endif %}
 {% endmacro %}
 {# #}
 {% macro related() %}
@@ -176,14 +180,16 @@
   {% endif %}
 {% endmacro %}
 {# #}
-{% macro return_top(class="return-top", label="return to the top") %}
+{% macro return_to(label="return", id="top", class="return") %}
   {# Retreive predefined icons #}
   {% set icons = load_data(path="data/icon.yml", required=false) %}
   {% if not icons %}
     {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
   {% endif %}
   {# Output #}
-  <a aria-label="{{ label | capitalize }}" class="{{ class }}" href="#top">
+  <a aria-label="{{ label | capitalize }}"
+     class="{{ class }}"
+     href="#{{ id }}">
     <i class="{{ icons[class] | default(value="missing-icon") }}">^</i>
   </a>
 {% endmacro %}

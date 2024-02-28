@@ -117,7 +117,7 @@
       <div class="center">
         <main class="{{ self | default(value="404") }}">
           {% block main_prepend %}
-            {{ lib::info() }}
+            {{ lib::info(i18n=i18n) }}
           {% endblock main_prepend %}
           {% block main %}
           {% endblock main %}
@@ -128,11 +128,13 @@
           <aside>
             <nav id="TOC" aria-label="{{ i18n.toc }}">
               {% block toc_prepend %}
+                <h2>{{ i18n.toc | capitalize }}</h2>
               {% endblock toc_prepend %}
               {{ lib::toc(toc=toc) }}
               {% block toc_append %}
               {% endblock toc_append %}
             </nav>
+            {{ lib::return_to(label=i18n.return_toc, id="TOC") }}
           </aside>
         {% endif %}
       </div>
@@ -152,7 +154,6 @@
       </ul>
     </footer>
     {% block body_append %}
-      {{ lib::return_top(label=i18n.return_top) }}
     {% endblock body_append %}
   </body>
 </html>
