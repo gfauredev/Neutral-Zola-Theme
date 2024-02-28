@@ -115,34 +115,34 @@
       {% block nav_append %}
       {% endblock nav_append %}
     </nav>
-    <div class="overbox">
-      <div class="center">
-        <main class="{{ self | default(value="404") }}">
-          {% block main_prepend %}
-            {{ lib::info(i18n=i18n) }}
-          {% endblock main_prepend %}
-          {% block main %}
-          {% endblock main %}
-          {% block main_append %}
-          {% endblock main_append %}
-        </main>
-        {% if toc | default(value=[]) | length > 1 or toc[0].children %}
-          <aside>
-            <nav id="TOC" aria-label="{{ i18n.toc }}">
-              {% block toc_prepend %}
-                <h2>{{ i18n.toc | capitalize }}</h2>
-              {% endblock toc_prepend %}
-              {{ lib::toc(toc=toc) }}
-              {% block toc_append %}
-              {% endblock toc_append %}
-            </nav>
-            {% block toc_after %}
-              {{ lib::return_to(label=i18n.return_toc, id="TOC") }}
-            {% endblock toc_after %}
-          </aside>
-        {% endif %}
-      </div>
-    </div>
+    {% if toc | default(value=[]) | length > 1 or toc[0].children %}
+      <nav id="TOC" aria-label="{{ i18n.toc }}">
+        {% block toc_prepend %}
+          <h2>{{ i18n.toc | capitalize }}</h2>
+        {% endblock toc_prepend %}
+        {{ lib::toc(toc=toc) }}
+        {% block toc_append %}
+        {% endblock toc_append %}
+      </nav>
+    {% endif %}
+    {% block main_before %}
+    {% endblock main_before %}
+    <main class="{{ self | default(value="404") }}">
+      {% block main_prepend %}
+        {{ lib::info(i18n=i18n) }}
+      {% endblock main_prepend %}
+      {% block main %}
+      {% endblock main %}
+      {% block main_append %}
+      {% endblock main_append %}
+    </main>
+    <aside>
+      {% block aside %}
+        {{ lib::return_to(label=i18n.return_toc, id="TOC") }}
+      {% endblock aside %}
+    </aside>
+    {% block main_after %}
+    {% endblock main_after %}
     <footer>
       <ul>
         {% block footer_prepend %}
