@@ -71,21 +71,23 @@
   <body id="top">
     {% block body_prepend %}
     {% endblock body_prepend %}
-    {% if config.extra.logo %}
+    {% if config.extra.banner %}
       <header>
         {% block header_prepend %}
         {% endblock header_prepend %}
         {% block header %}
-          {% if config.extra.logo %}
-            <a href="{{ root.permalink | safe }}">
-              {% set resized_logo = resize_image(path=config.extra.logo, height=250, op="fit_height", format="webp") %}
-              <img class="logo"
-                   width="150"
-                   height="150"
-                   src="{{ resized_logo.url }}"
-                   alt="Logo">
-            </a>
-          {% endif %}
+          <a href="{{ index.permalink | safe }}">
+            {% set banner = get_image_metadata(path=config.extra.banner, allow_missing=true) %}
+            {% if banner %}
+              <img class="banner"
+                   width="{{ banner.width }}"
+                   height="{{ banner.height }}"
+                   src="{{ banner.url }}"
+                   alt="{{ i18n.banner }}">
+            {% else %}
+              <h1>{{ config.extra.banner }}</h1>
+            {% endif %}
+          </a>
         {% endblock header %}
         {% block header_append %}
         {% endblock header_append %}

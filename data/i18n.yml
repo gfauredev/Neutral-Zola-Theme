@@ -14,6 +14,7 @@ en:
   link_to: "link to"
   minute: "minute"
   page: "page"
+  banner: "website banner"
 
 fr:
   nav: "Menu de navigation"
@@ -31,6 +32,7 @@ fr:
   link_to: "lien vers"
   minute: "minute"
   page: "page"
+  banner: "banière du site"
 
 404:
   en:
