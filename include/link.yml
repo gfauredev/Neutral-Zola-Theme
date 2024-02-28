@@ -16,7 +16,7 @@
   as: style
   onload: this.onload=null;this.rel='stylesheet'
   type: text/css
-- href: https://cdn.jsdelivr.net/npm/@fontsource/inter@5
+- href: https://cdn.jsdelivr.net/npm/@fontsource/inter@5/index.min.css
   rel: preload
   as: style
   onload: this.onload=null;this.rel='stylesheet'
