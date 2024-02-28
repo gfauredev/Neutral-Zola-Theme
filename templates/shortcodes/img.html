@@ -7,7 +7,8 @@
        alt="{{ alt }}"
        src="{{ src }}"
        class="{{ class | default(value='') }}">
-{% else %}
+{% elif config.extra.auto_img %}
+  {# set format = src | split(pat=".") | slice(start=-1) #}
   {% set meta = get_image_metadata(path=src, allow_missing=true) %}
   {% if not meta %}
     {% if page %}
