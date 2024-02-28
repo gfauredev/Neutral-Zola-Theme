@@ -120,7 +120,9 @@
         {% block toc_prepend %}
           <h2>{{ i18n.toc | capitalize }}</h2>
         {% endblock toc_prepend %}
-        {{ lib::toc(toc=toc) }}
+        {% block toc %}
+          {{ lib::toc(toc=toc) }}
+        {% endblock toc %}
         {% block toc_append %}
         {% endblock toc_append %}
       </nav>
