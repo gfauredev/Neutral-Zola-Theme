@@ -134,7 +134,9 @@
               {% block toc_append %}
               {% endblock toc_append %}
             </nav>
-            {{ lib::return_to(label=i18n.return_toc, id="TOC") }}
+            {% block toc_after %}
+              {{ lib::return_to(label=i18n.return_toc, id="TOC") }}
+            {% endblock toc_after %}
           </aside>
         {% endif %}
       </div>
