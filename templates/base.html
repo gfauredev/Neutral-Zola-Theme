@@ -98,7 +98,9 @@
         {# Translations #}
         {{ lib::next_translation(translations=translations | default(value=[]) ) }}
         {# Index #}
-        {{ lib::nav_link(title=index.title, permalink=permalink, link_permalink=index.permalink) }}
+        {% if index.title %}
+          {{ lib::nav_link(title=index.title, permalink=permalink, link_permalink=index.permalink) }}
+        {% endif %}
         {# Taxonomies #}
         {% for taxonomy in config.taxonomies %}
           {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}

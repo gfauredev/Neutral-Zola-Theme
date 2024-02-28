@@ -10,7 +10,7 @@
         <a href="/{{ lang }}">
         {% endif %}
         {{ data.return_home }}
-        {{ lib::related_icon(word=index.title) }}
+        {{ lib::related_icon(word=index.title | default(value="") ) }}
       </a>
     {% endfor %}
   {% endblock main %}
