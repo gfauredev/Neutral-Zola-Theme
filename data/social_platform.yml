@@ -43,6 +43,11 @@ youtube:
   icon: fab fa-youtube
   name: YouTube
 
+soundcloud:
+  href: https://soundcloud.com/$ID
+  icon: fab fa-soundcloud
+  name: SoundCloud
+
 email:
   href: mailto:$ID
   icon: fas fa-envelope
