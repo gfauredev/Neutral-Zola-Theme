@@ -8,7 +8,20 @@
        src="{{ src }}"
        class="{{ class | default(value='') }}">
 {% else %}
-  {% set meta = get_image_metadata(path=src) %}
+  {% set meta = get_image_metadata(path=src, allow_missing=true) %}
+  {% if not meta %}
+    {% if page %}
+      {% set path = page.path %}
+    {% elif section %}
+      {% set path = section.path %}
+    {% endif %}
+    {% if lang != config.default_language %}
+      {% set src = path ~ src | replace(from=path | truncate(length=4, end=""), to="/") %}
+    {% else %}
+      {% set src = path ~ src %}
+    {% endif %}
+    {% set meta = get_image_metadata(path=src) %}
+  {% endif %}
   {% set width = w | default(value=meta.width) %}
   {% set height = h | default(value=meta.height) %}
   {% if meta.format == "webp" %}
