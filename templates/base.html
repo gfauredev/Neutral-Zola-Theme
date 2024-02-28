@@ -150,18 +150,20 @@
     {% block main_after %}
     {% endblock main_after %}
     <footer>
-      <ul>
-        {% block footer_prepend %}
-        {% endblock footer_prepend %}
-        <li>© {{ config.extra.creation_year }}-{{ now() |date(format="%Y") }} {{ config.extra.author }}</li>
-        <li>{{ i18n.last_updated | capitalize }} {{ now() |date(format="%d/%m/%Y") }}</li>
-        {% block footer_append %}
+      {% block footer_prepend %}
+      {% endblock footer_prepend %}
+      {% block footer %}
+        <ul>
+          <li>© {{ config.extra.creation_year }}-{{ now() |date(format="%Y") }} {{ config.extra.author }}</li>
+          <li>{{ i18n.last_updated | capitalize }} {{ now() |date(format="%d/%m/%Y") }}</li>
           <li>
             {{ i18n.generated | capitalize }} <a href="https://www.getzola.org">Zola</a>,
             {{ i18n.using }} <a href="https://github.com/gfauredev/Neutral-Zola-Theme">{{ i18n.website_base }}</a>
           </li>
-        {% endblock footer_append %}
-      </ul>
+        </ul>
+      {% endblock footer %}
+      {% block footer_append %}
+      {% endblock footer_append %}
     </footer>
     {% block body_append %}
     {% endblock body_append %}
