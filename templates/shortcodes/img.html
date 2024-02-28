@@ -1,5 +1,28 @@
-<img width="{{ width | default(value="1920") }}"
-     height="{{ height | default(value="1080") }}"
-     {% if class %}class="{{ class }}"{% endif %}
-     alt="{{ alt }}"
-     src="{{ src }}">
+{% if src is starting_with("http") %}
+  {# " #}
+  {% set width = w | default(value="1920") %}
+  {% set height = h | default(value="1080") %}
+  <img width="{{ width }}"
+       height="{{ height }}"
+       alt="{{ alt }}"
+       src="{{ src }}"
+       class="{{ class | default(value='') }}">
+{% else %}
+  {% set meta = get_image_metadata(path=src) %}
+  {% set width = w | default(value=meta.width) %}
+  {% set height = h | default(value=meta.height) %}
+  {% if meta.format == "webp" %}
+    {% set default = resize_image(path=src, width=width, height=height) %}
+  {% else %}
+    {% set default = resize_image(path=src, width=width, height=height) %}
+    {% set webp = resize_image(path=src, width=width, height=height, format="webp") %}
+  {% endif %}
+  <picture>
+    <source srcset="{{ webp.url | default(value=src) | safe }}" type="image/webp">
+    <img width="{{ width }}"
+         height="{{ height }}"
+         alt="{{ alt }}"
+         src="{{ default.url }}"
+         class="{{ class | default(value='') }}">
+  </picture>
+{% endif %}

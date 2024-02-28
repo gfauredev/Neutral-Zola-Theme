@@ -54,12 +54,12 @@
         {# Disable auto translation, we have our own #}
         <meta name="google" content="notranslate">
       {% endif %}
-      {# Icons 16×16, 32×32, (48×48), (64×64) #}
+      {# ICO icons 16×16, 32×32, (48×48), (64×64) #}
       <link rel="icon" href="/favicon.ico" sizes="any">
-      {# Vector icon #}
+      {# Vector (SVG) icon #}
       <link rel="icon" href="/icon.svg" type="image/svg+xml">
-      {# 180×180 icon #}
-      <link rel="apple-touch-icon" href="/icon.png">
+      {# PNG 180×180 icon #}
+      <link rel="apple-touch-icon" href="/icon.png" type="image/png">
       {# Import links #}
       {{ lib::file2tags(tag="link") }}
       {# Import scripts #}
