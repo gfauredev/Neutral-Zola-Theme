@@ -1,9 +1,6 @@
 {% import "macros.html" as lib %}
 {# Retreive configuration variables #}
 {% block config %}
-  {% if not permalink %}
-    {% set permalink = "404" %}
-  {% endif %}
 {% endblock config %}
 {# Retreive site index with proper language #}
 {% if lang == config.default_language %}
@@ -28,16 +25,17 @@
   <head>
     {# Metadata #}
     <meta charset="utf-8">
-    <title>{{ title | default(value="Error 404") }}</title>
+    <title>{{ title | default(value="config.title") }}</title>
     {% if config.extra.author %}<meta name="author" content="{{ config.extra.author }}">{% endif %}
     <meta name="description"
           content="{{ description | default(value=config.description) }}">
     <meta name="og:description"
           content="{{ description | default(value=config.description) }}">
-    <meta name="og:title" content="{{ title | default(value="Error 404") }}">
+    <meta name="og:title" content="{{ title | default(value="config.title") }}">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{ config.title }}">
-    {% if permalink %}<meta name="og:url" content="{{ permalink }}">{% endif %}
+    <meta name="og:url"
+          content="{{ permalink | default(value=config.base_url) }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {# Additional metadata #}
     {{ lib::file2tags(tag="meta") }}
@@ -59,28 +57,30 @@
   <body id="top">
     {% block body_prepend %}
     {% endblock body_prepend %}
-    {% if config.extra.banner %}
-      <header>
-        {% block header_prepend %}
-        {% endblock header_prepend %}
-        {% block header %}
-          <a href="{{ index.permalink | safe }}">
-            {% set banner = get_image_metadata(path=config.extra.banner, allow_missing=true) %}
-            {% if banner %}
-              <img class="banner"
-                   width="{{ banner.width }}"
-                   height="{{ banner.height }}"
-                   src="{{ banner.url }}"
-                   alt="{{ i18n.banner }}">
-            {% else %}
-              <h1>{{ config.extra.banner }}</h1>
-            {% endif %}
-          </a>
-        {% endblock header %}
-        {% block header_append %}
-        {% endblock header_append %}
-      </header>
-    {% endif %}
+    {% block header %}
+      {% if config.extra.banner %}
+        <header>
+          {% block header_prepend %}
+          {% endblock header_prepend %}
+          {% block header_content %}
+            <a href="{{ index.permalink | safe }}">
+              {% set banner = get_image_metadata(path=config.extra.banner, allow_missing=true) %}
+              {% if banner %}
+                <img class="banner"
+                     width="{{ banner.width }}"
+                     height="{{ banner.height }}"
+                     src="{{ banner.url }}"
+                     alt="{{ i18n.banner }}">
+              {% else %}
+                <h1>{{ config.extra.banner }}</h1>
+              {% endif %}
+            </a>
+          {% endblock header_content %}
+          {% block header_append %}
+          {% endblock header_append %}
+        </header>
+      {% endif %}
+    {% endblock header %}
     {% block nav %}
       <nav id="NAV" aria-label="{{ i18n.nav }}">
         {% block nav_prepend %}
@@ -145,22 +145,24 @@
     {% endblock aside %}
     {% block main_after %}
     {% endblock main_after %}
-    <footer>
-      {% block footer_prepend %}
-      {% endblock footer_prepend %}
-      {% block footer %}
-        <ul>
-          <li>© {{ config.extra.creation_year }}-{{ now() |date(format="%Y") }} {{ config.extra.author }}</li>
-          <li>{{ i18n.last_updated | capitalize }} {{ now() |date(format="%d/%m/%Y") }}</li>
-          <li>
-            {{ i18n.generated | capitalize }} <a href="https://www.getzola.org">Zola</a>,
-            {{ i18n.using }} <a href="https://github.com/gfauredev/Neutral-Zola-Theme">{{ i18n.website_base }}</a>
-          </li>
-        </ul>
-      {% endblock footer %}
-      {% block footer_append %}
-      {% endblock footer_append %}
-    </footer>
+    {% block footer %}
+      <footer>
+        {% block footer_prepend %}
+        {% endblock footer_prepend %}
+        {% block footer_content %}
+          <ul>
+            <li>© {{ config.extra.creation_year }}-{{ now() |date(format="%Y") }} {{ config.extra.author }}</li>
+            <li>{{ i18n.last_updated | capitalize }} {{ now() |date(format="%d/%m/%Y") }}</li>
+            <li>
+              {{ i18n.generated | capitalize }} <a href="https://www.getzola.org">Zola</a>,
+              {{ i18n.using }} <a href="https://github.com/gfauredev/Neutral-Zola-Theme">{{ i18n.website_base }}</a>
+            </li>
+          </ul>
+        {% endblock footer_content %}
+        {% block footer_append %}
+        {% endblock footer_append %}
+      </footer>
+    {% endblock footer %}
     {% block body_append %}
     {% endblock body_append %}
   </body>
