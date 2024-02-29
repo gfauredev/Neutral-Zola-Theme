@@ -1,40 +1,38 @@
-{% if op %}
-  {# if src is not starting_with("http") #}
-  {# set extension = src | split(pat=".") | slice(start=-1) #}
-  {% if not w or not h %}
+{# Get image metadata if they were not provided #}
+{% if not w or not h %}
+  {% if src is not starting_with("http") %}
+    {# " %} #}
     {% set meta = get_image_metadata(path=src, allow_missing=true) %}
-    {% if page %}
-      {% set path = page.path %}
-    {% elif section %}
-      {% set path = section.path %}
+    {% if not meta %}
+      {% if page %}
+        {% set path = page.path %}
+      {% elif section %}
+        {% set path = section.path %}
+      {% endif %}
+      {% if lang != config.default_language %}
+        {% set src = path ~ src | replace(from=path | truncate(length=4, end=""), to="/") %}
+      {% else %}
+        {% set src = path ~ src %}
+      {% endif %}
+      {% set meta = get_image_metadata(path=src) %}
     {% endif %}
-    {% if lang != config.default_language %}
-      {% set src = path ~ src | replace(from=path | truncate(length=4, end=""), to="/") %}
-    {% else %}
-      {% set src = path ~ src %}
-    {% endif %}
-    {% set meta = get_image_metadata(path=src) %}
   {% endif %}
+{% endif %}
+{# Try to be smart about the writer’s needs #}
+{% if op %}
   {% set default = resize_image(
       path=src,
-      width=w | default(value=meta.width),
-      height=h | default(value=meta.height),
+      width=w | default(value=meta.width | default(value=h)),
+      height=h | default(value=meta.height | default(value=w)),
       op=op
     ) %}
   {% set webp = resize_image(
       path=src,
-      width=w | default(value=meta.width),
-      height=h | default(value=meta.height),
+      width=w | default(value=meta.width | default(value=h)),
+      height=h | default(value=meta.height | default(value=w)),
       format="webp",
       op=op
     ) %}
-  {# set avif = resize_image(
-      path=src,
-      width=w | default(value=meta.width),
-      height=h | default(vaule=meta.height),
-      format="avif",
-      op=op
-    ) #}
   {% set w = default.width %}
   {% set h = default.height %}
 {% endif %}
@@ -42,8 +40,8 @@
 {% set filename = filename.0 | split(pat=".") %}
 <picture>
   {% if webp %}<source srcset="{{ webp.url | safe }}" type="image/webp">{% endif %}
-  <img width="{{ w | default(value="1920") }}"
-       height="{{ h | default(value="1080") }}"
+  <img width="{{ w | default(value=meta.width | default(value=1920) ) }}"
+       height="{{ h | default(value=meta.height | default(value=1080) ) }}"
        alt="{{ alt | default(value=filename.0) }}"
        src="{{ default.url | default(value=src) | safe }}"
        {% if class %}class="{{ class }}"{% endif %}>
