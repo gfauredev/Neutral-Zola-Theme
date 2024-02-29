@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block config %}
+  {% set permalink = "404" %}
+{% endblock config %}
 {% block main %}
   {# 404 messages in multiple languages #}
   {% for lang, data in i18ns.404 %}
