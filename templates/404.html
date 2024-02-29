@@ -2,7 +2,7 @@
 {% block config %}
   {% set permalink = "404" %}
 {% endblock config %}
-{% block main %}
+{% block main_content %}
   {# 404 messages in multiple languages #}
   {% for lang, data in i18ns.404 %}
     <h1>{{ data.error | capitalize }}</h1>
@@ -16,4 +16,4 @@
         {{ lib::related_icon(word=index.title | default(value="") ) }}
       </a>
     {% endfor %}
-  {% endblock main %}
+  {% endblock main_content %}

@@ -5,7 +5,7 @@
   {% set description = taxonomy.name ~ " : " ~ term.name %}
   {% set self = "term" %}
 {% endblock config %}
-{% block main %}
+{% block main_content %}
   <h1>
     {{ term.pages | length }}
     {{ lib::related_icon(word=taxonomy.name) }}
@@ -22,4 +22,4 @@
       </li>
     {% endfor %}
   </ul>
-{% endblock main %}
+{% endblock main_content %}
