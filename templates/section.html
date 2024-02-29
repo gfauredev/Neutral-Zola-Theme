@@ -9,9 +9,9 @@
   {% set ancestors = section.ancestors %}
   {% set self = "section" %}
 {% endblock config %}
-{% block main %}
+{% block main_content %}
   {{ section.content | default(value="") | safe }}
-{% endblock main %}
+{% endblock main_content %}
 {% block main_append %}
   {{ lib::pages(i18n=i18n) }}
 {% endblock main_append %}

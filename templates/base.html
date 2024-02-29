@@ -26,47 +26,35 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
   <head>
-    {% block head_prepend %}
-    {% endblock head_prepend %}
-    {% block head %}
-      {# Metadata #}
-      <meta charset="utf-8">
-      <title>{{ title | default(value="Error 404") }}</title>
-      {% if config.extra.author %}<meta name="author" content="{{ config.extra.author }}">{% endif %}
-      <meta name="description"
-            content="{{ description | default(value=config.description) }}">
-      <meta name="og:description"
-            content="{{ description | default(value=config.description) }}">
-      <meta name="og:title" content="{{ title | default(value="Error 404") }}">
-      <meta property="og:type" content="website">
-      <meta property="og:site_name" content="{{ config.title }}">
-      {% if permalink %}<meta name="og:url" content="{{ permalink }}">{% endif %}
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      {# Additional metadata #}
-      {{ lib::file2tags(tag="meta") }}
-      {# Translations #}
-      {% if translations %}
-        {% for translation in translations %}
-          <link rel="alternate"
-                hreflang="{{ translation.lang }}"
-                href="{{ translation.permalink }}">
-        {% endfor %}
-        {# Disable auto translation, we have our own #}
-        <meta name="google" content="notranslate">
-      {% endif %}
-      {# ICO icons 16×16, 32×32, (48×48), (64×64) #}
-      <link rel="icon" href="/favicon.ico" sizes="any">
-      {# Vector (SVG) icon #}
-      <link rel="icon" href="/icon.svg" type="image/svg+xml">
-      {# PNG 180×180 icon #}
-      <link rel="apple-touch-icon" href="/icon.png" type="image/png">
-      {# Import links #}
-      {{ lib::file2tags(tag="link") }}
-      {# Import scripts #}
-      {{ lib::file2tags(tag="script") }}
-    {% endblock head %}
-    {% block head_append %}
-    {% endblock head_append %}
+    {# Metadata #}
+    <meta charset="utf-8">
+    <title>{{ title | default(value="Error 404") }}</title>
+    {% if config.extra.author %}<meta name="author" content="{{ config.extra.author }}">{% endif %}
+    <meta name="description"
+          content="{{ description | default(value=config.description) }}">
+    <meta name="og:description"
+          content="{{ description | default(value=config.description) }}">
+    <meta name="og:title" content="{{ title | default(value="Error 404") }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ config.title }}">
+    {% if permalink %}<meta name="og:url" content="{{ permalink }}">{% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {# Additional metadata #}
+    {{ lib::file2tags(tag="meta") }}
+    {# Translations #}
+    {% if translations %}
+      {% for translation in translations %}
+        <link rel="alternate"
+              hreflang="{{ translation.lang }}"
+              href="{{ translation.permalink }}">
+      {% endfor %}
+      {# Disable auto translation, we have our own #}
+      <meta name="google" content="notranslate">
+    {% endif %}
+    {# Import links #}
+    {{ lib::file2tags(tag="link") }}
+    {# Import scripts #}
+    {{ lib::file2tags(tag="script") }}
   </head>
   <body id="top">
     {% block body_prepend %}
@@ -93,60 +81,68 @@
         {% endblock header_append %}
       </header>
     {% endif %}
-    <nav id="NAV" aria-label="{{ i18n.nav }}">
-      {% block nav_prepend %}
-      {% endblock nav_prepend %}
-      {% block nav %}
-        {# Translations #}
-        {{ lib::next_translation(translations=translations | default(value=[]) ) }}
-        {# Index #}
-        {% if index.title %}
-          {{ lib::nav_link(title=index.title, permalink=permalink, link_permalink=index.permalink) }}
-        {% endif %}
-        {# Taxonomies #}
-        {% for taxonomy in config.taxonomies %}
-          {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
-          {{ lib::nav_link(title=taxonomy.name, permalink=permalink, link_permalink=taxonomy.permalink) }}
-        {% endfor %}
-        {# Subsections #}
-        {% for subsection in index.subsections %}
-          {% set subsection = get_section(path=subsection, metadata_only=true) %}
-          {{ lib::nav_link(title=subsection.title, permalink=permalink, link_permalink=subsection.permalink) }}
-        {% endfor %}
-        {# Social links #}
-        {{ lib::social_links(links=config.extra.social_links | default(value=[]) ) }}
-      {% endblock nav %}
-      {% block nav_append %}
-      {% endblock nav_append %}
-    </nav>
-    {% if toc | default(value=[]) | length > 1 or toc[0].children %}
-      <nav id="TOC" aria-label="{{ i18n.toc }}">
-        {% block toc_prepend %}
-          <h2>{{ i18n.toc | capitalize }}</h2>
-        {% endblock toc_prepend %}
-        {% block toc %}
-          {{ lib::toc(toc=toc) }}
-        {% endblock toc %}
-        {% block toc_append %}
-        {% endblock toc_append %}
+    {% block nav %}
+      <nav id="NAV" aria-label="{{ i18n.nav }}">
+        {% block nav_prepend %}
+          {# Translations #}
+          {{ lib::next_translation(translations=translations | default(value=[]) ) }}
+        {% endblock nav_prepend %}
+        {% block nav_content %}
+          {# Index #}
+          {% if index.title %}
+            {{ lib::nav_link(title=index.title, permalink=permalink, link_permalink=index.permalink) }}
+          {% endif %}
+          {# Taxonomies #}
+          {% for taxonomy in config.taxonomies %}
+            {% set taxonomy = get_taxonomy(kind=taxonomy.name, lang=lang) %}
+            {{ lib::nav_link(title=taxonomy.name, permalink=permalink, link_permalink=taxonomy.permalink) }}
+          {% endfor %}
+          {# Subsections #}
+          {% for subsection in index.subsections %}
+            {% set subsection = get_section(path=subsection, metadata_only=true) %}
+            {{ lib::nav_link(title=subsection.title, permalink=permalink, link_permalink=subsection.permalink) }}
+          {% endfor %}
+        {% endblock nav_content %}
+        {% block nav_append %}
+          {# Social links #}
+          {{ lib::social_links(links=config.extra.social_links | default(value=[]) ) }}
+        {% endblock nav_append %}
       </nav>
-    {% endif %}
+    {% endblock nav %}
+    {% block toc %}
+      {% if toc | default(value=[]) | length > 1 or toc[0].children %}
+        <nav id="TOC" aria-label="{{ i18n.toc }}">
+          {% block toc_prepend %}
+            <h2>{{ i18n.toc | capitalize }}</h2>
+          {% endblock toc_prepend %}
+          {% block toc_content %}
+            {{ lib::toc(toc=toc) }}
+          {% endblock toc_content %}
+          {% block toc_append %}
+          {% endblock toc_append %}
+        </nav>
+      {% endif %}
+    {% endblock toc %}
     {% block main_before %}
     {% endblock main_before %}
-    <main class="{{ self | default(value="404") }}">
-      {% block main_prepend %}
-        {{ lib::info(i18n=i18n) }}
-      {% endblock main_prepend %}
-      {% block main %}
-      {% endblock main %}
-      {% block main_append %}
-      {% endblock main_append %}
-    </main>
-    <aside>
-      {% block aside %}
-        {{ lib::return_to(label=i18n.return_toc, id="TOC") }}
-      {% endblock aside %}
-    </aside>
+    {% block main %}
+      <main class="{{ self | default(value="404") }}">
+        {% block main_prepend %}
+          {{ lib::info(i18n=i18n) }}
+        {% endblock main_prepend %}
+        {% block main_content %}
+        {% endblock main_content %}
+        {% block main_append %}
+        {% endblock main_append %}
+      </main>
+    {% endblock main %}
+    {% block aside %}
+      <aside>
+        {% block aside_content %}
+          {{ lib::return_to(label=i18n.return_toc, id="TOC") }}
+        {% endblock aside_content %}
+      </aside>
+    {% endblock aside %}
     {% block main_after %}
     {% endblock main_after %}
     <footer>
@@ -168,4 +164,6 @@
     {% block body_append %}
     {% endblock body_append %}
   </body>
+  {% block html_append %}
+  {% endblock html_append %}
 </html>

@@ -1,5 +1,19 @@
 # Free CDNS : https://jsdelivr.com  https://cdnjs.com
 
+####### Favicons ##########
+# ICO icons 16×16, 32×32, (48×48), (64×64) #}
+- rel: icon
+  href: /favicon.ico
+  sizes: any
+# Vector (SVG) icon #}
+- rel: icon
+  href: /icon.svg
+  type: image/svg+xml
+# PNG 180×180 icon #}
+- rel: apple-touch-icon
+  href: /icon.png
+  type: image/png
+
 ###### Custom style #######
 - href: /style.css
   rel: stylesheet
