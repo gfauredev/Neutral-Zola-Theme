@@ -1,16 +1,7 @@
-{% if src is starting_with("http") %}
-  {# " #}
-  {% set width = w | default(value="1920") %}
-  {% set height = h | default(value="1080") %}
-  <img width="{{ width }}"
-       height="{{ height }}"
-       alt="{{ alt }}"
-       src="{{ src }}"
-       class="{{ class | default(value='') }}">
-{% elif config.extra.auto_img %}
-  {# set format = src | split(pat=".") | slice(start=-1) #}
-  {% set meta = get_image_metadata(path=src, allow_missing=true) %}
-  {% if not meta %}
+{% if config.extra.auto_img and src is not starting_with("http") %}
+  {# set extension = src | split(pat=".") | slice(start=-1) #}
+  {% if not w or not h %}
+    {% set meta = get_image_metadata(path=src, allow_missing=true) %}
     {% if page %}
       {% set path = page.path %}
     {% elif section %}
@@ -23,20 +14,32 @@
     {% endif %}
     {% set meta = get_image_metadata(path=src) %}
   {% endif %}
-  {% set width = w | default(value=meta.width) %}
-  {% set height = h | default(value=meta.height) %}
-  {% if meta.format == "webp" %}
-    {% set default = resize_image(path=src, width=width, height=height) %}
-  {% else %}
-    {% set default = resize_image(path=src, width=width, height=height) %}
-    {% set webp = resize_image(path=src, width=width, height=height, format="webp") %}
-  {% endif %}
-  <picture>
-    <source srcset="{{ webp.url | default(value=src) | safe }}" type="image/webp">
-    <img width="{{ width }}"
-         height="{{ height }}"
-         alt="{{ alt }}"
-         src="{{ default.url }}"
-         class="{{ class | default(value='') }}">
-  </picture>
+  {% set default = resize_image(
+      path=src,
+      width=w | default(value=meta.width),
+      height=h | default(value=meta.height)
+    ) %}
+  {% set webp = resize_image(
+      path=src,
+      width=w | default(value=meta.width),
+      height=h | default(value=meta.height),
+      format="webp"
+    ) %}
+  {# set avif = resize_image(
+      path=src,
+      width=w | default(value=meta.width),
+      height=h | default(vaule=meta.height),
+      format="avif") #}
+  {% set w = default.width %}
+  {% set h = default.height %}
 {% endif %}
+{% set filename = src | split(pat="/") | slice(start=-1) %}
+{% set filename = filename.0 | split(pat=".") %}
+<picture>
+  {% if webp %}<source srcset="{{ webp.url | safe }}" type="image/webp">{% endif %}
+  <img width="{{ w | default(value="1920") }}"
+       height="{{ h | default(value="1080") }}"
+       alt="{{ alt | default(value=filename.0) }}"
+       src="{{ default.url | default(value=src) | safe }}"
+       {% if class %}class="{{ class }}"{% endif %}>
+</picture>
