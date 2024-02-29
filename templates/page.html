@@ -10,7 +10,7 @@
   {% set self = "page" %}
 {% endblock config %}
 {% block main_content %}
-  {{ section.content | default(value="") | safe }}
+  {{ page.content | default(value="") | safe }}
 {% endblock main_content %}
 {% block main_append %}
   {{ lib::related() }}
