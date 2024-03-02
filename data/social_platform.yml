@@ -2,53 +2,64 @@ gitlab:
   href: https://gitlab.com/$ID
   icon: fab fa-gitlab
   name: GitLab
+  color: orange
 
 github:
   href: https://github.com/$ID
   icon: fab fa-github
   name: GitHub
+  color: grey
 
 linkedin:
   href: https://linkedin.com/in/$ID
   icon: fab fa-linkedin
   name: LinkedIn
+  color: blue
 
 x:
   href: https://twitter.com/$ID
   icon: fab fa-x-twitter
   name: X
+  color: black
 
 reddit:
   href: https://reddit.com/user/$ID
   icon: fab fa-reddit
   name: Reddit
+  color: orange
 
 facebook:
   href: https://facebook.com/$ID
   icon: fab fa-facebook
   name: Facebook
+  color: "#1877f2"
 
 instagram:
   href: https://instagram.com/$ID
   icon: fab fa-instagram
   name: Instagram
+  color: "#fd0265"
 
 twitch:
   href: https://twitch.tv/$ID
   icon: fab fa-twitch
   name: Twitch
+  color: purple
 
 youtube:
   href: https://youtube.com/c/$ID
   icon: fab fa-youtube
   name: YouTube
+  color: red
 
 soundcloud:
   href: https://soundcloud.com/$ID
   icon: fab fa-soundcloud
   name: SoundCloud
+  color: "#ff8800"
 
 email:
   href: mailto:$ID
   icon: fas fa-envelope
   name: Email
+  color: white
