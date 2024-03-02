@@ -5,6 +5,7 @@
 {% if src is not starting_with("http") %}
   {# " %} #}
   {% if w or h %}
+    {% set origin = "resized" %}
     {# Resize with fit method if one dimension is provided #}
     {% set smart_op = "fit" %}
     {% if w and h %}
@@ -44,15 +45,17 @@
       {% set meta = get_image_metadata(path=src) %}
     {% endif %}
   {% endif %}
+{% else %}
+  {% set origin = "linked" %}
 {% endif %}
 {# Create a link to the original file in addition to the resized image #}
-<a href="{{ src | safe }}">
+<a href="{{ src | safe }}"
+   class="image {{ origin }} {{ class | default(value="") }}">
   <picture>
     {% if webp %}<source srcset="{{ webp.url | safe }}" type="image/webp">{% endif %}
     <img width="{{ w | default(value=meta.width | default(value=1920) ) }}"
          height="{{ h | default(value=meta.height | default(value=1080) ) }}"
          alt="{{ alt | default(value=file.0) }}"
-         src="{{ default.url | default(value=src) | safe }}"
-         {% if class %}class="{{ class }}"{% endif %}>
+         src="{{ default.url | default(value=src) | safe }}">
   </picture>
 </a>
