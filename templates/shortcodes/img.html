@@ -50,7 +50,7 @@
 {% endif %}
 {# Create a link to the original file in addition to the resized image #}
 <a href="{{ src | safe }}"
-   class="image {{ origin }} {{ class | default(value="") }}">
+   class="image {{ origin | default(value="local") }} {{ class | default(value="") }}">
   <picture>
     {% if webp %}<source srcset="{{ webp.url | safe }}" type="image/webp">{% endif %}
     <img width="{{ w | default(value=meta.width | default(value=1920) ) }}"
