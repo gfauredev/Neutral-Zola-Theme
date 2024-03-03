@@ -25,6 +25,12 @@ articles: "fas fa-newspaper"
 news: "fas fa-newspaper"
 search: "fas fa-search"
 continue: "fas fa-arrow-right"
+menu: "fas fa-bars"
+burger: "fas fa-bars"
+hamburger: "fas fa-bars"
+toggle: "fas fa-bars"
+bars: "fas fa-bars"
+etc: "fas fa-bars"
 
 # Français
 competence: "fas fa-gears"
