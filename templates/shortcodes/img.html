@@ -75,25 +75,13 @@
   {% endif %}
 {% endif %}
 {# Create a link to the original file in addition to the resized image #}
-{% if a is defined %}
-  {% if not a %}
-    <picture class="image {{ origin | default(value="local") }} {{ class | default(value="") }}">
-      {% if webp %}<source srcset="{{ webp.url | safe }}" type="image/webp">{% endif %}
-      <img width="{{ w | default(value=meta.width | default(value=1920) ) }}"
-           height="{{ h | default(value=meta.height | default(value=1080) ) }}"
-           alt="{{ alt | default(value=file.0) }}"
-           src="{{ default.url | default(value=src) | safe }}">
-    </picture>
-  {% endif %}
-{% else %}
-  <a href="{{ src | safe }}"
-     class="image {{ origin | default(value="local") }} {{ class | default(value="") }}">
-    <picture>
-      {% if webp %}<source srcset="{{ webp.url | safe }}" type="image/webp">{% endif %}
-      <img width="{{ w | default(value=meta.width | default(value=1920) ) }}"
-           height="{{ h | default(value=meta.height | default(value=1080) ) }}"
-           alt="{{ alt | default(value=file.0) }}"
-           src="{{ default.url | default(value=src) | safe }}">
-    </picture>
-  </a>
-{% endif %}
+{% if a | default(value=true) %}<a href="{{ src | safe }}" class="image">{% endif %}
+  <picture>
+    {% if webp %}<source srcset="{{ webp.url | safe }}" type="image/webp">{% endif %}
+    <img alt="{{ alt | default(value=file.0) }}"
+         src="{{ default.url | default(value=src) | safe }}"
+         width="{{ w | default(value=meta.width | default(value=1920) ) }}"
+         height="{{ h | default(value=meta.height | default(value=1080) ) }}"
+         class="{{ origin | default(value="local") }} {{ class | default(value="") }}">
+  </picture>
+  {% if a | default(value=true) %}</a>{% endif %}
