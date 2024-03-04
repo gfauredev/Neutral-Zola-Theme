@@ -2,51 +2,77 @@
 {% set file = src | split(pat="/") | slice(start=-1) %}
 {% set file = file.0 | split(pat=".") %}
 {# Modify image if it’s local #}
-{% if src is not starting_with("http") %}
+{% if src is starting_with("http") %}
   {# " %} #}
-  {% if w or h %}
-    {% set origin = "resized" %}
-    {# Resize with fit method if one dimension is provided #}
-    {% set smart_op = "fit" %}
-    {% if w and h %}
-      {# Resize with fill method if two dimensions are provided #}
-      {% set smart_op = "fill" %}
+  {% set origin = "linked" %}
+{% else %}
+  {% if src is not starting_with("/") %}
+    {# " %} #}
+    {# Fix path if collocated asset #}
+    {% if page %}
+      {% set path = page.path %}
+    {% elif section %}
+      {% set path = section.path %}
     {% endif %}
+    {% if lang != config.default_language %}
+      {% set src = path ~ src | replace(from=path | truncate(length=4, end=""), to="/") %}
+    {% else %}
+      {% set src = path ~ src %}
+    {% endif %}
+  {% endif %}
+  {% if w and h %}
+    {# Resize with fill method if two dimensions are provided #}
     {% set default = resize_image(
           path=src,
-          width=w | default(value=meta.width | default(value=h)),
-          height=h | default(value=meta.height | default(value=w)),
-          op=op | default(value=smart_op)
+          width=w,
+          height=h,
+          op=op | default(value="fill")
         ) %}
     {% set webp = resize_image(
           path=src,
-          width=w | default(value=meta.width | default(value=h)),
-          height=h | default(value=meta.height | default(value=w)),
-          op=op | default(value=smart_op),
+          width=w,
+          height=h,
+          op=op | default(value="fill"),
+          format="webp"
+        ) %}
+    {% set w = default.width %}
+    {% set h = default.height %}
+  {% elif w %}
+    {# Resize with fit method if one dimension is provided #}
+    {% set origin = "resized" %}
+    {% set default = resize_image(
+          path=src,
+          width=w,
+          op=op | default(value="fit_width")
+        ) %}
+    {% set webp = resize_image(
+          path=src,
+          width=w,
+          op=op | default(value="fit_width"),
+          format="webp"
+        ) %}
+    {% set w = default.width %}
+    {% set h = default.height %}
+  {% elif h %}
+    {# Resize with fit method if one dimension is provided #}
+    {% set origin = "resized" %}
+    {% set default = resize_image(
+          path=src,
+          height=h,
+          op=op | default(value="fit_height")
+        ) %}
+    {% set webp = resize_image(
+          path=src,
+          height=h,
+          op=op | default(value="fit_height"),
           format="webp"
         ) %}
     {% set w = default.width %}
     {% set h = default.height %}
   {% else %}
     {# Get image dimensions if none are provided #}
-    {% set meta = get_image_metadata(path=src, allow_missing=true) %}
-    {% if not meta %}
-      {# Search image in collocated assets if not found #}
-      {% if page %}
-        {% set path = page.path %}
-      {% elif section %}
-        {% set path = section.path %}
-      {% endif %}
-      {% if lang != config.default_language %}
-        {% set src = path ~ src | replace(from=path | truncate(length=4, end=""), to="/") %}
-      {% else %}
-        {% set src = path ~ src %}
-      {% endif %}
-      {% set meta = get_image_metadata(path=src) %}
-    {% endif %}
+    {% set meta = get_image_metadata(path=src) %}
   {% endif %}
-{% else %}
-  {% set origin = "linked" %}
 {% endif %}
 {# Create a link to the original file in addition to the resized image #}
 {% if a is defined %}
