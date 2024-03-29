@@ -6,7 +6,7 @@
   {% endif %}
   {% if data %}
     {% for import in data %}
-      <{{ tag }}{%- for key, value in import %} {{ key }}="{{ value }}"{%- endfor -%}>
+      <{{ tag }}{%- for key, value in import %} {{ key }}="{{ value }}" {%- endfor -%}>
       {% if tag == "script" %}</script>{% endif %}
     {% endfor %}
   {% endif %}
@@ -28,7 +28,8 @@
        aria-label="{{ platform.name }}">
       <i class="{{ platform.icon }}">{{ platform.name }}</i>
     </a>
-    {#</li>#}
+    {#
+    </li>#}
   {% endfor %}
   {#</ul>#}
 {% endmacro %}
@@ -42,7 +43,7 @@
   {# Slugify #}
   {% set word = word | slugify %}
   {# Output #}
-  <i class="{{ icons[word] | default(value="missing-icon") }}"></i>
+  <i class="{{ icons[word] | default(value=" missing-icon") }}"></i>
 {% endmacro %}
 {# #}
 {% macro nav_link(title, permalink, link_permalink) %}
@@ -60,14 +61,16 @@
 {% endmacro %}
 {# #}
 {% macro toc(toc, depth=3) %}
-  <ol>
-    {% for h in toc %}
-      <li>
-        <a href="{{ h.permalink }}">{{ h.title }}</a>
-        {% if h.children %}{{ self::toc(toc=h.children, depth=depth-1) }}{% endif %}
-      </li>
-    {% endfor %}
-  </ol>
+  {% if depth > 0 %}
+    <ol>
+      {% for h in toc %}
+        <li>
+          <a href="{{ h.permalink }}">{{ h.title }}</a>
+          {% if h.children %}{{ self::toc(toc=h.children, depth=depth-1) }}{% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  {% endif %}
 {% endmacro %}
 {# #}
 {% macro next_translation(translations) %}
@@ -156,7 +159,8 @@
                 {% endif %}
               </article>
               <strong class="continue-reading">
-                {{ i18n.continue_reading | capitalize }} ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time | pluralize }})
+                {{ i18n.continue_reading | capitalize }} ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time |
+                pluralize }})
               </strong>
             </a>
           </li>
@@ -190,6 +194,6 @@
   <a aria-label="{{ label | capitalize }}"
      class="{{ class }}"
      href="#{{ id }}">
-    <i class="{{ icons[class] | default(value="missing-icon") }}">^</i>
+    <i class="{{ icons[class] | default(value=" missing-icon") }}">^</i>
   </a>
 {% endmacro %}
