@@ -126,7 +126,7 @@
     {% block main_before %}
     {% endblock main_before %}
     {% block main %}
-      <main class="{{ self | default(value="404") }}">
+      <main class="{{ self | default(value=" 404") }}">
         {% block main_prepend %}
           {{ lib::info(i18n=i18n) }}
         {% endblock main_prepend %}
@@ -153,10 +153,12 @@
           <ul>
             <li>© {{ config.extra.creation_year }}-{{ now() |date(format="%Y") }} {{ config.extra.author }}</li>
             <li>{{ i18n.last_updated | capitalize }} {{ now() |date(format="%d/%m/%Y") }}</li>
-            <li>
-              {{ i18n.generated | capitalize }} <a href="https://www.getzola.org">Zola</a>,
-              {{ i18n.using }} <a href="https://github.com/gfauredev/Neutral-Zola-Theme">{{ i18n.website_base }}</a>
-            </li>
+            {% block footer_extra %}
+              <li>
+                {{ i18n.generated | capitalize }} <a href="https://www.getzola.org">Zola</a>,
+                {{ i18n.using }} <a href="https://github.com/gfauredev/Neutral-Zola-Theme">{{ i18n.website_base }}</a>
+              </li>
+            {% endblock footer_extra %}
           </ul>
         {% endblock footer_content %}
         {% block footer_append %}
