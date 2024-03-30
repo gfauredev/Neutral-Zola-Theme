@@ -1,197 +1,193 @@
 {# #}
 {% macro file2tags(tag) %}
-  {% set data = load_data(path="include/" ~tag~ ".yml", required=false) %}
-  {% if not data %}
-    {% set data = load_data(path=config.extra.path~ "/include/" ~tag~ ".yml", required=false) %}
+{% set data = load_data(path="include/" ~tag~ ".yml", required=false) %}
+{% if not data %}
+{% set data = load_data(path=config.extra.path~ "/include/" ~tag~ ".yml", required=false) %}
+{% endif %}
+{% if data %}
+{% for import in data %}
+<{{ tag }}{%- for key, value in import %} {{ key }}="{{ value }}" {%- endfor -%}>
+  {% if tag == "script" %}</script>{% endif %}
+  {% endfor %}
   {% endif %}
-  {% if data %}
-    {% for import in data %}
-      <{{ tag }}{%- for key, value in import %} {{ key }}="{{ value }}" {%- endfor -%}>
-      {% if tag == "script" %}</script>{% endif %}
-    {% endfor %}
-  {% endif %}
-{% endmacro %}
-{# #}
-{% macro social_links(links) %}
+  {% endmacro %}
+  {# #}
+  {% macro social_links(links) %}
   {% set platforms = load_data(path="data/social_platform.yml", required=false) %}
   {% if not platforms %}
-    {% set platforms = load_data(path=config.extra.path~"/data/social_platform.yml") %}
+  {% set platforms = load_data(path=config.extra.path~"/data/social_platform.yml") %}
   {% endif %}
   {#<ul class="social-links">#}
-  {% for name, id in links %}
+    {% for name, id in links %}
     {% set name = name | lower %}
     {% set platform = platforms[name] %}
     {#<li>#}
-    <a class="{{ name }}" href="{{ platform.href | replace(from='$ID', to=id) }}" target="_blank" aria-label={{
-      platform.name }} color={{ platform.color }}>
-      <i class="{{ platform.icon }}">{{ platform.name }}</i>
-    </a>
-    {#
+      <a class="{{ name }}" href="{{ platform.href | replace(from='$ID', to=id) }}" target="_blank" aria-label={{
+        platform.name }}>
+        <i class="{{ platform.icon }}" color={{ platform.color }}>{{ platform.name }}</i>
+      </a>
+      {#
     </li>#}
-  {% endfor %}
-  {#</ul>#}
-{% endmacro %}
-{# #}
-{% macro related_icon(word) %}
+    {% endfor %}
+    {#</ul>#}
+  {% endmacro %}
+  {# #}
+  {% macro related_icon(word) %}
   {# Retreive predefined icons #}
   {% set icons = load_data(path="data/icon.yml", required=false) %}
   {% if not icons %}
-    {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
+  {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
   {% endif %}
   {# Slugify #}
   {% set word = word | slugify %}
   {# Output #}
   <i class="{{ icons[word] | default(value=" missing-icon") }}"></i>
-{% endmacro %}
-{# #}
-{% macro nav_link(title, permalink, link_permalink) %}
+  {% endmacro %}
+  {# #}
+  {% macro nav_link(title, permalink, link_permalink) %}
   {% if permalink == link_permalink %}
-    <span id="current">
-      {{ lib::related_icon(word=title) }}
-      {{ title }}
-    </span>
+  <span id="current">
+    {{ lib::related_icon(word=title) }}
+    {{ title }}
+  </span>
   {% else %}
-    <a aria-label="{{ title }}" href="{{ link_permalink }}">
-      {{ lib::related_icon(word=title) }}
-      {{ title }}
-    </a>
+  <a aria-label="{{ title }}" href="{{ link_permalink }}">
+    {{ lib::related_icon(word=title) }}
+    {{ title }}
+  </a>
   {% endif %}
-{% endmacro %}
-{# #}
-{% macro toc(toc, depth=3) %}
+  {% endmacro %}
+  {# #}
+  {% macro toc(toc, depth=3) %}
   {% if depth > 0 %}
-    <ol>
-      {% for h in toc %}
-        <li>
-          <a href="{{ h.permalink }}">{{ h.title }}</a>
-          {% if h.children %}{{ self::toc(toc=h.children, depth=depth-1) }}{% endif %}
-        </li>
+  <ol>
+    {% for h in toc %}
+    <li>
+      <a href="{{ h.permalink }}">{{ h.title }}</a>
+      {% if h.children %}{{ self::toc(toc=h.children, depth=depth-1) }}{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+  {% endif %}
+  {% endmacro %}
+  {# #}
+  {% macro next_translation(translations) %}
+  {% for translation in translations %}
+  {% if translation.lang == lang and translations[loop.index] %}
+  {% set translation = translations[loop.index] %}
+  {% elif translations.0.lang != lang %}
+  {% set translation = translations.0 %}
+  {% else %}
+  {% break %}
+  {% endif %}
+  <a aria-label="{{ translation.lang }}" href="{{ translation.permalink }}">
+    {{ lib::related_icon(word="translation") }}
+    {{ translation.lang }}
+  </a>
+  {% break %}
+  {% endfor %}
+  {% endmacro %}
+  {# #}
+  {% macro info(i18n) %}
+  {% if ancestors or page %}
+  <header class="info">
+    {% if ancestors %}
+    <ol class="breadcrumb">
+      {% for ancestor in ancestors %}
+      {% set ancestor = get_section(path=ancestor, metadata_only=true) %}
+      <li>
+        <a href="{{ ancestor.permalink | safe }}">{{ ancestor.title }}</a>
+      </li>
       {% endfor %}
     </ol>
-  {% endif %}
-{% endmacro %}
-{# #}
-{% macro next_translation(translations) %}
-  {% for translation in translations %}
-    {% if translation.lang == lang and translations[loop.index] %}
-      {% set translation = translations[loop.index] %}
-    {% elif translations.0.lang != lang %}
-      {% set translation = translations.0 %}
-    {% else %}
-      {% break %}
     {% endif %}
-    <a aria-label="{{ translation.lang }}"
-       href="{{ translation.permalink }}">
-      {{ lib::related_icon(word="translation") }}
-      {{ translation.lang }}
-    </a>
-    {% break %}
-  {% endfor %}
-{% endmacro %}
-{# #}
-{% macro info(i18n) %}
-  {% if ancestors or page %}
-    <header class="info">
-      {% if ancestors %}
-        <ol class="breadcrumb">
-          {% for ancestor in ancestors %}
-            {% set ancestor = get_section(path=ancestor, metadata_only=true) %}
-            <li>
-              <a href="{{ ancestor.permalink | safe }}">{{ ancestor.title }}</a>
-            </li>
-          {% endfor %}
-        </ol>
-      {% endif %}
-      {% if page %}
-        {% if page.date %}
-          <time class="published" datetime="{{ page.date }}">
-            {{ i18n.published | capitalize }}&nbsp;{{ page.date|date(format="%d/%m/%Y") }}
-          </time>
-        {% endif %}
-        {% if page.updated %}
-          <time class="updated" datetime="{{ page.updated }}">
-            {{ i18n.last_updated | capitalize }}&nbsp;{{ page.updated|date(format="%d/%m/%Y") }}
-          </time>
-        {% endif %}
-      {% endif %}
-    </header>
+    {% if page %}
+    {% if page.date %}
+    <time class="published" datetime="{{ page.date }}">
+      {{ i18n.published | capitalize }}&nbsp;{{ page.date|date(format="%d/%m/%Y") }}
+    </time>
+    {% endif %}
+    {% if page.updated %}
+    <time class="updated" datetime="{{ page.updated }}">
+      {{ i18n.last_updated | capitalize }}&nbsp;{{ page.updated|date(format="%d/%m/%Y") }}
+    </time>
+    {% endif %}
+    {% endif %}
+  </header>
   {% endif %}
-{% endmacro %}
-{# #}
-{% macro related() %}
+  {% endmacro %}
+  {# #}
+  {% macro related() %}
   <footer>
     {% for taxonomy, terms in page.taxonomies %}
-      <h1>
-        {{ lib::related_icon(word=taxonomy) }}
-        {{ taxonomy | capitalize }}
-      </h1>
-      <ul class="terms">
-        {% set taxonomy = get_taxonomy(kind=taxonomy, lang=lang) %}
-        {% for term in taxonomy.items %}
-          {% if term.name in terms %}
-            <li>
-              <a href="{{ term.permalink | safe }}">{{ term.name }} ({{ term.pages | length }})</a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
+    <h1>
+      {{ lib::related_icon(word=taxonomy) }}
+      {{ taxonomy | capitalize }}
+    </h1>
+    <ul class="terms">
+      {% set taxonomy = get_taxonomy(kind=taxonomy, lang=lang) %}
+      {% for term in taxonomy.items %}
+      {% if term.name in terms %}
+      <li>
+        <a href="{{ term.permalink | safe }}">{{ term.name }} ({{ term.pages | length }})</a>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
     {% endfor %}
   </footer>
-{% endmacro %}
-{# #}
-{% macro pages(i18n) %}
+  {% endmacro %}
+  {# #}
+  {% macro pages(i18n) %}
   {% if section.pages %}
-    <section>
-      <h2>{{ i18n.pages | capitalize }}</h2>
-      <ol class="pages">
-        {% for page in section.pages %}
-          <li>
-            <a aria-label="Link to {{ page.title }}"
-               href="{{ page.permalink | safe }}#continue-reading">
-              <article>
-                {% if page.summary %}
-                  {{ page.summary | safe }}
-                {% else %}
-                  <h2>{{ page.title }}</h2>
-                  {% if page.description %}<p>{{ page.description }}</p>{% endif %}
-                {% endif %}
-              </article>
-              <strong class="continue-reading">
-                {{ i18n.continue_reading | capitalize }} ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time |
-                pluralize }})
-              </strong>
-            </a>
-          </li>
-        {% endfor %}
-      </ol>
-    </section>
-  {% endif %}
-{% endmacro %}
-{# #}
-{% macro include_pages(_section, i18n) %}
-  {% if section.pages %}
-    <section class="pages">
-      <h2>{{ i18n.pages | capitalize }}</h2>
+  <section>
+    <h2>{{ i18n.pages | capitalize }}</h2>
+    <ol class="pages">
       {% for page in section.pages %}
-        <article>
-          <h2>{{ page.title }}</h2>
-          {{ page.content | safe }}
-        </article>
+      <li>
+        <a aria-label="Link to {{ page.title }}" href="{{ page.permalink | safe }}#continue-reading">
+          <article>
+            {% if page.summary %}
+            {{ page.summary | safe }}
+            {% else %}
+            <h2>{{ page.title }}</h2>
+            {% if page.description %}<p>{{ page.description }}</p>{% endif %}
+            {% endif %}
+          </article>
+          <strong class="continue-reading">
+            {{ i18n.continue_reading | capitalize }} ({{ page.reading_time }} {{ i18n.minute }}{{ page.reading_time |
+            pluralize }})
+          </strong>
+        </a>
+      </li>
       {% endfor %}
-    </section>
+    </ol>
+  </section>
   {% endif %}
-{% endmacro %}
-{# #}
-{% macro return_to(label="return", id="top", class="return") %}
+  {% endmacro %}
+  {# #}
+  {% macro include_pages(_section, i18n) %}
+  {% if section.pages %}
+  <section class="pages">
+    <h2>{{ i18n.pages | capitalize }}</h2>
+    {% for page in section.pages %}
+    <article>
+      <h2>{{ page.title }}</h2>
+      {{ page.content | safe }}
+    </article>
+    {% endfor %}
+  </section>
+  {% endif %}
+  {% endmacro %}
+  {# #}
+  {% macro return_to(label="return", id="top", class="return") %}
   {# Retreive predefined icons #}
   {% set icons = load_data(path="data/icon.yml", required=false) %}
   {% if not icons %}
-    {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
+  {% set icons = load_data(path=config.extra.path~"/data/icon.yml") %}
   {% endif %}
   {# Output #}
-  <a aria-label="{{ label | capitalize }}"
-     class="{{ class }}"
-     href="#{{ id }}">
+  <a aria-label="{{ label | capitalize }}" class="{{ class }}" href="#{{ id }}">
     <i class="{{ icons[class] | default(value=" missing-icon") }}">^</i>
   </a>
-{% endmacro %}
+  {% endmacro %}
