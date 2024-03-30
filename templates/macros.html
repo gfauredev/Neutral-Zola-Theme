@@ -22,10 +22,8 @@
     {% set name = name | lower %}
     {% set platform = platforms[name] %}
     {#<li>#}
-    <a class="{{ name }}"
-       href="{{ platform.href | replace(from='$ID', to=id) }}"
-       target="_blank"
-       aria-label="{{ platform.name }}">
+    <a class="{{ name }}" href="{{ platform.href | replace(from='$ID', to=id) }}" target="_blank" aria-label={{
+      platform.name }} color={{ platform.color }}>
       <i class="{{ platform.icon }}">{{ platform.name }}</i>
     </a>
     {#
