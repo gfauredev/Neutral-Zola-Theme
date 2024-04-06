@@ -1,9 +1,8 @@
 # Free CDNS : https://jsdelivr.com  https://cdnjs.com
 
 ########## Icons ##########
-- src: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/js/all.min.js
-  # src: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js
-  integrity: sha256-JLi85l+m5IYPLcQwHoKUddvJcbD0n6/ZB02ojOA1FMA=
+- src: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/js/all.min.js
+  integrity: sha256-ShtKaqIDL7Iv2AJqPcHXS/s6kjSFvbypN5bRIlKTIk4=
   crossorigin: anonymous
   defer: true
 
