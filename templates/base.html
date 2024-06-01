@@ -57,29 +57,26 @@
   <body id="top">
     {% block body_prepend %}
     {% endblock body_prepend %}
-    {% block header %}
+    {% block banner %}
       {% if config.extra.banner %}
-        <header>
-          {% block header_prepend %}
-          {% endblock header_prepend %}
-          {% block header_content %}
-            <a class="banner" href="{{ index.permalink | safe }}">
-              {% set banner = get_image_metadata(path=config.extra.banner, allow_missing=true) %}
-              {% if banner %}
-                <img width="{{ banner.width }}"
-                     height="{{ banner.height }}"
-                     src="{{ config.extra.banner }}"
-                     alt="{{ i18n.banner }}">
-              {% else %}
-                <h1>{{ config.extra.banner }}</h1>
-              {% endif %}
-            </a>
-          {% endblock header_content %}
-          {% block header_append %}
-          {% endblock header_append %}
-        </header>
+        {# <header> place it in prepends and appends #}
+        <a class="banner" href="{{ index.permalink | safe }}">
+          {% set banner = get_image_metadata(path=config.extra.banner, allow_missing=true) %}
+          {% if banner %}
+            <img width="{{ banner.width }}"
+                 height="{{ banner.height }}"
+                 src="{{ config.extra.banner }}"
+                 alt="{{ i18n.banner }}">
+          {% else %}
+            <h1>{{ config.extra.banner }}</h1>
+          {% endif %}
+        </a>
+        {#
+  </header> place it in prepends and appends #}
       {% endif %}
-    {% endblock header %}
+    {% endblock banner %}
+    {% block before_nav %}
+    {% endblock before_nav %}
     {% block nav %}
       <nav id="NAV" aria-label="{{ i18n.nav }}">
         {% block nav_prepend %}
@@ -108,6 +105,8 @@
         {% endblock nav_append %}
       </nav>
     {% endblock nav %}
+    {% block before_toc %}
+    {% endblock before_toc %}
     {% block toc %}
       {% if toc | default(value=[]) | length > 1 or toc[0].children %}
         <nav id="TOC" aria-label="{{ i18n.toc }}">
