@@ -63,11 +63,10 @@
           {% block header_prepend %}
           {% endblock header_prepend %}
           {% block header_content %}
-            <a href="{{ index.permalink | safe }}">
+            <a class="banner" href="{{ index.permalink | safe }}">
               {% set banner = get_image_metadata(path=config.extra.banner, allow_missing=true) %}
               {% if banner %}
-                <img class="banner"
-                     width="{{ banner.width }}"
+                <img width="{{ banner.width }}"
                      height="{{ banner.height }}"
                      src="{{ config.extra.banner }}"
                      alt="{{ i18n.banner }}">
