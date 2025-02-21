@@ -1,6 +1,5 @@
-<div class="video{% if class %} {{ class }}{% endif %}">
-  <iframe title="{{ title | default(value='Youtube video') }}"
-          allowfullscreen
-          src="https://www.youtube{% if not cookie %}-nocookie{% endif %}.com/embed/{{ id }}{% if playlist %}?list={{ playlist }}{% endif %}{% if autoplay %}?autoplay=1{% endif %}">
+<div class="youtube video{% if class %} {{ class }}{% endif %}">
+  <iframe title="{{ title | default(value='Youtube video') }}" allowfullscreen
+    src="https://www.youtube{% if not cookie %}-nocookie{% endif %}.com/embed/{{ id }}{% if playlist %}?list={{ playlist }}{% endif %}{% if autoplay %}?autoplay=1{% endif %}">
   </iframe>
 </div>

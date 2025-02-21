@@ -1,0 +1,33 @@
+// Ensure videos inside iframes display properly (a mess)
+@mixin yt-iframe() {
+  position: relative;
+  overflow: hidden;
+
+  iframe {
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &::after {
+    display: block;
+    content: "";
+    padding-top: 56.25%;
+  }
+}
+
+// Float on a side with a margin on the other
+@mixin placement($float: start) {
+  @if $float==end {
+    float: inline-end;
+    margin-left: $space;
+  }
+
+  @else {
+    float: inline-start;
+    margin-right: $space;
+  }
+}
