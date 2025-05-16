@@ -47,7 +47,7 @@ twitch:
   color: purple
 
 youtube:
-  href: https://youtube.com/c/$ID
+  href: https://youtube.com/$ID
   icon: fab fa-youtube
   name: YouTube
   color: red
